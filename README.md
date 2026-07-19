@@ -6,7 +6,14 @@
 
 *Screen everything · buy rarely · explain every move · you hold the mandate.*
 
-[emouva.com](https://emouva.com) · MIT licensed · Bring your own keys
+[![License: MIT](https://img.shields.io/badge/license-MIT-cfae62.svg)](./LICENSE)
+[![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%E2%80%933.14-3776AB.svg?logo=python&logoColor=white)](./backend/requirements.txt)
+[![FastAPI](https://img.shields.io/badge/FastAPI-async-009688.svg?logo=fastapi&logoColor=white)](./backend/app/main.py)
+[![React + TypeScript](https://img.shields.io/badge/React-TypeScript-3178C6.svg?logo=typescript&logoColor=white)](./frontend)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1.svg?logo=postgresql&logoColor=white)](./docker-compose.yml)
+[![Claude](https://img.shields.io/badge/AI-Claude%20(BYOK)-cc785c.svg)](https://console.anthropic.com)
+
+**[⚡ Self-host in 5 minutes →](./docs/SELF_HOSTING.md)** · [emouva.com](https://emouva.com) · [Technical overview (PDF)](./docs/emouva-technical-overview.pdf)
 
 </div>
 

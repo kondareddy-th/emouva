@@ -508,6 +508,27 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* ══════════ OPEN-SOURCE ANNOUNCEMENT ══════════ */}
+      <a
+        href="https://github.com/kondareddy-th/emouva"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'block',
+          background: C.goldTint,
+          borderBottom: `1px solid ${C.goldBorder}`,
+          textDecoration: 'none',
+          padding: '9px 24px',
+          textAlign: 'center',
+        }}
+      >
+        <span style={{ font: `600 9.5px ${MONO}`, letterSpacing: '0.14em', color: C.bg, background: C.gold, borderRadius: 4, padding: '2px 7px', marginRight: 10, verticalAlign: 'middle' }}>NEW</span>
+        <span style={{ font: `12.5px ${SANS}`, color: C.body, verticalAlign: 'middle' }}>
+          Emouva is now <span style={{ color: C.lightGold, fontWeight: 600 }}>fully open source</span> — the entire platform, yours to run on your own machine.{' '}
+          <span style={{ color: C.gold, textDecoration: 'underline', textUnderlineOffset: 3 }}>Get the code ↗</span>
+        </span>
+      </a>
+
       {/* ══════════ HERO ══════════ */}
       <div style={{ borderBottom: `1px solid ${C.borderDim}` }}>
         <div
