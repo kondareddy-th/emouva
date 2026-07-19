@@ -1,0 +1,24 @@
+# Local infrastructure for Emouva — just Postgres. Credentials match the
+# DATABASE_URL default in backend/.env.example, so `docker compose up -d`
+# followed by the backend quickstart works with zero extra config.
+# Tables are created automatically on first backend startup (no migrations).
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aegis
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: aegis
+    ports:
+      - "5432:5432"
+    volumes:
+      - emouva_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aegis -d aegis"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  emouva_pgdata:

@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#14120E}
+*{box-sizing:border-box}
+::selection{background:rgba(198,161,91,.35);color:#ECE5D8}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#2A261D;border-radius:5px}
+::-webkit-scrollbar-track{background:transparent}
+textarea,input{font-family:inherit}
+textarea:focus,input:focus{outline:none;border-color:rgba(198,161,91,.55)!important}
+@keyframes emFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes emToast{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes emPulse{0%,100%{opacity:1}50%{opacity:.45}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#14120E;color:#ECE5D8;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased">
+
+  <!-- ══════════ TOP BAR ══════════ -->
+  <div style="position:sticky;top:0;z-index:40;background:rgba(20,18,14,0.98);border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 20px;max-width:1440px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:26px;min-width:0">
+        <div style="display:flex;align-items:center;gap:9px;cursor:pointer;flex:none" onClick="{{ goLedger }}">
+          <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+          <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+        </div>
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:2px">
+            <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6">
+              <span style="{{ it.style }}" style-hover="color:#D8D1C2" onClick="{{ it.click }}">{{ it.label }}</span>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex:none">
+        <div style="display:flex;align-items:center;gap:7px">
+          <div style="{{ statusDotStyle }}"></div>
+          <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272;white-space:nowrap">{{ statusText }}</span>
+        </div>
+        <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B;cursor:pointer;flex:none">R</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- paused banner -->
+  <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
+    <div style="background:rgba(208,160,72,0.08);border-bottom:1px solid rgba(208,160,72,0.3)">
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 20px;max-width:1440px;margin:0 auto">
+        <div style="width:6px;height:6px;background:#D0A048;transform:rotate(45deg);flex:none"></div>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#D8C39A">The Partner is paused — watching and writing to the Ledger, but not trading.</span>
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#E3CD9E;cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-left:auto" onClick="{{ resume }}">Resume</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ══════════ LEDGER ══════════ -->
+  <sc-if value="{{ isLedger }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Ledger" style="max-width:1440px;margin:0 auto">
+
+    <!-- metric strip -->
+    <sc-if value="{{ stripOpen }}" hint-placeholder-val="{{ true }}">
+      <div style="{{ stripWrapStyle }}">
+        <div style="{{ metricGridStyle }}">
+          <div>
+            <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Net Liquidity</div>
+            <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums">$487,320<span style="font-size:16px;color:#8A8272">.18</span></div>
+          </div>
+          <div>
+            <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Day P&amp;L</div>
+            <div style="font:500 24px 'EB Garamond',serif;color:#7CA982;font-variant-numeric:tabular-nums">+$3,214 <span style="font:400 12px 'IBM Plex Mono',monospace">+0.66%</span></div>
+          </div>
+          <div>
+            <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Open P&amp;L</div>
+            <div style="font:500 24px 'EB Garamond',serif;color:#7CA982;font-variant-numeric:tabular-nums">+$41,608</div>
+          </div>
+          <div>
+            <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Cash</div>
+            <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums">18.2%</div>
+          </div>
+          <div>
+            <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Risk Temperature</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8">Cool</div>
+              <div style="display:flex;gap:2px;align-items:flex-end;padding-bottom:3px">
+                <div style="width:4px;height:7px;background:#C6A15B;border-radius:1px"></div>
+                <div style="width:4px;height:11px;background:#C6A15B;border-radius:1px"></div>
+                <div style="width:4px;height:15px;background:rgba(214,190,140,0.18);border-radius:1px"></div>
+                <div style="width:4px;height:19px;background:rgba(214,190,140,0.18);border-radius:1px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;color:#6E675A;font:400 11px 'Instrument Sans',sans-serif;cursor:pointer;padding:6px 10px;border:1px solid rgba(214,190,140,0.12);border-radius:6px;flex:none;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.35);color:#A69E8C" onClick="{{ toggleStrip }}">Collapse <span style="font-size:9px">▲</span></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ stripCollapsed }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid rgba(214,190,140,0.12);background:#171410;flex-wrap:wrap">
+        <span style="font:500 18px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums">$487,320.18</span>
+        <span style="font:400 12px 'IBM Plex Mono',monospace;color:#7CA982">+$3,214 · +0.66%</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272">Cash 18.2% · Risk Cool</span>
+        <div style="display:flex;align-items:center;gap:6px;color:#6E675A;font:400 11px 'Instrument Sans',sans-serif;cursor:pointer;padding:5px 10px;border:1px solid rgba(214,190,140,0.12);border-radius:6px;margin-left:auto;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.35);color:#A69E8C" onClick="{{ toggleStrip }}">Expand <span style="font-size:9px">▼</span></div>
+      </div>
+    </sc-if>
+
+    <div style="{{ ledgerGridStyle }}">
+      <!-- ledger feed -->
+      <div style="{{ ledgerFeedStyle }}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap">
+          <div style="font:500 20px 'EB Garamond',serif;color:#ECE5D8">The Ledger</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <sc-for list="{{ ledgerFilters }}" as="it" hint-placeholder-count="5">
+              <span style="{{ it.style }}" onClick="{{ it.click }}">{{ it.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- entry: approval (3 states) -->
+        <sc-if value="{{ showApproval }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:14px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:44px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">10:31</div>
+          <sc-if value="{{ apprPending }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:1;min-width:0;background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.28);border-radius:8px;padding:14px 16px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#C6A15B;padding:3px 8px;border-radius:4px;animation:emPulse 2.6s ease infinite">AWAITING APPROVAL</span>
+              <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">order #1847</span>
+            </div>
+            <div style="font:500 14px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:6px">Buy 40 COST · Costco Wholesale @ $912.40 ≈ $36,496</div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">Order exceeds your {{ thresholdFmt }} auto-execution limit. Passed all four gates: within circle of competence, 34% margin of safety vs. my fair value of $1,380, inversion found no credible failure mode at this price, and position stays under the 9% weight ceiling. <span style="color:#C6A15B;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onClick="{{ openDetail }}">See the full screen →</span></div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:9px 20px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ approve }}">Approve</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:9px 20px;border-radius:6px;cursor:pointer;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.5);color:#D8D1C2" onClick="{{ decline }}">Decline</span>
+              <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:auto">Also sent to your phone · expires 15:55 ET</span>
+            </div>
+          </div>
+          </sc-if>
+          <sc-if value="{{ apprApproved }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-width:0;background:rgba(124,169,130,0.05);border:1px solid rgba(124,169,130,0.28);border-radius:8px;padding:14px 16px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#7CA982;padding:3px 8px;border-radius:4px">EXECUTED</span>
+              <span style="font:500 12px 'IBM Plex Mono',monospace;color:#ECE5D8">BUY 40 COST @ 912.63 avg</span>
+              <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">order #1847</span>
+            </div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Approved by you at 11:06. Filled in two lots. Post-trade weight 8.5% — under the 9% ceiling. Cash reserve now 10.7%. <span style="color:#C6A15B;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onClick="{{ openDetail }}">The screen that produced it →</span></div>
+          </div>
+          </sc-if>
+          <sc-if value="{{ apprDeclined }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-width:0;border:1px solid rgba(214,190,140,0.14);border-radius:8px;padding:14px 16px;opacity:0.75">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#A69E8C;background:rgba(255,255,255,0.07);padding:3px 8px;border-radius:4px">DECLINED BY YOU</span>
+              <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">order #1847 · 11:06</span>
+            </div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Understood — Costco stays on the watchlist. I won't resubmit for 30 days unless the price improves materially. No offense taken; vetoes are part of the mandate.</div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- entry: pass -->
+        <sc-if value="{{ showPass }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:14px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:44px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">11:02</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#8A8272;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px">PASSED</span>
+              <span style="font:500 12px 'IBM Plex Mono',monospace;color:#ECE5D8">NVDA</span>
+            </div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Screener flagged NVDA on momentum. Declined to act — semiconductor capex cycles sit outside our circle of competence. <span style="font:italic 400 12.5px 'EB Garamond',serif;color:#C6A15B">"It's not a sin to miss an opportunity outside your circle."</span></div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- entry: trade -->
+        <sc-if value="{{ showTrade }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:14px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:44px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">09:58</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#7CA982;padding:3px 8px;border-radius:4px">EXECUTED</span>
+              <span style="font:500 12px 'IBM Plex Mono',monospace;color:#ECE5D8">SELL 60 OXY @ $71.22</span>
+              <span style="font:400 11px 'IBM Plex Mono',monospace;color:#7CA982">realized +$1,842</span>
+            </div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Occidental ran past its 8% weight ceiling after the crude rally. Trimmed back to 6.5% — rebalancing rule, not a view change. Thesis intact.</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- entry: screen -->
+        <sc-if value="{{ showScreen }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:14px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:44px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">09:42</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#E3CD9E;background:rgba(198,161,91,0.14);padding:3px 8px;border-radius:4px">MORNING SCREEN</span>
+            </div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:10px">Swept the watchable universe. One candidate survived all gates — see the pending Costco order above.</div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+                <span style="font:500 13px 'IBM Plex Mono',monospace;color:#ECE5D8">214</span>
+                <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#6E675A">screened</span>
+              </div>
+              <div style="width:30px;height:1px;background:rgba(214,190,140,0.25)"></div>
+              <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+                <span style="font:500 13px 'IBM Plex Mono',monospace;color:#ECE5D8">12</span>
+                <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#6E675A">in circle</span>
+              </div>
+              <div style="width:30px;height:1px;background:rgba(214,190,140,0.25)"></div>
+              <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+                <span style="font:500 13px 'IBM Plex Mono',monospace;color:#ECE5D8">4</span>
+                <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#6E675A">margin ≥30%</span>
+              </div>
+              <div style="width:30px;height:1px;background:rgba(214,190,140,0.25)"></div>
+              <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+                <span style="font:500 13px 'IBM Plex Mono',monospace;color:#C6A15B">1</span>
+                <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#C6A15B">passed inversion</span>
+              </div>
+              <span style="font:400 11px 'Instrument Sans',sans-serif;color:#8A8272;margin-left:10px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;transition:color .15s" style-hover="color:#C6A15B" onClick="{{ openDetail }}">See who fell out, and why →</span>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- entry: check -->
+        <sc-if value="{{ showCheck }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:14px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:44px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">09:30</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#8A8272;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px">PORTFOLIO CHECK</span>
+            </div>
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Opening check: no position drifted beyond its band overnight. Nothing to do. Mostly, the job is sitting.</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <div style="display:flex;gap:14px;padding:14px 0;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:44px;flex:none"></div>
+          <div style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A">Tuesday's ledger · 6 entries · <span style="color:#8A8272;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onClick="{{ goHistory }}">older activity lives in History</span></div>
+        </div>
+      </div>
+
+      <!-- right rail -->
+      <div style="{{ ledgerRailStyle }}">
+        <div style="{{ apprRailStyle }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase">Approvals</span>
+            <sc-if value="{{ apprPending }}" hint-placeholder-val="{{ true }}">
+              <span style="font:500 10px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:2px 7px;border-radius:9px">1</span>
+            </sc-if>
+          </div>
+          <sc-if value="{{ apprPending }}" hint-placeholder-val="{{ true }}">
+            <div style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:3px">Buy 40 COST ≈ $36,496</div>
+            <div style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:12px">Over {{ thresholdShort }} limit · expires 15:55 ET</div>
+            <div style="display:flex;gap:8px">
+              <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:8px 0;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ approve }}">Approve</span>
+              <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:8px 0;border-radius:6px;cursor:pointer;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.5);color:#D8D1C2" onClick="{{ openDetail }}">Review</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ apprResolved }}" hint-placeholder-val="{{ false }}">
+            <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#8A8272">{{ apprRailNote }}</div>
+          </sc-if>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Guiding Principles</span>
+            <span style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B;cursor:pointer" onClick="{{ goPrinciples }}">Edit →</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ railPrinciples }}" as="it" hint-placeholder-count="3">
+              <div style="display:flex;gap:10px;align-items:baseline">
+                <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+                <div style="font:italic 400 12.5px/1.45 'EB Garamond',serif;color:#D8D1C2">{{ it.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#6E675A;margin-top:12px">{{ principleCount }} principles · 3 shown · {{ lastEdited }}</div>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Cadence</span>
+            <span style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B;cursor:pointer" onClick="{{ goSettings }}">Adjust →</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">
+            <span style="font:500 20px 'EB Garamond',serif;color:#ECE5D8">{{ cadenceLabel }}</span>
+            <span style="font:400 11px 'Instrument Sans',sans-serif;color:#8A8272">market hours</span>
+          </div>
+          <div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8A8272">{{ nextCheckText }}</div>
+          <div style="height:1px;background:rgba(214,190,140,0.10);margin:12px 0"></div>
+          <div style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#8A8272">Checked 4× today · acted once. Low activity is the design, not a defect.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ SCREEN DETAIL (funnel drill-in) ══════════ -->
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Screen Detail" style="max-width:1440px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(214,190,140,0.12);gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap">
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;cursor:pointer;transition:color .15s" style-hover="color:#E3CD9E" onClick="{{ goLedger }}">← Ledger</span>
+        <span style="color:#4A453B">/</span>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8">Morning screen · Wednesday, July 2 · 09:42 ET</span>
+      </div>
+      <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">archived · immutable</span>
+    </div>
+
+    <div style="{{ funnelGridStyle }}">
+      <div style="{{ funnelCol1Style }}">
+        <div style="font:500 26px 'EB Garamond',serif;color:#8A8272;margin-bottom:2px">214</div>
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Universe</div>
+        <div style="font:400 11.5px/1.55 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:14px">US large &amp; mid caps meeting liquidity and 10-year data requirements.</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;opacity:0.45">
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">NVDA</span>
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">LLY</span>
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">JPM</span>
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">XOM</span>
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">PG</span>
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">TSLA</span>
+          <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">+207</span>
+        </div>
+      </div>
+
+      <div style="{{ funnelCol2Style }}">
+        <div style="font:500 26px 'EB Garamond',serif;color:#D8D1C2;margin-bottom:2px">12</div>
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Inside the circle</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px">
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">COST</span>
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">KHC</span>
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">T</span>
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">F</span>
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">PEP</span>
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">CVX</span>
+          <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">+6</span>
+        </div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Notable exclusions</div>
+        <div style="display:flex;flex-direction:column;gap:7px;font:400 11px/1.45 'Instrument Sans',sans-serif;color:#8A8272">
+          <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">NVDA</span> — semis capex cycle, outside circle</div>
+          <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">LLY</span> — pipeline risk we can't model</div>
+          <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">TSLA</span> — narrative-priced, no moat consensus</div>
+        </div>
+      </div>
+
+      <div style="{{ funnelCol3Style }}">
+        <div style="font:500 26px 'EB Garamond',serif;color:#D8D1C2;margin-bottom:2px">4</div>
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Margin of safety ≥ {{ marginGate }}%</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;font:400 11.5px 'IBM Plex Mono',monospace;max-width:220px">
+          <div style="display:flex;justify-content:space-between;color:#ECE5D8"><span>COST</span><span style="color:#7CA982">+34%</span></div>
+          <div style="display:flex;justify-content:space-between;color:#D8D1C2"><span>F</span><span style="color:#7CA982">+41%</span></div>
+          <div style="display:flex;justify-content:space-between;color:#D8D1C2"><span>KHC</span><span style="color:#7CA982">+38%</span></div>
+          <div style="display:flex;justify-content:space-between;color:#D8D1C2"><span>T</span><span style="color:#7CA982">+33%</span></div>
+        </div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Killed by inversion</div>
+        <div style="display:flex;flex-direction:column;gap:7px;font:400 11px/1.45 'Instrument Sans',sans-serif;color:#8A8272">
+          <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">F</span> — cyclical leverage; one recession erases the margin</div>
+          <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">KHC</span> — brand-decay argument couldn't be killed; cheap for a reason</div>
+          <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">T</span> — debt load plus tech disruption; too many ways to lose</div>
+        </div>
+      </div>
+
+      <div style="{{ funnelCol4Style }}">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div style="width:8px;height:8px;background:#C6A15B;transform:rotate(45deg)"></div>
+          <span style="font:500 18px 'EB Garamond',serif;color:#ECE5D8">COST — the survivor</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+            <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Circle:</span> consumer-staples franchise, 14 years of clean data</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+            <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Fair value $1,380:</span> conservative DCF, 2.5% terminal growth, renewal rate held at 92%</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+            <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Margin 34%</span> against the {{ marginGate }}% gate</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+            <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Inversion:</span> tried membership churn, margin compression, e-commerce displacement — none kill it at this price</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+            <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Sizing:</span> 40 sh ≈ $36,496 → post-trade weight 8.5%, under the 9% ceiling</span>
+          </div>
+        </div>
+        <div style="background:rgba(198,161,91,0.07);border:1px solid rgba(198,161,91,0.3);border-radius:8px;padding:12px 14px;margin-bottom:12px">
+          <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#C6A15B;text-transform:uppercase;margin-bottom:5px">Verdict</div>
+          <div style="font:400 12.5px/1.5 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:10px">{{ verdictText }}</div>
+          <sc-if value="{{ apprPending }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:8px 18px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ approve }}">Approve buy</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:8px 18px;border-radius:6px;cursor:pointer;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.5);color:#D8D1C2" onClick="{{ decline }}">Decline</span>
+            </div>
+          </sc-if>
+        </div>
+        <div style="font:italic 400 12.5px 'EB Garamond',serif;color:#8A8272">"An idea isn't yours until you can state the other side better than they can."</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+<!-- ══════════ POSITIONS ══════════ -->
+  <sc-if value="{{ isPositions }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Positions" style="max-width:1440px;margin:0 auto">
+    <div style="{{ posHeadStyle }}">
+      <div style="min-width:0">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Net Liquidity</div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font:500 38px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums;letter-spacing:-0.01em">$487,320.18</span>
+          <span style="font:500 13px 'IBM Plex Mono',monospace;color:#7CA982">{{ chartDelta }}</span>
+          <div style="display:flex;gap:2px;margin-left:auto">
+            <sc-for list="{{ ranges }}" as="it" hint-placeholder-count="5">
+              <span style="{{ it.style }}" onClick="{{ it.click }}">{{ it.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <svg viewBox="0 0 860 120" preserveAspectRatio="none" style="width:100%;height:120px;display:block">
+          <defs>
+            <linearGradient id="goldfillP" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#C6A15B" stop-opacity="0.22"></stop>
+              <stop offset="1" stop-color="#C6A15B" stop-opacity="0"></stop>
+            </linearGradient>
+          </defs>
+          <polygon points="{{ chartFill }}" fill="url(#goldfillP)"></polygon>
+          <polyline points="{{ chartPts }}" fill="none" stroke="#C6A15B" stroke-width="1.8" vector-effect="non-scaling-stroke"></polyline>
+          <line x1="0" y1="119" x2="860" y2="119" stroke="rgba(214,190,140,0.15)" stroke-width="1"></line>
+        </svg>
+      </div>
+      <div style="{{ posStatsStyle }}">
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Cash reserve</span>
+          <span style="font:500 15px 'EB Garamond',serif;color:#ECE5D8">{{ cashRow }}</span>
+        </div>
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Open P&amp;L</span>
+          <span style="font:500 15px 'EB Garamond',serif;color:#7CA982">+$41,608</span>
+        </div>
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">YTD return</span>
+          <span style="font:500 15px 'EB Garamond',serif;color:#7CA982">+11.4%</span>
+        </div>
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Risk temperature</span>
+          <span style="font:500 15px 'EB Garamond',serif;color:#ECE5D8">Cool · 31/100</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="{{ posBodyStyle }}">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden;min-width:0">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(214,190,140,0.10);gap:10px;flex-wrap:wrap">
+          <span style="font:500 16px 'EB Garamond',serif;color:#ECE5D8">Positions</span>
+          <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A">{{ posCount }}</span>
+        </div>
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <div style="overflow-x:auto">
+            <div style="min-width:760px">
+              <div style="display:grid;grid-template-columns:74px minmax(120px,1fr) 48px 74px 74px 62px 84px 82px 66px 58px;padding:8px 18px;border-bottom:1px solid rgba(214,190,140,0.08);font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#6E675A;text-transform:uppercase">
+                <span>Ticker</span><span>Company</span><span style="text-align:right">Qty</span><span style="text-align:right">Avg Cost</span><span style="text-align:right">Price</span><span style="text-align:right">Day</span><span style="text-align:right">Open P&amp;L</span><span style="text-align:right">Fair Value</span><span style="text-align:right">Margin</span><span style="text-align:right">Weight</span>
+              </div>
+              <sc-for list="{{ positions }}" as="it" hint-placeholder-count="7">
+                <div style="{{ it.rowStyle }}" style-hover="background:rgba(198,161,91,0.04)">
+                  <span style="color:#ECE5D8;font-weight:500">{{ it.t }} <sc-if value="{{ it.diamond }}" hint-placeholder-val="{{ false }}"><span style="color:#C6A15B;font-size:10px">◆</span></sc-if></span>
+                  <span style="font-family:'Instrument Sans',sans-serif;color:#8A8272;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px">{{ it.n }}</span>
+                  <span style="text-align:right">{{ it.q }}</span>
+                  <span style="text-align:right">{{ it.a }}</span>
+                  <span style="text-align:right">{{ it.p }}</span>
+                  <span style="{{ it.dayStyle }}">{{ it.d }}</span>
+                  <span style="{{ it.plStyle }}">{{ it.pl }}</span>
+                  <span style="text-align:right;color:#E3CD9E">{{ it.fv }}</span>
+                  <span style="{{ it.mStyle }}">{{ it.m }}</span>
+                  <span style="text-align:right">{{ it.w }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ positions }}" as="it" hint-placeholder-count="7">
+              <div style="{{ it.cardStyle }}">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px">
+                  <span style="font:500 13.5px 'IBM Plex Mono',monospace;color:#ECE5D8">{{ it.t }} <sc-if value="{{ it.diamond }}" hint-placeholder-val="{{ false }}"><span style="color:#C6A15B;font-size:10px">◆</span></sc-if></span>
+                  <span style="{{ it.plStyleM }}">{{ it.pl }}</span>
+                </div>
+                <div style="font:400 11px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:8px">{{ it.n }}</div>
+                <div style="display:flex;justify-content:space-between;gap:8px;font:400 11px 'IBM Plex Mono',monospace;color:#A69E8C;flex-wrap:wrap">
+                  <span>{{ it.q }} sh · ${{ it.p }}</span>
+                  <span style="{{ it.dayStyleM }}">{{ it.d }} today</span>
+                  <span>FV {{ it.fv }} · <span style="{{ it.mStyleM }}">{{ it.m }}</span></span>
+                  <span style="color:#D8D1C2">{{ it.w }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="display:flex;gap:10px;align-items:baseline;padding:12px 18px;background:#171410;border-top:1px solid rgba(214,190,140,0.10)">
+          <div style="width:6px;height:6px;flex:none;background:#D0A048;transform:rotate(45deg);position:relative;top:-1px"></div>
+          <span style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#A69E8C">AAPL trades 10% above my fair value. Watching, not selling — <span style="font:italic 400 12px 'EB Garamond',serif;color:#C6A15B">never interrupt compounding unnecessarily.</span> I'll flag it if the gap exceeds 25%.</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Allocation</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Consumer staples</span><span style="font-family:'IBM Plex Mono',monospace">27%</span></div>
+              <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:27%;height:5px;background:#C6A15B;border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Financials</span><span style="font-family:'IBM Plex Mono',monospace">24%</span></div>
+              <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:24%;height:5px;background:#B08F53;border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Cash</span><span style="font-family:'IBM Plex Mono',monospace">{{ cashAlloc }}</span></div>
+              <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="{{ cashAllocW }}"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Technology</span><span style="font-family:'IBM Plex Mono',monospace">16%</span></div>
+              <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:16%;height:5px;background:#6B5A34;border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Energy</span><span style="font-family:'IBM Plex Mono',monospace">15%</span></div>
+              <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:15%;height:5px;background:#4E4227;border-radius:3px"></div></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Position Bands</div>
+          <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:6px"><span>Weight ceiling</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">9.0%</span></div>
+          <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:6px"><span>Cash floor</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">10.0%</span></div>
+          <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C"><span>Drift tolerance</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">±1.5pp</span></div>
+          <div style="height:1px;background:rgba(214,190,140,0.10);margin:12px 0"></div>
+          <div style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#8A8272">BRK.B is 1.2pp from its ceiling. The Partner will trim automatically if it crosses — you'll see it in the <span style="color:#C6A15B;cursor:pointer" onClick="{{ goLedger }}">Ledger</span>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ HISTORY ══════════ -->
+  <sc-if value="{{ isHistory }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="History" style="max-width:1440px;margin:0 auto">
+    <div style="{{ histStatsStyle }}">
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Realized P&amp;L · YTD</div>
+        <div style="font:500 22px 'EB Garamond',serif;color:#7CA982;font-variant-numeric:tabular-nums">+$28,411</div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Win rate</div>
+        <div style="font:500 22px 'EB Garamond',serif;color:#ECE5D8">71%</div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Median hold</div>
+        <div style="font:500 22px 'EB Garamond',serif;color:#ECE5D8">14 months</div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Trades · YTD</div>
+        <div style="display:flex;align-items:baseline;gap:8px"><span style="font:500 22px 'EB Garamond',serif;color:#ECE5D8">11</span><span style="font:italic 400 12px 'EB Garamond',serif;color:#C6A15B">few, by design</span></div>
+      </div>
+    </div>
+
+    <div style="{{ histPadStyle }}">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <sc-for list="{{ histFilters }}" as="it" hint-placeholder-count="5">
+          <span style="{{ it.style }}" style-hover="border-color:rgba(214,190,140,0.4)" onClick="{{ it.click }}">{{ it.label }}</span>
+        </sc-for>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden">
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:80px 68px minmax(200px,1fr) 170px 130px 90px 30px;padding:9px 18px;border-bottom:1px solid rgba(214,190,140,0.08);font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#6E675A;text-transform:uppercase">
+            <span>Date</span><span>Action</span><span>Order</span><span>Trigger</span><span>Authorized</span><span style="text-align:right">Realized</span><span></span>
+          </div>
+        </sc-if>
+        <sc-for list="{{ histRows }}" as="it" hint-placeholder-count="6">
+          <div style="{{ it.wrapStyle }}">
+            <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:80px 68px minmax(200px,1fr) 170px 130px 90px 30px;padding:12px 18px;font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center;cursor:pointer;border-bottom:1px solid rgba(214,190,140,0.06)" style-hover="background:rgba(198,161,91,0.03)" onClick="{{ it.toggle }}">
+                <span style="color:#8A8272">{{ it.date }}</span>
+                <span style="{{ it.badgeStyle }}">{{ it.act }}</span>
+                <span style="padding-right:10px">{{ it.order }}</span>
+                <span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">{{ it.trig }}</span>
+                <span style="{{ it.authStyle }}">{{ it.auth }}</span>
+                <span style="{{ it.realStyle }}">{{ it.real }}</span>
+                <span style="{{ it.caretStyle }}">{{ it.caret }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:13px 14px;cursor:pointer;border-bottom:1px solid rgba(214,190,140,0.06)" onClick="{{ it.toggle }}">
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">
+                  <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272;flex:none">{{ it.date }}</span>
+                  <span style="{{ it.badgeStyle }}">{{ it.act }}</span>
+                  <span style="{{ it.realStyle }}">{{ it.real }}</span>
+                  <span style="{{ it.caretStyle }}">{{ it.caret }}</span>
+                </div>
+                <div style="font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;margin-bottom:4px">{{ it.order }}</div>
+                <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#6E675A">{{ it.trig }} · <span style="{{ it.authStyleM }}">{{ it.auth }}</span></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ it.open }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ histDetailPadS }}">
+                <div style="{{ histDetailStyle }}">
+                  <div style="background:#14120E;border:1px solid rgba(214,190,140,0.10);border-radius:8px;padding:12px 14px">
+                    <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:6px">{{ it.d1l }}</div>
+                    <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">{{ it.d1 }}</div>
+                  </div>
+                  <div style="{{ it.d2CardStyle }}">
+                    <div style="{{ it.d2LabelStyle }}">{{ it.d2l }}</div>
+                    <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">{{ it.d2 }}</div>
+                  </div>
+                </div>
+                <sc-if value="{{ it.lesson }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.25);border-radius:8px;padding:10px 14px">
+                    <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+                    <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C">{{ it.lesson }}</span>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-top:12px">Every row links back to its Ledger entry and the screen that produced it. Nothing is untraceable.</div>
+    </div>
+  </div>
+  </sc-if>
+
+<!-- ══════════ PRINCIPLES ══════════ -->
+  <sc-if value="{{ isPrinciples }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Principles" style="max-width:1440px;margin:0 auto">
+    <div style="{{ prinGridStyle }}">
+      <div style="{{ prinMainStyle }}">
+        <div style="margin-bottom:6px;font:500 24px 'EB Garamond',serif;color:#ECE5D8">The Latticework</div>
+        <div style="font:400 12.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:22px">{{ principleCount }} principles govern every decision. The Partner must cite one for anything it does — or declines to do.</div>
+
+        <sc-for list="{{ pSections }}" as="sec" hint-placeholder-count="3">
+          <div>
+            <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.14em;color:#6E675A;text-transform:uppercase;margin:8px 0 10px">{{ sec.name }}</div>
+            <sc-for list="{{ sec.items }}" as="p" hint-placeholder-count="2">
+              <div>
+                <sc-if value="{{ p.editing }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#1D1A14;border:1px solid rgba(198,161,91,0.4);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+                    <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Editing</div>
+                    <textarea value="{{ draftText }}" onChange="{{ onDraft }}" rows="2" style="width:100%;background:#14120E;border:1px solid rgba(214,190,140,0.2);border-radius:8px;padding:12px 14px;font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:12px;resize:vertical"></textarea>
+                    <div style="display:flex;gap:12px;padding:12px 14px;background:rgba(198,161,91,0.05);border-radius:8px;margin-bottom:12px">
+                      <div style="width:24px;height:24px;flex:none;border:1px solid rgba(198,161,91,0.5);border-radius:6px;display:flex;align-items:center;justify-content:center"><div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg)"></div></div>
+                      <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#E3CD9E">How I'll apply this:</span> {{ p.restate }}</div>
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                      <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:8px 16px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ saveEdit }}">Save &amp; backtest</span>
+                      <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:8px 16px;border-radius:6px;cursor:pointer" onClick="{{ cancelEdit }}">Cancel</span>
+                      <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:auto">Changes apply only after backtest review</span>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ p.notEditing }}" hint-placeholder-val="{{ true }}">
+                  <div style="{{ p.cardStyle }}">
+                    <div style="{{ p.diaStyle }}"></div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:6px">{{ p.text }}</div>
+                      <div style="{{ p.metaStyle }}">{{ p.pausedNote }}</div>
+                    </div>
+                    <div style="display:flex;gap:6px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;flex:none">
+                      <span style="border:1px solid rgba(214,190,140,0.15);padding:5px 11px;border-radius:6px;cursor:pointer;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.4);color:#A69E8C" onClick="{{ p.edit }}">Edit</span>
+                      <span style="border:1px solid rgba(214,190,140,0.15);padding:5px 11px;border-radius:6px;cursor:pointer;transition:border-color .15s" style-hover="border-color:rgba(214,190,140,0.4);color:#A69E8C" onClick="{{ p.pauseToggle }}">{{ p.pauseLabel }}</span>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+        <div style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-top:6px">Showing {{ shownCount }} of {{ principleCount }} · <span style="color:#C6A15B;cursor:pointer">View all</span></div>
+      </div>
+
+      <div style="{{ prinRailStyle }}">
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Add a principle</div>
+          <textarea value="{{ newPrinciple }}" onChange="{{ onNewPrinciple }}" rows="2" placeholder="Write it in your own words…" style="width:100%;background:#14120E;border:1px solid rgba(214,190,140,0.15);border-radius:8px;padding:11px 13px;font:400 12.5px/1.5 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:10px;resize:vertical"></textarea>
+          <div style="font:400 11px/1.5 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:12px">The Partner restates it as an executable rule, backtests it against the last 90 days of decisions, and shows you what would have changed — before adopting it.</div>
+          <span style="display:inline-block;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:8px 16px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ propose }}">Propose</span>
+        </div>
+
+        <sc-if value="{{ proposed }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#1D1A14;border:1px solid rgba(198,161,91,0.3);border-radius:10px;padding:16px">
+            <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Your proposal</div>
+            <div style="font:italic 400 13px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:12px">"{{ proposed.text }}"</div>
+            <sc-if value="{{ proposed.running }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;justify-content:space-between;font:400 11px 'IBM Plex Mono',monospace;color:#8A8272;margin-bottom:6px"><span>backtesting against 90 days…</span><span>{{ proposed.progress }}%</span></div>
+              <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px"><div style="{{ proposed.barStyle }}"></div></div>
+            </sc-if>
+            <sc-if value="{{ proposed.done }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">
+                <div style="display:flex;justify-content:space-between"><span>Trades blocked (last 90d)</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">2 of 11</span></div>
+                <div style="display:flex;justify-content:space-between"><span>P&amp;L effect of blocks</span><span style="font-family:'IBM Plex Mono',monospace;color:#7CA982">+$310 avoided</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Drawdown effect</span><span style="font-family:'IBM Plex Mono',monospace;color:#7CA982">−0.4pp</span></div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:8px 0;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ adoptProposed }}">Adopt</span>
+                <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:8px 0;border-radius:6px;cursor:pointer" onClick="{{ discardProposed }}">Discard</span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ pendingChange }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#1D1A14;border:1px solid rgba(198,161,91,0.3);border-radius:10px;padding:16px">
+            <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Pending change · backtested</div>
+            <div style="font:italic 400 13px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:10px">"Raise margin of safety gate from 30% to 35%."</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between"><span>Trades blocked (last 90d)</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">3 of 11</span></div>
+              <div style="display:flex;justify-content:space-between"><span>P&amp;L effect of blocks</span><span style="font-family:'IBM Plex Mono',monospace;color:#C4756A">−$2,140 missed</span></div>
+              <div style="display:flex;justify-content:space-between"><span>Drawdown effect</span><span style="font-family:'IBM Plex Mono',monospace;color:#7CA982">−1.1pp</span></div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:8px 0;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ adoptChange }}">Adopt</span>
+              <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:8px 0;border-radius:6px;cursor:pointer" onClick="{{ discardChange }}">Discard</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Version history</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C">
+            <sc-for list="{{ versionHistory }}" as="it" hint-placeholder-count="3">
+              <div style="display:flex;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#6E675A;flex:none;width:86px">{{ it.v }}</span><span>{{ it.txt }}</span></div>
+            </sc-for>
+          </div>
+          <div style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B;margin-top:12px;cursor:pointer">Full history →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+<!-- ══════════ RESEARCH ══════════ -->
+  <sc-if value="{{ isResearch }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Research" style="max-width:1440px;margin:0 auto">
+    <div style="{{ resGridStyle }}">
+      <div style="{{ resMainStyle }}">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;flex-wrap:wrap">
+          <span style="font:500 24px 'EB Garamond',serif;color:#ECE5D8">Quality Minus Junk</span>
+          <span style="{{ qmjBadgeStyle }}">{{ qmjStatus }}</span>
+        </div>
+        <div style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:20px">Asness, Frazzini &amp; Pedersen · 2014 · uploaded by you, Jun 11 · read in 4 min by the Partner</div>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:12px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">The gist</div>
+          <div style="font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2">Stocks of "quality" companies — profitable, growing, safe, well-run — persistently outperform junk, and the market persistently underprices that quality. The premium held across 24 countries and 60 years of data.</div>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(198,161,91,0.28);border-radius:10px;padding:16px 18px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:6px;height:6px;background:#C6A15B;transform:rotate(45deg)"></div>
+            <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase">The inversion — how does this fail?</span>
+          </div>
+          <div style="font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:10px">I tried to kill it three ways. It survives two:</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">
+            <div style="display:flex;gap:10px"><span style="flex:none;font:500 11px 'IBM Plex Mono',monospace;color:#7CA982;width:60px">SURVIVES</span><span>Crowding: quality got expensive post-2016, but the premium persisted net of valuation.</span></div>
+            <div style="display:flex;gap:10px"><span style="flex:none;font:500 11px 'IBM Plex Mono',monospace;color:#7CA982;width:60px">SURVIVES</span><span>Data mining: out-of-sample and cross-country results are consistent.</span></div>
+            <div style="display:flex;gap:10px"><span style="flex:none;font:500 11px 'IBM Plex Mono',monospace;color:#C4756A;width:60px">FAILS</span><span>Sharp junk rallies (2009, Apr 2020): quality lags violently for 1–2 quarters. We must be willing to look wrong briefly.</span></div>
+          </div>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:12px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Backtest · applied to your circle, 2015–2025</div>
+          <div style="{{ resStatsStyle }}">
+            <div>
+              <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">CAGR</div>
+              <div style="font:500 18px 'EB Garamond',serif;color:#7CA982">11.8% <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">vs 10.2</span></div>
+            </div>
+            <div>
+              <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">Max drawdown</div>
+              <div style="font:500 18px 'EB Garamond',serif;color:#7CA982">−18% <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">vs −24</span></div>
+            </div>
+            <div>
+              <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">Sharpe</div>
+              <div style="font:500 18px 'EB Garamond',serif;color:#7CA982">0.81 <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">vs 0.66</span></div>
+            </div>
+            <div>
+              <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">Worst stretch</div>
+              <div style="font:500 18px 'EB Garamond',serif;color:#C4756A">Q2 2020</div>
+            </div>
+          </div>
+          <svg viewBox="0 0 780 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block">
+            <polyline points="0,80 60,76 120,78 180,68 240,72 300,58 360,64 420,70 480,52 540,44 600,48 660,32 720,26 780,18" fill="none" stroke="#C6A15B" stroke-width="1.8" vector-effect="non-scaling-stroke"></polyline>
+            <polyline points="0,80 60,78 120,81 180,73 240,79 300,68 360,74 420,82 480,66 540,60 600,66 660,52 720,48 780,42" fill="none" stroke="rgba(236,229,216,0.3)" stroke-width="1.4" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"></polyline>
+            <line x1="0" y1="89" x2="780" y2="89" stroke="rgba(214,190,140,0.15)" stroke-width="1"></line>
+          </svg>
+          <div style="display:flex;gap:18px;font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-top:6px;flex-wrap:wrap">
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:2px;background:#C6A15B;display:inline-block"></span>With quality gate</span>
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:2px;background:rgba(236,229,216,0.3);display:inline-block"></span>Your baseline</span>
+          </div>
+        </div>
+
+        <sc-if value="{{ qmjNotAdopted }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.35);border-radius:10px;padding:16px 18px">
+            <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Draft principle · edit before adopting</div>
+            <div style="background:#14120E;border:1px solid rgba(214,190,140,0.2);border-radius:8px;padding:12px 14px;font:italic 400 14.5px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:12px">Prefer businesses with high gross profitability and low leverage; treat cheap junk as outside the circle — and accept lagging junk rallies without flinching.</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:9px 18px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ adoptQmj }}">Add to the Latticework</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:9px 18px;border-radius:6px;cursor:pointer" onClick="{{ reviseQmj }}">Revise</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:9px 12px;cursor:pointer" onClick="{{ discardQmj }}">Discard</span>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ qmjAdopted }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(124,169,130,0.05);border:1px solid rgba(124,169,130,0.3);border-radius:10px;padding:16px 18px">
+            <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#7CA982;text-transform:uppercase;margin-bottom:8px">Adopted into the Latticework · today</div>
+            <div style="font:italic 400 14px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:10px">Prefer businesses with high gross profitability and low leverage; treat cheap junk as outside the circle.</div>
+            <div style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272">Now cited on every screen. <span style="color:#C6A15B;cursor:pointer" onClick="{{ goPrinciples }}">View it in Principles →</span></div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="{{ resRailStyle }}">
+        <div style="border:1.5px dashed rgba(198,161,91,0.35);border-radius:10px;padding:22px 18px;text-align:center;cursor:pointer;transition:border-color .15s" style-hover="border-color:rgba(198,161,91,0.6)" onClick="{{ dropHint }}">
+          <div style="width:34px;height:34px;margin:0 auto 10px;border:1px solid rgba(198,161,91,0.5);border-radius:9px;display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div></div>
+          <div style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:5px">Drop a paper, or paste a link</div>
+          <div style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#8A8272">I'll read it, distill it, invert it, and backtest it against your portfolio before you decide anything.</div>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">In progress</div>
+          <div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font:400 12px 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:6px"><span>Momentum Crashes (2016)</span><span style="font-family:'IBM Plex Mono',monospace;color:#C6A15B">inverting · {{ momentumPct }}</span></div>
+            <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px"><div style="{{ momentumBar }}"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:6px"><span>Superinvestors of Graham-and-Doddsville</span><span style="font-family:'IBM Plex Mono',monospace;color:#6E675A">queued</span></div>
+            <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px"></div>
+          </div>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Library</div>
+          <div style="display:flex;flex-direction:column;gap:11px;font:400 12px 'Instrument Sans',sans-serif">
+            <sc-for list="{{ library }}" as="it" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <div style="display:flex;justify-content:space-between;gap:10px"><span style="color:#D8D1C2">{{ it.name }}</span><span style="{{ it.badgeStyle }}">{{ it.status }}</span></div>
+                <sc-if value="{{ it.note }}" hint-placeholder-val="{{ false }}">
+                  <span style="font:400 10.5px 'Instrument Sans',sans-serif;color:#6E675A">{{ it.note }}</span>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ SETTINGS ══════════ -->
+  <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Settings" style="max-width:1440px;margin:0 auto">
+    <div style="{{ setHeadStyle }}">
+      <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8;margin-bottom:4px">The Mandate</div>
+      <div style="font:400 12.5px 'Instrument Sans',sans-serif;color:#8A8272">What the Partner may do alone, when it must ask, and how often it looks.</div>
+    </div>
+
+    <div style="{{ setGridStyle }}">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Autonomy</div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:10px">
+          <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Ask my approval above</span>
+          <span style="font:500 18px 'EB Garamond',serif;color:#E3CD9E;font-variant-numeric:tabular-nums">{{ thresholdFmt }}</span>
+        </div>
+        <div style="position:relative;height:22px;margin-bottom:4px;cursor:pointer;touch-action:none" onPointerDown="{{ onThresholdDown }}">
+          <div style="position:absolute;top:10px;left:0;right:0;height:3px;background:rgba(255,255,255,0.07);border-radius:2px"></div>
+          <div style="{{ thresholdFill }}"></div>
+          <div style="{{ thresholdThumb }}"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font:400 10px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:16px"><span>$1k · ask always</span><span>$100k · fully autonomous</span></div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ autonomyToggles }}" as="it" hint-placeholder-count="2">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">{{ it.label }}</span>
+              <div style="{{ it.trackStyle }}" onClick="{{ it.click }}"><div style="{{ it.knobStyle }}"></div></div>
+            </div>
+          </sc-for>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#6E675A">Options &amp; leverage <span style="font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#8A8272;background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:4px;margin-left:6px">OUTSIDE MANDATE</span></span>
+            <div style="width:38px;height:21px;background:rgba(255,255,255,0.05);border-radius:11px;position:relative;flex:none;opacity:0.5"><div style="position:absolute;top:3px;left:3px;width:15px;height:15px;background:#4A453B;border-radius:50%"></div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:baseline;background:rgba(198,161,91,0.06);border-radius:8px;padding:10px 14px;margin-top:14px">
+          <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+          <span style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#A69E8C">Anything above {{ thresholdFmt }} — and every brand-new name — comes to you as a message on your phone and a card in the Ledger.</span>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Cadence</div>
+        <div style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:10px">Check the portfolio every</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+          <sc-for list="{{ cadences }}" as="it" hint-placeholder-count="5">
+            <span style="{{ it.style }}" style-hover="border-color:rgba(214,190,140,0.4)" onClick="{{ it.click }}">{{ it.label }}</span>
+          </sc-for>
+        </div>
+        <div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8A8272;margin-bottom:12px">{{ nextCheckText }}</div>
+        <div style="display:flex;gap:10px;align-items:baseline;background:rgba(198,161,91,0.06);border-radius:8px;padding:10px 14px;margin-bottom:14px">
+          <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+          <span style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#A69E8C">Checking more often doesn't earn more — it just finds more reasons to act. 30 minutes is for risk, not for trading.</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ cadenceToggles }}" as="it" hint-placeholder-count="2">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">{{ it.label }}</span>
+              <div style="{{ it.trackStyle }}" onClick="{{ it.click }}"><div style="{{ it.knobStyle }}"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Hard limits</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Max position weight</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">9.0%</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Cash floor</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">10%</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Max orders per week</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">3</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Single-day deployment cap</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">$50,000</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Sector cap</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">30%</span></div>
+        </div>
+        <div style="font:400 11px/1.5 'Instrument Sans',sans-serif;color:#6E675A;margin-top:14px">Limits are constitutional — the Partner cannot cross them even with your approval on a single order. Changing one requires a backtest, like a principle.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Notifications</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ notifToggles }}" as="it" hint-placeholder-count="3">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                <span style="font:400 12.5px/1.45 'Instrument Sans',sans-serif;color:#D8D1C2">{{ it.label }} <sc-if value="{{ it.sub }}" hint-placeholder-val="{{ false }}"><span style="font:italic 400 11.5px 'EB Garamond',serif;color:#8A8272">— {{ it.sub }}</span></sc-if></span>
+                <div style="{{ it.trackStyle }}" onClick="{{ it.click }}"><div style="{{ it.knobStyle }}"></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:#1B1915;border:1px solid rgba(196,117,106,0.3);border-radius:10px;padding:18px 20px">
+          <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C4756A;text-transform:uppercase;margin-bottom:10px">Pause</div>
+          <sc-if value="{{ notPauseConfirm }}" hint-placeholder-val="{{ true }}">
+            <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">Pausing stops all trading immediately. The Partner keeps watching and writing to the Ledger. Liquidation requires a typed confirmation and a 24-hour cooling-off period — panic is not a strategy.</div>
+            <span style="display:inline-block;font:500 12px 'Instrument Sans',sans-serif;color:#C4756A;border:1px solid rgba(196,117,106,0.4);padding:9px 16px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:rgba(196,117,106,0.08)" onClick="{{ askPause }}">Pause the Partner</span>
+          </sc-if>
+          <sc-if value="{{ pauseConfirm }}" hint-placeholder-val="{{ false }}">
+            <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:12px">Pause all trading now? Watching and the Ledger continue. You can resume any time.</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;background:#8A4A40;padding:9px 16px;border-radius:6px;cursor:pointer" onClick="{{ confirmPause }}">Yes, pause trading</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:9px 16px;border-radius:6px;cursor:pointer" onClick="{{ cancelPause }}">Keep trading</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isPausedCard }}" hint-placeholder-val="{{ false }}">
+            <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">Paused since 11:06 ET. The Partner is still watching, still writing to the Ledger — just not trading. No checks are scheduled.</div>
+            <span style="display:inline-block;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:9px 16px;border-radius:6px;cursor:pointer;transition:background .15s" style-hover="background:#D4B06A" onClick="{{ resume }}">Resume the Partner</span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- mobile bottom nav -->
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <div style="height:88px"></div>
+    <div style="position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(18,16,12,0.98);border-top:1px solid rgba(198,161,91,0.25);display:flex;padding-bottom:env(safe-area-inset-bottom)">
+      <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;height:60px;cursor:pointer" onClick="{{ it.click }}">
+          <div style="{{ it.dotStyle }}"></div>
+          <span style="{{ it.mStyle }}">{{ it.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ toastStyle }}">
+      <div style="width:7px;height:7px;flex:none;background:#C6A15B;transform:rotate(45deg)"></div>
+      <span>{{ toast }}</span>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;initialTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ledger&quot;,&quot;positions&quot;,&quot;history&quot;,&quot;principles&quot;,&quot;research&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;ledger&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo state&quot;},&quot;approvalPending&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo state&quot;},&quot;marketOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo state&quot;}}">
+class Component extends DCLogic {
+  state = {
+    vw: typeof window !== 'undefined' ? window.innerWidth : 1280,
+    tab: null,
+    stripCollapsed: false,
+    chartRange: '1M',
+    approvalState: 'pending',
+    ledgerFilter: 'All',
+    histFilter: 'All',
+    expanded: { para: true },
+    pausedP: {},
+    editingId: null,
+    draftText: '',
+    newPrinciple: '',
+    proposed: null,
+    pendingChange: true,
+    marginGate: 30,
+    qmjAdopted: false,
+    momentum: 62,
+    threshold: 25000,
+    cadence: '30m',
+    toggles: { newPos: true, lossSales: true, earnDays: true, afterHours: false, phone: true, queue: true, daily: false },
+    pauseConfirm: false,
+    paused: false,
+    customPrinciples: [],
+    toast: null,
+  };
+
+  componentDidMount() {
+    this._onR = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._onR);
+    this._tick = setInterval(() => this.setState(s => ({ momentum: Math.min(94, s.momentum + 2) })), 3000);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onR);
+    clearInterval(this._tick);
+    clearTimeout(this._toastT);
+    clearInterval(this._prog);
+  }
+  pop(msg) {
+    clearTimeout(this._toastT);
+    this.setState({ toast: msg });
+    this._toastT = setTimeout(() => this.setState({ toast: null }), 3800);
+  }
+
+  renderVals() {
+    const s = this.state, pr = this.props;
+    const G = '#7CA982', R = '#C4756A', AMB = '#D0A048', GOLD = '#C6A15B', DIM = '#6E675A';
+    const isMobile = s.vw < 800;
+    const isDesktop = !isMobile;
+    const tab = s.tab || pr.initialTab || 'ledger';
+    const open = pr.marketOpen ?? true;
+    const approval = ((pr.approvalPending ?? true) === false && s.approvalState === 'pending') ? 'none' : s.approvalState;
+    const thresholdFmt = '$' + s.threshold.toLocaleString('en-US');
+    const thresholdShort = s.threshold >= 1000 ? '$' + Math.round(s.threshold / 1000) + 'k' : '$' + s.threshold;
+
+    // ── navigation ──
+    const go = (t) => () => this.setState({ tab: t });
+    const navItems = [
+      ['ledger', 'Ledger'], ['positions', 'Positions'], ['history', 'History'],
+      ['principles', 'Principles'], ['research', 'Research'], ['settings', 'Settings'],
+    ].map(([id, label]) => ({
+      id, label, click: go(id),
+      style: tab === id
+        ? "font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px;cursor:pointer;white-space:nowrap;user-select:none"
+        : "font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px;border-radius:6px;cursor:pointer;white-space:nowrap;user-select:none;transition:color .15s",
+      mStyle: tab === id
+        ? "font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.04em;color:#E3CD9E;user-select:none"
+        : "font:400 9.5px 'Instrument Sans',sans-serif;letter-spacing:.04em;color:#6E675A;user-select:none",
+      dotStyle: 'width:5px;height:5px;transform:rotate(45deg);transition:background .2s;background:' + (tab === id ? GOLD : 'transparent'),
+    }));
+
+    // ── status ──
+    const statusDot = s.paused ? AMB : (open ? G : '#8A8272');
+    const statusText = isMobile
+      ? (s.paused ? 'PAUSED' : (open ? 'OPEN · 11:04' : 'CLOSED'))
+      : (s.paused ? 'PAUSED · 11:04 ET' : (open ? 'MARKET OPEN · 11:04 ET' : 'MARKET CLOSED · 17:42 ET'));
+
+    // ── charts ──
+    const chartPts = {
+      '1D': '0,70 86,72 172,66 258,74 344,60 430,64 516,58 602,62 688,54 774,58 860,50',
+      '1W': '0,84 123,78 246,86 369,70 492,74 615,60 738,66 860,52',
+      '1M': '0,94 62,90 124,96 186,82 248,86 310,70 372,76 434,62 496,67 558,51 620,58 682,42 744,46 806,30 860,24',
+      '1Y': '0,108 66,100 132,104 198,90 264,96 330,78 396,84 462,66 528,74 594,54 660,62 726,40 792,46 860,20',
+      'ALL': '0,116 86,112 172,106 258,108 344,98 430,92 516,94 602,78 688,66 774,44 860,16',
+    };
+    const chartDelta = {
+      '1D': '+$3,214 · +0.66% today', '1W': '+$5,891 · +1.22% this week', '1M': '+$14,210 · +3.0% this month',
+      '1Y': '+$61,480 · +14.4% past year', 'ALL': '+$187,320 · +62.4% all time',
+    };
+    const ranges = ['1D', '1W', '1M', '1Y', 'ALL'].map(r => ({
+      label: r, click: () => this.setState({ chartRange: r }),
+      style: r === s.chartRange
+        ? "font:500 11px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:4px 10px;border-radius:5px;cursor:pointer;user-select:none"
+        : "font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px;border-radius:5px;cursor:pointer;user-select:none;transition:color .15s",
+    }));
+
+    // ── ledger filters ──
+    const chip = (on) => on
+      ? "font:500 11px 'Instrument Sans',sans-serif;color:#C6A15B;padding:5px 10px;cursor:pointer;user-select:none;border-bottom:1.5px solid #C6A15B"
+      : "font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;padding:5px 10px;cursor:pointer;user-select:none;transition:color .15s;border-bottom:1.5px solid transparent";
+    const ledgerFilters = ['All', 'Trades', 'Passes', 'Screens', 'Checks'].map(f => ({
+      label: f, click: () => this.setState({ ledgerFilter: f }), style: chip(s.ledgerFilter === f),
+    }));
+    const lf = s.ledgerFilter;
+    const showApproval = approval !== 'none' && (lf === 'All' || (lf === 'Trades' && approval === 'approved'));
+    const showPass = lf === 'All' || lf === 'Passes';
+    const showTrade = lf === 'All' || lf === 'Trades';
+    const showScreen = lf === 'All' || lf === 'Screens';
+    const showCheck = lf === 'All' || lf === 'Checks';
+
+    // ── approval ──
+    const apprPending = approval === 'pending';
+    const apprApproved = approval === 'approved';
+    const apprDeclined = approval === 'declined';
+    const apprResolved = !apprPending;
+    const apprRailNote = apprApproved
+      ? 'Nothing pending. The COST buy was approved at 11:06 — the receipt is in the Ledger.'
+      : apprDeclined
+        ? 'Nothing pending. You declined the COST buy at 11:06 — it stays on the watchlist.'
+        : 'Nothing pending. The Partner has full discretion under ' + thresholdFmt + '.';
+    const verdictText = apprApproved
+      ? 'Bought 40 COST — approved by you at 11:06, filled at $912.63 avg.'
+      : apprDeclined
+        ? 'You declined this order at 11:06. COST stays on the watchlist for 30 days.'
+        : 'Buy 40 COST — exceeds the ' + thresholdFmt + ' line, so it awaits your approval.';
+
+    // ── positions ──
+    const base = { d: '+0.4%', dc: G };
+    let positions = [
+      { t: 'BRK.B', n: 'Berkshire Hathaway', q: '120', a: '360.55', p: '412.36', d: '+0.4%', dc: G, pl: '+6,214', plc: G, fv: '480', m: '+14%', mc: G, w: '10.2%' },
+      { t: 'AAPL', n: 'Apple', q: '150', a: '197.70', p: '228.44', d: '+0.3%', dc: G, pl: '+4,610', plc: G, fv: '205', m: '−10%', mc: AMB, w: '7.0%' },
+      { t: 'OXY', n: 'Occidental Petroleum', q: '150', a: '74.14', p: '71.22', d: '−0.9%', dc: R, pl: '−438', plc: R, fv: '92', m: '+23%', mc: G, w: '6.5%' },
+      { t: 'AXP', n: 'American Express', q: '80', a: '271.68', p: '301.75', d: '+0.8%', dc: G, pl: '+2,405', plc: G, fv: '355', m: '+15%', mc: G, w: '5.0%' },
+      { t: 'KO', n: 'Coca-Cola', q: '300', a: '59.45', p: '63.18', d: '−0.2%', dc: R, pl: '+1,120', plc: G, fv: '74', m: '+15%', mc: G, w: '3.9%' },
+      {
+        t: 'COST', diamond: apprPending,
+        n: 'Costco Wholesale' + (apprPending ? ' · buy pending your approval' : (apprApproved ? ' · added 40 sh today' : '')),
+        q: apprApproved ? '60' : '20', a: apprApproved ? '895.49' : '861.20', p: '912.40', d: '+1.1%', dc: G,
+        pl: '+1,024', plc: G, fv: '1,380', m: '+34%', mc: G, w: apprApproved ? '8.5%' : '3.7%', hl: apprPending,
+      },
+      { t: 'MCO', n: "Moody's", q: '32', a: '429.52', p: '488.02', d: '+0.6%', dc: G, pl: '+1,872', plc: G, fv: '560', m: '+13%', mc: G, w: '3.2%' },
+    ];
+    if (apprApproved) { const c = positions.splice(5, 1)[0]; positions.splice(1, 0, c); }
+    const rowGrid = 'display:grid;grid-template-columns:74px minmax(120px,1fr) 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;font:400 12px "IBM Plex Mono",monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center;border-bottom:1px solid rgba(214,190,140,0.06)';
+    positions = positions.map(r => ({
+      ...r,
+      rowStyle: rowGrid + (r.hl ? ';background:rgba(198,161,91,0.05)' : ''),
+      cardStyle: 'padding:13px 14px;border-bottom:1px solid rgba(214,190,140,0.06)' + (r.hl ? ';background:rgba(198,161,91,0.05)' : ''),
+      dayStyle: 'text-align:right;color:' + r.dc,
+      plStyle: 'text-align:right;color:' + r.plc,
+      mStyle: 'text-align:right;color:' + r.mc,
+      dayStyleM: 'color:' + r.dc,
+      plStyleM: "font:500 12px 'IBM Plex Mono',monospace;color:" + r.plc,
+      mStyleM: 'color:' + r.mc,
+    }));
+    const posCount = positions.length + ' holdings · fair value & margin are the Partner\u2019s estimates';
+    const cashRow = apprApproved ? '$52,187 · 10.7%' : '$88,692 · 18.2%';
+    const cashAlloc = apprApproved ? '11%' : '18%';
+    const cashAllocW = apprApproved ? 'width:11%;height:5px;background:#8A7443;border-radius:3px' : 'width:18%;height:5px;background:#8A7443;border-radius:3px';
+
+    // ── history ──
+    const hist = [
+      {
+        id: 'oxy', date: 'Jul 2', act: 'SELL', bb: G, bc: '#14120E', order: '60 OXY @ 71.22 · $4,273', trig: 'Weight ceiling crossed', auth: 'Auto', authC: '#8A8272', real: '+$1,842', realC: G, red: false,
+        d1l: 'Entry thesis · Aug 2024', d1: 'Bought at a 38% margin on disciplined capex and best-in-basin Permian acreage; oil above $65 keeps free cash flow covering the dividend twice over.',
+        d2l: 'Why it sold · Jul 2', d2: 'The crude rally pushed OXY past its 8% weight ceiling. Trimmed back to 6.5% — a sizing rule, not a view change. Thesis intact.', lesson: null,
+      },
+      {
+        id: 'axp', date: 'Jun 20', act: 'BUY', bb: '#E3CD9E', bc: '#14120E', order: '80 AXP @ 288.10 · $23,048', trig: 'Add · drift below target', auth: 'Auto · under limit', authC: '#8A8272', real: 'open', realC: DIM, red: false,
+        d1l: 'Thesis', d1: 'Closed-loop network with an affluent cardholder base; fee income compounds without credit risk doing the heavy lifting.',
+        d2l: 'Why it was allowed', d2: 'An add to an existing name on drift below target weight. Adds require a 15% margin rather than the 30% new-idea gate — cleared at 19%.', lesson: null,
+      },
+      {
+        id: 'mco', date: 'Jun 12', act: 'BUY', bb: '#E3CD9E', bc: '#14120E', order: "32 MCO @ 462.55 · $14,802", trig: 'Morning screen', auth: 'Auto · under limit', authC: '#8A8272', real: 'open', realC: DIM, red: false,
+        d1l: 'Entry thesis · Jun 12', d1: 'Ratings duopoly with pricing power; bought at a 32% margin to a then-fair-value of $685.',
+        d2l: 'Fair value since', d2: 'Trimmed to $560 after debt-issuance volumes slowed. Still comfortably above cost — no action warranted.', lesson: null,
+      },
+      {
+        id: 'para', date: 'May 29', act: 'SELL', bb: '#8A4A40', bc: '#ECE5D8', order: '200 PARA @ 11.02 · $2,204', trig: 'Thesis broke', auth: 'Auto', authC: '#8A8272', real: '−$1,306', realC: R, red: true,
+        d1l: 'Entry thesis · Aug 2025', d1: 'Streaming consolidation would rationalize content spend; bought at 42% margin to a $19 fair value.',
+        d2l: 'What broke', d2: 'Q1 direct-to-consumer losses widened while linear declined faster than modeled. Fair value cut below cost basis → thesis invalid, exit per principle: sell when the thesis breaks.',
+        lesson: 'Lesson added to the Latticework (v12): ad-supported streaming economics are outside our circle of competence.',
+      },
+      {
+        id: 'ko', date: 'May 6', act: 'BUY', bb: '#E3CD9E', bc: '#14120E', order: '300 KO @ 58.90 · $17,670', trig: 'Morning screen', auth: 'Approved by you', authC: GOLD, real: 'open', realC: DIM, red: false,
+        d1l: 'Entry thesis · May 6', d1: 'A century of pricing power and distribution no one can replicate; bought on a broad staples selloff.',
+        d2l: 'Why you were asked', d2: 'A brand-new position — your mandate requires approval for first buys regardless of size. You approved within the hour.', lesson: null,
+      },
+      {
+        id: 'brk', date: 'Apr 14', act: 'BUY', bb: '#E3CD9E', bc: '#14120E', order: '45 BRK.B @ 388.20 · $17,469', trig: 'Drift below target', auth: 'Auto · under limit', authC: '#8A8272', real: 'open', realC: DIM, red: false,
+        d1l: 'Thesis', d1: 'The reference compounder itself — added when drift took the weight 1.5pp under target.',
+        d2l: 'Authorization', d2: 'Rebalancing within declared bands requires no approval; logged and auditable like everything else.', lesson: null,
+      },
+    ];
+    const hf = s.histFilter;
+    const histRows = hist
+      .filter(r => hf === 'All' || (hf === 'Buys' && r.act === 'BUY') || (hf === 'Sells' && r.act === 'SELL') || (hf === 'Auto-executed' && r.auth.indexOf('Auto') === 0) || (hf === 'Approved by you' && r.auth === 'Approved by you'))
+      .map(r => ({
+        ...r,
+        open: !!s.expanded[r.id],
+        toggle: () => this.setState(st => ({ expanded: { ...st.expanded, [r.id]: !st.expanded[r.id] } })),
+        caret: s.expanded[r.id] ? '▴' : '▾',
+        caretC: s.expanded[r.id] ? GOLD : DIM,
+        wrapStyle: (r.red && s.expanded[r.id]) ? 'background:rgba(196,117,106,0.04)' : '',
+        authStyle: "font-family:'Instrument Sans',sans-serif;color:" + r.authC,
+        authStyleM: 'color:' + r.authC,
+        realStyle: 'text-align:right;margin-left:auto;font-variant-numeric:tabular-nums;color:' + r.realC,
+        caretStyle: 'text-align:right;flex:none;color:' + (s.expanded[r.id] ? GOLD : DIM),
+        d2CardStyle: 'background:#14120E;border:' + (r.red ? '1px solid rgba(196,117,106,0.25)' : '1px solid rgba(214,190,140,0.10)') + ';border-radius:8px;padding:12px 14px',
+        d2LabelStyle: "font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;color:" + (r.red ? R : DIM),
+        badgeStyle: "font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;padding:3px 0;border-radius:4px;text-align:center;width:44px;color:" + r.bc + ';background:' + r.bb,
+      }));
+    const histFilters = ['All', 'Buys', 'Sells', 'Auto-executed', 'Approved by you'].map(f => ({
+      label: f, click: () => this.setState({ histFilter: f }),
+      style: s.histFilter === f
+        ? "font:500 11.5px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:6px 14px;border-radius:14px;cursor:pointer;user-select:none"
+        : "font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:6px 14px;border-radius:14px;cursor:pointer;user-select:none;transition:border-color .15s",
+    }));
+
+    // ── principles ──
+    const mg = s.marginGate;
+    const corePrinciples = [
+      { id: 'invert', sec: 'Temperament', text: 'Invert, always invert — kill the idea before it kills capital.', meta: 'CORE · MUNGER · invoked 34× this quarter · killed 9 ideas', restate: 'Before any buy or sell, I construct the strongest case for permanent capital loss. If I cannot defeat that case with evidence, I do not act.' },
+      { id: 'sit', sec: 'Temperament', text: 'Sit on your ass. Activity is not achievement.', meta: 'CORE · MUNGER · caps trading at 3 orders/week · blocked 2 rebalances in May', restate: 'I cap trading at three orders per week and treat every proposed trade as guilty until proven necessary.' },
+      { id: 'margin', sec: 'Selection', text: 'Demand a margin of safety of at least ' + mg + '%.', meta: 'CORE · MUNGER · rejects buys above ' + (100 - mg) + '% of fair value', restate: 'I will reject any buy where the price exceeds ' + (100 - mg) + '% of my conservative fair-value estimate. Currently this gate removes 8 of the 12 names inside our circle.' },
+      { id: 'circle', sec: 'Selection', text: 'Never buy outside the circle of competence.', meta: 'CORE · MUNGER · circle: staples, financials, energy, franchise tech · excluded 202 of 214 today', restate: 'I only act on businesses whose ten-year economics I can explain in four plain sentences. Everything else is excluded, whatever the price.' },
+    ];
+    const qmjP = s.qmjAdopted ? [{ id: 'qmj', sec: 'Selection', gold: true, text: 'Prefer high gross profitability and low leverage; treat cheap junk as outside the circle.', meta: 'FROM RESEARCH · Quality Minus Junk (Asness et al., 2014) · adopted today · backtest: +1.6pp CAGR, −6pp drawdown', restate: 'I add a quality screen ahead of valuation: gross profits over assets in the top half of the circle, net debt under 2× EBITDA.' }] : [];
+    const sellP = [{ id: 'sell', sec: 'Sizing & Selling', text: 'Sell only when the thesis breaks, a ceiling is crossed, or capital has a clearly better home.', meta: 'CORE · invoked 3× this quarter · last: OXY trim, Jul 2', restate: 'I never sell on price movement alone. Every sell must cite a broken thesis, a band violation, or a superior use of the same capital.' }];
+    const allP = [...corePrinciples, ...qmjP, ...s.customPrinciples, ...sellP];
+    const decorate = (p) => ({
+      ...p,
+      editing: s.editingId === p.id,
+      notEditing: s.editingId !== p.id,
+      metaStyle: "font:400 11px 'IBM Plex Mono',monospace;color:" + (s.pausedP[p.id] ? AMB : (p.gold ? GOLD : DIM)),
+      isPaused: !!s.pausedP[p.id],
+      pauseLabel: s.pausedP[p.id] ? 'Resume' : 'Pause',
+      pausedNote: s.pausedP[p.id] ? 'PAUSED — not consulted until resumed' : p.meta,
+      metaC: s.pausedP[p.id] ? AMB : (p.gold ? GOLD : DIM),
+      edit: () => this.setState({ editingId: p.id, draftText: p.text }),
+      pauseToggle: () => {
+        const on = !s.pausedP[p.id];
+        this.setState(st => ({ pausedP: { ...st.pausedP, [p.id]: on } }));
+        this.pop(on ? 'Paused. The Partner will not consult this principle.' : 'Resumed — back in the Latticework.');
+      },
+      cardStyle: 'background:#1B1915;border:1px solid ' + (p.gold ? 'rgba(198,161,91,0.3)' : 'rgba(214,190,140,0.12)') + ';border-radius:10px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start' + (s.pausedP[p.id] ? ';opacity:0.55' : ''),
+      diaStyle: 'width:7px;height:7px;flex:none;transform:rotate(45deg);margin-top:6px;background:' + (p.gold ? '#E3CD9E' : GOLD),
+    });
+    const pSections = ['Temperament', 'Selection', 'Sizing & Selling']
+      .map(name => ({ name, items: allP.filter(p => p.sec === name).map(decorate) }));
+    const principleCount = 12 + qmjP.length + s.customPrinciples.length;
+    const shownCount = allP.length;
+    const railPrinciples = [allP[0], allP[3], allP[2]].map(p => ({ text: p.text }));
+    const lastEdited = (s.qmjAdopted || s.customPrinciples.length || mg !== 30) ? 'last edited today' : 'last edited Jun 28';
+
+    const editingP = allP.find(p => p.id === s.editingId) || null;
+    const versionHistory = [
+      ...(s.customPrinciples.length ? [{ v: 'v' + (15 + (s.qmjAdopted ? 1 : 0)) + ' · today', txt: 'Adopted your principle: "' + s.customPrinciples[0].text.slice(0, 44) + '…"' }] : []),
+      ...(mg !== 30 ? [{ v: 'v15 · today', txt: 'Raised margin gate 30% → ' + mg + '%' }] : []),
+      ...(s.qmjAdopted ? [{ v: 'v15 · today', txt: 'Adopted quality principle from research' }] : []),
+      { v: 'v14 · Jun 28', txt: 'Raised margin gate 25% → 30%' },
+      { v: 'v13 · Jun 12', txt: 'Added: ad-streaming outside circle (PARA lesson)' },
+      { v: 'v12 · May 30', txt: 'Added: never average down past 150% of first lot' },
+    ].slice(0, 4);
+
+    // proposal flow
+    const proposed = s.proposed ? {
+      ...s.proposed,
+      running: !s.proposed.done,
+      barStyle: 'height:4px;border-radius:2px;background:#C6A15B;transition:width .4s;width:' + s.proposed.progress + '%',
+    } : null;
+
+    // ── research ──
+    const qmjStatus = s.qmjAdopted ? 'ADOPTED' : 'DISTILLED';
+    const qmjBadgeStyle = "flex:none;font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;padding:2px 7px;border-radius:4px;height:fit-content;color:#14120E;background:" + (s.qmjAdopted ? G : '#E3CD9E');
+    const library = [
+      { name: 'Quality Minus Junk (2014)', status: qmjStatus, on: true, note: null },
+      { name: "Buffett's Alpha (2018)", status: 'ADOPTED', on: true, note: null },
+      { name: 'A Five-Factor Model (2015)', status: 'REJECTED', on: false, note: 'factor rotation needs 40×/yr turnover — violates "sit on your ass"' },
+      { name: 'Intraday Momentum (2019)', status: 'REJECTED', on: false, note: 'outside circle of competence — we don\u2019t do intraday' },
+    ].map(l => ({
+      ...l,
+      badgeStyle: "flex:none;font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;padding:2px 7px;border-radius:4px;height:fit-content;color:" + (l.on ? '#14120E' : '#A69E8C') + ';background:' + (l.on ? G : 'rgba(255,255,255,0.06)'),
+    }));
+    const momentumBar = 'width:' + s.momentum + '%;height:4px;background:#C6A15B;border-radius:2px;transition:width 1s';
+    const momentumPct = s.momentum + '%';
+
+    // ── settings ──
+    const mkT = (arr) => arr.map(t => ({
+      ...t,
+      on: s.toggles[t.key],
+      click: () => {
+        this.setState(st => ({ toggles: { ...st.toggles, [t.key]: !st.toggles[t.key] } }));
+      },
+      trackStyle: 'width:38px;height:21px;border-radius:11px;position:relative;cursor:pointer;flex:none;transition:background .2s;background:' + (s.toggles[t.key] ? GOLD : 'rgba(255,255,255,0.08)'),
+      knobStyle: 'position:absolute;top:3px;width:15px;height:15px;border-radius:50%;transition:left .2s,background .2s;left:' + (s.toggles[t.key] ? '20px' : '3px') + ';background:' + (s.toggles[t.key] ? '#14120E' : '#4A453B'),
+    }));
+    const autonomyToggles = mkT([
+      { key: 'newPos', label: 'Always ask for brand-new positions' },
+      { key: 'lossSales', label: 'Always ask before selling at a loss' },
+    ]);
+    const cadenceToggles = mkT([
+      { key: 'earnDays', label: 'Intraday checks on portfolio earnings days' },
+      { key: 'afterHours', label: 'After-hours monitoring' },
+    ]);
+    const notifToggles = mkT([
+      { key: 'phone', label: 'Message to phone for approvals' },
+      { key: 'queue', label: 'In-app approvals queue' },
+      { key: 'daily', label: 'Daily P&L push', sub: 'off by default; watching daily P&L breeds twitchiness' },
+    ]);
+
+    const pct = Math.max(0, Math.min(1, (s.threshold - 1000) / 99000));
+    const thumbLeft = 'calc(' + (pct * 100).toFixed(1) + '% - 8px)';
+    const thresholdFill = 'position:absolute;top:10px;left:0;height:3px;background:#C6A15B;border-radius:2px;width:' + (pct * 100).toFixed(1) + '%';
+    const thresholdThumb = 'position:absolute;top:3px;width:16px;height:16px;background:#E3CD9E;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.5);cursor:grab;left:' + thumbLeft;
+    const onThresholdDown = (e) => {
+      e.preventDefault();
+      const track = e.currentTarget;
+      const move = (ev) => {
+        const r = track.getBoundingClientRect();
+        let p = (ev.clientX - r.left) / r.width;
+        p = Math.max(0, Math.min(1, p));
+        const v = Math.round((1000 + p * 99000) / 500) * 500;
+        this.setState({ threshold: v });
+      };
+      move(e);
+      const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+    };
+
+    const nextCheckMap = { '5m': '11:09 ET · 5 min', '15m': '11:19 ET · 15 min', '30m': '11:30 ET · 26 min', '1h': '12:04 ET · 60 min', 'Daily': 'tomorrow · 09:30 ET' };
+    const cadenceLabelMap = { '5m': 'Every 5 min', '15m': 'Every 15 min', '30m': 'Every 30 min', '1h': 'Every hour', 'Daily': 'Once daily' };
+    const cadences = ['5m', '15m', '30m', '1h', 'Daily'].map(c => ({
+      label: c, click: () => { this.setState({ cadence: c }); },
+      style: c === s.cadence
+        ? "font:500 12px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:8px 14px;border-radius:7px;cursor:pointer;user-select:none"
+        : "font:500 12px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:8px 14px;border-radius:7px;cursor:pointer;user-select:none;transition:border-color .15s",
+    }));
+    const cadenceLabel = cadenceLabelMap[s.cadence];
+    const nextCheckText = s.paused ? 'paused — no checks scheduled' : (open ? 'Next check ' + nextCheckMap[s.cadence] : 'resumes at next market open');
+
+    // ── responsive layout styles ──
+    const stripWrapStyle = isMobile
+      ? 'display:flex;flex-direction:column;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(214,190,140,0.12);background:#171410;align-items:stretch'
+      : 'display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid rgba(214,190,140,0.12);background:#171410';
+    const metricGridStyle = isMobile
+      ? 'display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;flex:1'
+      : 'flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:20px';
+    const ledgerGridStyle = isMobile ? 'display:flex;flex-direction:column' : 'display:grid;grid-template-columns:1fr 340px';
+    const ledgerFeedStyle = isMobile ? 'padding:18px 16px;border-bottom:1px solid rgba(214,190,140,0.10)' : 'padding:22px 24px;border-right:1px solid rgba(214,190,140,0.10)';
+    const ledgerRailStyle = (isMobile ? 'padding:18px 16px;' : 'padding:22px 20px;') + 'display:flex;flex-direction:column;gap:16px;background:#171410';
+    const apprRailStyle = apprPending
+      ? 'background:#1D1A14;border:1px solid rgba(198,161,91,0.25);border-radius:10px;padding:16px'
+      : 'background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px';
+    const funnelGridStyle = isMobile ? 'display:flex;flex-direction:column' : 'display:grid;grid-template-columns:200px 250px 290px 1fr';
+    const colB = isMobile ? 'padding:18px 16px;border-bottom:1px solid rgba(214,190,140,0.10)' : 'padding:20px;border-right:1px solid rgba(214,190,140,0.10)';
+    const funnelCol1Style = colB, funnelCol2Style = colB, funnelCol3Style = colB;
+    const funnelCol4Style = isMobile ? 'padding:18px 16px;background:#171410' : 'padding:20px;background:#171410';
+    const statusDotStyle = 'width:6px;height:6px;border-radius:50%;flex:none;background:' + statusDot + (s.paused ? ';animation:emPulse 1.8s ease infinite' : '');
+    const toastStyle = 'position:fixed;left:50%;transform:translateX(-50%);z-index:95;display:flex;align-items:center;gap:10px;background:#221E16;border:1px solid rgba(198,161,91,0.45);border-radius:10px;padding:12px 18px;font:400 12.5px \'Instrument Sans\',sans-serif;color:#ECE5D8;box-shadow:0 12px 40px rgba(0,0,0,0.6);max-width:calc(100vw - 32px);bottom:' + (isMobile ? '94px' : '28px');
+
+    // positions screen layout
+    const posHeadStyle = isMobile ? 'display:flex;flex-direction:column;gap:16px;padding:18px 16px 8px' : 'display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 24px 16px';
+    const posStatsStyle = isMobile ? 'display:grid;grid-template-columns:1fr 1fr;gap:8px' : 'display:grid;grid-template-rows:repeat(4,1fr);gap:10px;padding-top:24px';
+    const posBodyStyle = isMobile ? 'display:flex;flex-direction:column;gap:16px;padding:10px 16px 26px' : 'display:grid;grid-template-columns:1fr 300px;gap:24px;padding:0 24px 26px';
+    const histStatsStyle = isMobile ? 'display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 16px;border-bottom:1px solid rgba(214,190,140,0.10);background:#171410' : 'display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 24px;border-bottom:1px solid rgba(214,190,140,0.10);background:#171410';
+    const histPadStyle = isMobile ? 'padding:16px 16px 26px' : 'padding:18px 24px 26px';
+    const histDetailStyle = isMobile ? 'display:flex;flex-direction:column;gap:10px;margin-bottom:12px' : 'display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px';
+    const histDetailPad = isMobile ? 'padding:4px 14px 16px' : 'padding:4px 18px 16px 110px';
+    const prinGridStyle = isMobile ? 'display:flex;flex-direction:column' : 'display:grid;grid-template-columns:1fr 340px';
+    const prinMainStyle = isMobile ? 'padding:18px 16px' : 'padding:24px;border-right:1px solid rgba(214,190,140,0.10)';
+    const prinRailStyle = (isMobile ? 'padding:18px 16px;' : 'padding:24px 20px;') + 'display:flex;flex-direction:column;gap:16px;background:#171410';
+    const resGridStyle = prinGridStyle;
+    const resMainStyle = prinMainStyle;
+    const resRailStyle = prinRailStyle;
+    const resStatsStyle = isMobile ? 'display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px' : 'display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:12px';
+    const setGridStyle = isMobile ? 'display:flex;flex-direction:column;gap:16px;padding:16px 16px 26px' : 'display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 24px 26px';
+    const setHeadStyle = isMobile ? 'padding:18px 16px 0' : 'padding:24px 24px 4px';
+
+    return {
+      // shell
+      isMobile, isDesktop, navItems, statusDotStyle, statusText, paused: s.paused, toast: s.toast, toastStyle,
+      goLedger: go('ledger'), goHistory: go('history'), goPrinciples: go('principles'), goSettings: go('settings'),
+      resume: () => { this.setState({ paused: false, pauseConfirm: false }); this.pop('Resumed. Next check ' + nextCheckMap[s.cadence] + '.'); },
+      // tabs
+      isLedger: tab === 'ledger', isPositions: tab === 'positions', isHistory: tab === 'history',
+      isPrinciples: tab === 'principles', isResearch: tab === 'research', isSettings: tab === 'settings', isDetail: tab === 'detail',
+      openDetail: go('detail'),
+      // ledger
+      stripOpen: !s.stripCollapsed, stripCollapsed: s.stripCollapsed,
+      toggleStrip: () => this.setState(st => ({ stripCollapsed: !st.stripCollapsed })),
+      stripWrapStyle, metricGridStyle, ledgerGridStyle, ledgerFeedStyle, ledgerRailStyle,
+      ledgerFilters, showApproval, showPass, showTrade, showScreen, showCheck,
+      apprPending, apprApproved, apprDeclined, apprResolved, apprRailNote, apprRailStyle,
+      approve: () => { this.setState({ approvalState: 'approved' }); this.pop('Order placed — bought 40 COST at $912.63 avg.'); },
+      decline: () => { this.setState({ approvalState: 'declined' }); this.pop('Declined. The Partner won\u2019t resubmit for 30 days.'); },
+      thresholdFmt, thresholdShort,
+      railPrinciples, principleCount, lastEdited, cadenceLabel, nextCheckText,
+      // detail
+      funnelGridStyle, funnelCol1Style, funnelCol2Style, funnelCol3Style, funnelCol4Style, verdictText, marginGate: mg,
+      // positions
+      posHeadStyle, posStatsStyle, posBodyStyle, positions, posCount, cashRow, cashAlloc, cashAllocW,
+      chartPts: chartPts[s.chartRange], chartFill: chartPts[s.chartRange] + ' 860,120 0,120', chartDelta: chartDelta[s.chartRange], ranges,
+      // history
+      histStatsStyle, histPadStyle, histDetailStyle, histDetailPad, histDetailPadS: histDetailPad, histFilters, histRows,
+      // principles
+      prinGridStyle, prinMainStyle, prinRailStyle, pSections, shownCount,
+      editingId: s.editingId, editingP, draftText: s.draftText,
+      onDraft: (e) => this.setState({ draftText: e.target.value }),
+      cancelEdit: () => this.setState({ editingId: null }),
+      saveEdit: () => { this.setState({ editingId: null }); this.pop('Backtesting your change — review it in the pending card before it applies.'); },
+      pendingChange: s.pendingChange,
+      adoptChange: () => { this.setState({ marginGate: 35, pendingChange: false }); this.pop('Adopted. The margin-of-safety gate is now 35%.'); },
+      discardChange: () => { this.setState({ pendingChange: false }); this.pop('Discarded. The gate stays at ' + mg + '%.'); },
+      newPrinciple: s.newPrinciple,
+      onNewPrinciple: (e) => this.setState({ newPrinciple: e.target.value }),
+      propose: () => {
+        const txt = s.newPrinciple.trim();
+        if (!txt) { this.pop('Write the principle in your own words first.'); return; }
+        clearInterval(this._prog);
+        this.setState({ proposed: { text: txt, progress: 6, done: false }, newPrinciple: '' });
+        this._prog = setInterval(() => {
+          this.setState(st => {
+            if (!st.proposed) return {};
+            const p = Math.min(100, st.proposed.progress + 9);
+            if (p >= 100) { clearInterval(this._prog); this.pop('Backtest complete — review the proposal.'); return { proposed: { ...st.proposed, progress: 100, done: true } }; }
+            return { proposed: { ...st.proposed, progress: p } };
+          });
+        }, 350);
+      },
+      proposed,
+      adoptProposed: () => {
+        const t = s.proposed ? s.proposed.text : '';
+        this.setState(st => ({ proposed: null, customPrinciples: [...st.customPrinciples, { id: 'c' + Date.now(), sec: 'Selection', text: t, meta: 'YOURS · adopted today · backtest: 2 trades blocked, −0.4pp drawdown', restate: 'Restated and enforced as written.' }] }));
+        this.pop('Adopted into the Latticework.');
+      },
+      discardProposed: () => this.setState({ proposed: null }),
+      versionHistory,
+      // research
+      qmjStatus, qmjBadgeStyle, qmjAdopted: s.qmjAdopted, qmjNotAdopted: !s.qmjAdopted, library, momentumBar, momentumPct,
+      dropHint: () => this.pop('In the working product this opens a file picker — drop any PDF or arXiv link.'),
+      adoptQmj: () => { this.setState({ qmjAdopted: true }); this.pop('Added to the Latticework — principle 13 of 13.'); },
+      reviseQmj: () => this.pop('Opening the draft for revision — tell the Partner what to change.'),
+      discardQmj: () => this.pop('Kept in the library, not adopted. Nothing changes.'),
+      // settings
+      setGridStyle, setHeadStyle, autonomyToggles, cadenceToggles, notifToggles, cadences,
+      thresholdFill, thresholdThumb, onThresholdDown,
+      resStatsStyle, resGridStyle, resMainStyle, resRailStyle,
+      pauseConfirm: s.pauseConfirm, notPauseConfirm: !s.pauseConfirm && !s.paused, isPausedCard: s.paused,
+      askPause: () => this.setState({ pauseConfirm: true }),
+      cancelPause: () => this.setState({ pauseConfirm: false }),
+      confirmPause: () => { this.setState({ paused: true, pauseConfirm: false }); this.pop('The Partner is paused — watching, not trading.'); },
+    };
+  }
+}
+</script>
+</body>
+</html>

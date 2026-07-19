@@ -41,47 +41,33 @@ It runs **on your own machine** against your **own brokerage and AI keys**. Noth
 
 ## Quickstart (local)
 
-Requires **Python 3.13+**, **Node 18+**, and a **PostgreSQL** database.
-
-### 1. Backend
+Requires **Python 3.11+**, **Node 18+**, and **Docker** (or any Postgres 14+).
 
 ```bash
+git clone https://github.com/kondareddy-th/emouva.git && cd emouva
+docker compose up -d                          # Postgres
+
 cd backend
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-
-# configure (see below), then:
+cp .env.example .env                          # edit: JWT_SECRET + ANTHROPIC_KEY
 uvicorn app.main:app --port 8001 --reload
+
+cd ../frontend                                # (new terminal)
+npm install && npm run dev                    # http://localhost:5174
 ```
 
-Create `backend/.env`:
+Tables auto-create on first startup — no migrations. Then:
 
-```ini
-DATABASE_URL=postgresql+asyncpg://USER:PASS@localhost:5432/emouva
-JWT_SECRET=change-me
-# Market data (optional but recommended)
-FMP_API_KEY=...
-FINNHUB_API_KEY=...
-# Robinhood OAuth redirects back to your local backend:
-EMOUVA_RH_REDIRECT_URI=http://localhost:8001/api/robinhood/callback
-```
+1. **Sign up**, and paste your **Anthropic API key** in Settings → *AI Token* (stored only in your browser; also set `ANTHROPIC_KEY` in `backend/.env` for the scheduled agent jobs).
+2. **Become the admin** at `/admin` — on a fresh install the first admin signup is auto-activated as root. Seed and curate your own central Opportunity Pool from there.
+3. **Market data is free by default** (Finnhub/yfinance fallback); add an `FMP_API_KEY` for the best data — analyst targets, reliable FCF, search, news, earnings triggers.
+4. **Connect Robinhood** in Settings — OAuth returns to your local `localhost:8001`; tokens never leave your machine.
+5. Start on **paper money**, write your mandate, and watch the Ledger.
 
-> You do **not** need an `ANTHROPIC_KEY` on the server — each user supplies their own in the app (Settings → **AI Token**), sent per-request. A server key is only used for hosted deployments.
+Full guide: [docs/SELF_HOSTING.md](./docs/SELF_HOSTING.md).
 
-### 2. Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev        # http://localhost:5174
-```
-
-### 3. Connect & go
-
-1. Open the app, create an account, and go to **Settings**.
-2. Paste your **Anthropic API key** under *AI Token* (get one at [console.anthropic.com](https://console.anthropic.com/settings/keys)) — it's stored only in your browser.
-3. Click **Connect Robinhood** — you'll authorize via Robinhood's official agent flow; the callback returns to your local `localhost:8001`.
-4. Start on **paper money**, write your mandate, and watch the Ledger.
+> **The community is central:** the Community tab is one shared room on emouva.com for every Emouva trader. From a self-hosted install you sign in with a free emouva.com account to post your P&L cards — your trading stays local.
 
 ## Disclaimer
 

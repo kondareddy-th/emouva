@@ -1,0 +1,42 @@
+# ── Python / backend ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.venv-agent/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Node / frontend ──
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+
+# ── Env & secrets (BYO keys — never commit) ──
+.env
+.env.*
+!.env.example
+*.pem
+.robinhood_client.json
+
+# ── OS / editor ──
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ── Tooling / local agent state ──
+.claude/
+.playwright-mcp/
+*.tgz
+
+# ── Personal, non-code artifacts (pitch decks, screenshots, scratch) ──
+/emouva-*.html
+/emouva-*.png
+/trading-ledger.png
+/finnhub swagger.json

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #14120E; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    ::selection { background: rgba(198,161,91,0.30); color: #ECE5D8; }
+    @keyframes badgePulse { 0% { opacity: 1; } 50% { opacity: 0.55; } 100% { opacity: 1; } }
+    @keyframes dotPulse { 0% { opacity: 1; } 50% { opacity: 0.35; } 100% { opacity: 1; } }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#14120E;color:#D8D1C2;font-family:'Instrument Sans','Helvetica Neue',Helvetica,sans-serif;font-size:14px;line-height:1.55">
+
+  <!-- ══════════ TOP BAR ══════════ -->
+  <div data-screen-label="Nav" style="position:sticky;top:0;z-index:50;background:rgba(20,18,14,0.98);border-bottom:1px solid rgba(214,190,140,0.10);backdrop-filter:blur(8px)">
+    <div style="max-width:1240px;margin:0 auto;padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font-size:13px;font-weight:500;letter-spacing:0.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="display:flex;align-items:center;gap:7px;padding:4px 10px;border:1px solid rgba(214,190,140,0.12);border-radius:5px">
+          <div style="width:6px;height:6px;border-radius:50%;background:#7CA982;animation:dotPulse 1.8s ease-in-out infinite"></div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#A69E8C;letter-spacing:0.04em">MARKET OPEN · 11:04 ET</span>
+        </div>
+        <a href="Emouva%20Prototype.dc.html" style="font-size:13px;color:#A69E8C;text-decoration:none" style-hover="color:#ECE5D8">The demo</a>
+        <a href="#open" style="font-size:13px;color:#A69E8C;text-decoration:none" style-hover="color:#ECE5D8">Sign in</a>
+        <a href="#open" style="display:inline-flex;align-items:center;padding:8px 16px;border-radius:6px;background:#C6A15B;color:#14120E;font-size:13px;font-weight:600;text-decoration:none;transition:background 0.15s" style-hover="background:#D4B06A">{{ ctaText }}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ HERO ══════════ -->
+  <div data-screen-label="Hero" style="border-bottom:1px solid rgba(214,190,140,0.10)">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px clamp(56px,7vw,88px);display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
+
+      <!-- Left: message -->
+      <div style="flex:1 1 460px;min-width:0;max-width:620px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+          <div style="width:6px;height:6px;background:#C6A15B;transform:rotate(45deg)"></div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#C6A15B">AGENTIC TRADING · UNDER A HUMAN MANDATE</span>
+        </div>
+        <h1 style="margin:0 0 22px;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(42px,4.8vw,58px);line-height:1.06;min-height:2.24em;letter-spacing:-0.01em;color:#ECE5D8;text-wrap:balance">
+          {{ headlineA }}<br>
+          <span style="color:#C6A15B">{{ headlineB }}</span>
+        </h1>
+        <p style="margin:0 0 30px;font-size:16.5px;line-height:1.65;color:#A69E8C;max-width:520px;text-wrap:pretty">
+          Emouva runs your portfolio the way the best investors actually work: screen everything, buy rarely, explain every move. The Partner checks the market every 30 minutes — and asks your permission for anything over your limit.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px">
+          <a href="#open" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:6px;background:#C6A15B;color:#14120E;font-size:14px;font-weight:600;text-decoration:none;transition:background 0.15s" style-hover="background:#D4B06A">{{ ctaText }} <span style="font-family:'IBM Plex Mono',monospace">→</span></a>
+          <a href="Emouva%20Prototype.dc.html" style="display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:6px;border:1px solid rgba(214,190,140,0.28);color:#D8D1C2;font-size:14px;font-weight:500;text-decoration:none;transition:border-color 0.15s" style-hover="border-color:rgba(214,190,140,0.5)">Watch it work — the live demo</a>
+        </div>
+        <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E675A;letter-spacing:0.03em">Starts on paper money. Fund it only when it has earned your trust.</p>
+
+        <div style="margin-top:44px;padding-top:28px;border-top:1px solid rgba(214,190,140,0.10);max-width:520px">
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:17px;line-height:1.6;color:#C6A15B">“The big money is not in the buying and the selling, but in the waiting.”</p>
+          <p style="margin:6px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:#6E675A">— CHARLIE MUNGER, THE PARTNER'S TEMPERAMENT</p>
+        </div>
+      </div>
+
+      <!-- Right: live ledger -->
+      <div style="flex:1 1 440px;min-width:0;max-width:600px">
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.35)">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 18px;background:#171410;border-bottom:1px solid rgba(214,190,140,0.10)">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">THE LEDGER</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:0.11em;padding:2px 7px;border-radius:4px;background:rgba(124,169,130,0.14);color:#7CA982">LIVE</span>
+            </div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8A8272;font-variant-numeric:tabular-nums">NET LIQ $487,320 · DAY <span style="color:#7CA982">+0.66%</span></span>
+          </div>
+
+          <div style="padding:4px 18px 14px;min-height:430px">
+
+            <!-- Live feed — before the approval -->
+            <sc-for list="{{ preEntries }}" as="item" hint-placeholder-count="2">
+              <div style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(214,190,140,0.06)">
+                <span style="flex:0 0 44px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E675A;padding-top:2px;font-variant-numeric:tabular-nums">{{ item.time }}</span>
+                <div style="min-width:0;flex:1">
+                  <span style="display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:0.11em;padding:3px 8px;border-radius:4px;margin-bottom:8px;background:{{ item.badgeBg }};color:{{ item.badgeColor }}">{{ item.badge }}</span>
+                  <sc-if value="{{ item.hasOrder }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:0 0 6px;font-size:13.5px;color:#ECE5D8;font-weight:500">{{ item.order }} <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7CA982;font-variant-numeric:tabular-nums">{{ item.orderNote }}</span></p>
+                  </sc-if>
+                  <sc-if value="{{ item.hasMono }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:0 0 7px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#A69E8C;font-variant-numeric:tabular-nums">{{ item.mono }}</p>
+                  </sc-if>
+                  <p style="margin:0;font-size:12.5px;line-height:1.55;color:#8A8272">{{ item.body }}</p>
+                  <sc-if value="{{ item.hasQuote }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:6px 0 0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:13.5px;color:#C6A15B">{{ item.quote }}</p>
+                  </sc-if>
+                  <sc-if value="{{ item.hasLink }}" hint-placeholder-val="{{ false }}">
+                    <a href="Emouva%20Prototype.dc.html" style="display:inline-block;margin-top:6px;font-size:11.5px;color:#A69E8C;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(214,190,140,0.3)" style-hover="color:#ECE5D8">{{ item.link }}</a>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+
+            <!-- 11:02 Awaiting approval — interactive -->
+            <sc-if value="{{ e3 }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:15px 0;border-bottom:1px solid rgba(214,190,140,0.06)">
+                <div style="display:flex;gap:14px">
+                  <span style="flex:0 0 44px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E675A;padding-top:2px;font-variant-numeric:tabular-nums">11:02</span>
+                  <div style="min-width:0;flex:1">
+
+                    <sc-if value="{{ approvalPending }}" hint-placeholder-val="{{ true }}">
+                      <div style="background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.32);border-radius:8px;padding:14px">
+                        <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px">
+                          <span style="display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:0.11em;padding:3px 8px;border-radius:4px;background:#C6A15B;color:#14120E;animation:badgePulse 2.6s ease-in-out infinite">AWAITING YOUR APPROVAL</span>
+                          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E675A">order #1847</span>
+                        </div>
+                        <p style="margin:0 0 7px;font-size:13.5px;color:#ECE5D8;font-weight:500">Buy 40 COST · Costco Wholesale @ $912.40 <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#A69E8C;font-variant-numeric:tabular-nums">≈ $36,496</span></p>
+                        <p style="margin:0 0 12px;font-size:12px;line-height:1.55;color:#8A8272">Exceeds your $25,000 limit, so I'm asking. Inside the circle, fair value $1,380, margin 34%, survived inversion. Sized at 8.5% — under your 9% ceiling.</p>
+                        <div style="display:flex;align-items:center;gap:10px">
+                          <button onClick="{{ approve }}" style="padding:9px 18px;border-radius:6px;border:none;background:#C6A15B;color:#14120E;font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;transition:background 0.15s" style-hover="background:#D4B06A">Approve</button>
+                          <button onClick="{{ decline }}" style="padding:9px 18px;border-radius:6px;border:1px solid rgba(214,190,140,0.28);background:transparent;color:#D8D1C2;font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer;transition:border-color 0.15s" style-hover="border-color:rgba(214,190,140,0.5)">Decline</button>
+                          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6E675A">try it — this one is live</span>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ approvalApproved }}" hint-placeholder-val="{{ false }}">
+                      <div style="border:1px solid rgba(124,169,130,0.28);border-radius:8px;padding:14px">
+                        <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+                          <span style="display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:0.11em;padding:3px 8px;border-radius:4px;background:rgba(124,169,130,0.16);color:#7CA982">EXECUTED</span>
+                          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E675A">order #1847 · 11:06 ET</span>
+                        </div>
+                        <p style="margin:0 0 6px;font-size:13.5px;color:#ECE5D8;font-weight:500">Bought 40 COST @ $912.63 avg <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7CA982;font-variant-numeric:tabular-nums">filled in two lots</span></p>
+                        <p style="margin:0;font-size:12px;line-height:1.55;color:#8A8272">Approved by you. Cash reserve now 10.7% — above your 10% floor. The thesis, sizing math, and exit triggers are written down. Nothing about this trade is a mystery.</p>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ approvalDeclined }}" hint-placeholder-val="{{ false }}">
+                      <div style="border:1px solid rgba(214,190,140,0.12);border-radius:8px;padding:14px">
+                        <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+                          <span style="display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:0.11em;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,0.05);color:#8A8272">DECLINED</span>
+                          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E675A">order #1847 · 11:06 ET</span>
+                        </div>
+                        <p style="margin:0;font-size:12px;line-height:1.55;color:#8A8272">Understood. I won't resubmit COST for 30 days unless the thesis materially improves. Vetoes are part of the mandate — you never owe me a reason.</p>
+                      </div>
+                    </sc-if>
+
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- Live feed — after the decision -->
+            <sc-for list="{{ postEntries }}" as="item" hint-placeholder-count="0">
+              <div style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(214,190,140,0.06)">
+                <span style="flex:0 0 44px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E675A;padding-top:2px;font-variant-numeric:tabular-nums">{{ item.time }}</span>
+                <div style="min-width:0;flex:1">
+                  <span style="display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:0.11em;padding:3px 8px;border-radius:4px;margin-bottom:8px;background:{{ item.badgeBg }};color:{{ item.badgeColor }}">{{ item.badge }}</span>
+                  <sc-if value="{{ item.hasOrder }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:0 0 6px;font-size:13.5px;color:#ECE5D8;font-weight:500">{{ item.order }} <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7CA982;font-variant-numeric:tabular-nums">{{ item.orderNote }}</span></p>
+                  </sc-if>
+                  <sc-if value="{{ item.hasMono }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:0 0 7px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#A69E8C;font-variant-numeric:tabular-nums">{{ item.mono }}</p>
+                  </sc-if>
+                  <p style="margin:0;font-size:12.5px;line-height:1.55;color:#8A8272">{{ item.body }}</p>
+                  <sc-if value="{{ item.hasQuote }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:6px 0 0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:13.5px;color:#C6A15B">{{ item.quote }}</p>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 18px;background:#171410;border-top:1px solid rgba(214,190,140,0.10)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E675A;font-variant-numeric:tabular-nums">{{ footerLeft }}</span>
+            <span style="font-size:11px;color:#6E675A">{{ footerRight }}</span>
+          </div>
+        </div>
+        <p style="margin:12px 4px 0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E675A;text-align:right">A real morning from the demo portfolio — <a href="Emouva%20Prototype.dc.html" style="color:#A69E8C" style-hover="color:#ECE5D8">open the full product →</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PROOF STRIP ══════════ -->
+  <div data-screen-label="Proof" style="background:#171410;border-bottom:1px solid rgba(214,190,140,0.10)">
+    <div style="max-width:1240px;margin:0 auto;padding:36px 24px 30px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px">
+        <div>
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:34px;font-weight:500;color:#ECE5D8;font-variant-numeric:tabular-nums">214</p>
+          <p style="margin:2px 0 4px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">STOCKS SCREENED THIS MORNING</p>
+          <p style="margin:0;font-size:12.5px;color:#8A8272">Twelve survived the circle. One was bought.</p>
+        </div>
+        <div>
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:34px;font-weight:500;color:#ECE5D8;font-variant-numeric:tabular-nums">11</p>
+          <p style="margin:2px 0 4px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">TRADES YEAR TO DATE</p>
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:14px;color:#C6A15B">Few, by design.</p>
+        </div>
+        <div>
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:34px;font-weight:500;color:#ECE5D8;font-variant-numeric:tabular-nums">71%</p>
+          <p style="margin:2px 0 4px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">WIN RATE · 14-MONTH MEDIAN HOLD</p>
+          <p style="margin:0;font-size:12.5px;color:#8A8272">Held like an owner, not a renter.</p>
+        </div>
+        <div>
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:34px;font-weight:500;color:#ECE5D8;font-variant-numeric:tabular-nums">0</p>
+          <p style="margin:2px 0 4px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">UNEXPLAINED ACTIONS</p>
+          <p style="margin:0;font-size:12.5px;color:#8A8272">Every move — and every pass — cites a principle.</p>
+        </div>
+      </div>
+      <p style="margin:22px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4A453B;text-align:right">LIVE DEMO PORTFOLIO · YTD 2026</p>
+    </div>
+  </div>
+
+  <!-- ══════════ THE MORNING SCREEN ══════════ -->
+  <div data-screen-label="Morning Screen" style="border-bottom:1px solid rgba(214,190,140,0.10)">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) 24px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+        <div style="width:6px;height:6px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#C6A15B">HOW IT DECIDES</span>
+      </div>
+      <h2 style="margin:0 0 14px;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.12;color:#ECE5D8;text-wrap:balance;max-width:640px">An elimination, every morning at 09:42.</h2>
+      <p style="margin:0 0 44px;font-size:15.5px;line-height:1.65;color:#A69E8C;max-width:600px;text-wrap:pretty">The Partner doesn't hunt for reasons to buy. It hunts for reasons not to — and acts only on what survives. Four gates, in order:</p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:1px;background:rgba(214,190,140,0.10);border:1px solid rgba(214,190,140,0.10);border-radius:10px;overflow:hidden">
+        <div style="flex:1 1 220px;min-width:0;background:#14120E;padding:24px 22px">
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:44px;font-weight:500;color:#8A8272;font-variant-numeric:tabular-nums">214</p>
+          <p style="margin:2px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">THE UNIVERSE</p>
+          <p style="margin:0;font-size:12.5px;line-height:1.6;color:#8A8272">Everything liquid enough to own. Most of it will never matter.</p>
+        </div>
+        <div style="flex:1 1 220px;min-width:0;background:#14120E;padding:24px 22px">
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:44px;font-weight:500;color:#A69E8C;font-variant-numeric:tabular-nums">12</p>
+          <p style="margin:2px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">INSIDE THE CIRCLE</p>
+          <p style="margin:0 0 10px;font-size:12.5px;line-height:1.6;color:#8A8272">Businesses the Partner can actually explain.</p>
+          <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7;color:#6E675A">NVDA out — semis capex cycle<br>LLY out — pipeline risk<br>TSLA out — narrative-priced</p>
+        </div>
+        <div style="flex:1 1 220px;min-width:0;background:#14120E;padding:24px 22px">
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:44px;font-weight:500;color:#D8D1C2;font-variant-numeric:tabular-nums">4</p>
+          <p style="margin:2px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">MARGIN OF SAFETY ≥ 30%</p>
+          <p style="margin:0 0 10px;font-size:12.5px;line-height:1.6;color:#8A8272">Priced well below what they're worth.</p>
+          <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7;color:#6E675A">COST +34 · F +41 · KHC +38 · T +33<br><span style="color:#C4756A">F, KHC, T — killed by inversion</span></p>
+        </div>
+        <div style="flex:1 1 220px;min-width:0;background:#171410;padding:24px 22px;box-shadow:inset 0 0 0 1px rgba(198,161,91,0.30)">
+          <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-size:44px;font-weight:500;color:#C6A15B;font-variant-numeric:tabular-nums">1</p>
+          <p style="margin:2px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#C6A15B">THE SURVIVOR — COST</p>
+          <p style="margin:0 0 10px;font-size:12.5px;line-height:1.6;color:#A69E8C">Fair value $1,380. Margin 34%. Sized at 8.5% of the book — then sent to you, because it's over your limit.</p>
+          <a href="Emouva%20Prototype.dc.html" style="font-size:12px;color:#C6A15B;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(198,161,91,0.4)" style-hover="color:#D4B06A">Walk through the real screen →</a>
+        </div>
+      </div>
+
+      <p style="margin:32px 0 0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:17px;color:#C6A15B;text-align:center">“An idea isn't yours until you can state the other side better than they can.”</p>
+    </div>
+  </div>
+
+  <!-- ══════════ THE MANDATE ══════════ -->
+  <div data-screen-label="The Mandate" style="border-bottom:1px solid rgba(214,190,140,0.10)">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) 24px;display:flex;flex-wrap:wrap;gap:56px">
+
+      <div style="flex:1 1 420px;min-width:0;max-width:560px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <div style="width:6px;height:6px;background:#C6A15B;transform:rotate(45deg)"></div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#C6A15B">THE MANDATE</span>
+        </div>
+        <h2 style="margin:0 0 14px;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.12;color:#ECE5D8;text-wrap:balance">It can act alone. Only as far as you allow.</h2>
+        <p style="margin:0 0 26px;font-size:15.5px;line-height:1.65;color:#A69E8C;text-wrap:pretty">You write the rules in plain English. Below your dollar limit, the Partner executes and shows its work. Above it, nothing moves until you approve — on your phone or in the app.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#A69E8C;padding:6px 11px;border:1px solid rgba(214,190,140,0.12);border-radius:6px;background:#14120E">Max position 9.0%</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#A69E8C;padding:6px 11px;border:1px solid rgba(214,190,140,0.12);border-radius:6px;background:#14120E">Cash floor 10%</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#A69E8C;padding:6px 11px;border:1px solid rgba(214,190,140,0.12);border-radius:6px;background:#14120E">Max 3 orders / week</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#A69E8C;padding:6px 11px;border:1px solid rgba(214,190,140,0.12);border-radius:6px;background:#14120E">Sector cap 30%</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#D0A048;padding:6px 11px;border:1px solid rgba(208,160,72,0.3);border-radius:6px;background:#14120E">Options &amp; leverage — OUTSIDE MANDATE</span>
+        </div>
+        <p style="margin:0;font-size:13px;line-height:1.65;color:#8A8272;text-wrap:pretty">Limits are constitutional. The Partner cannot cross them — <em style="font-family:'EB Garamond',Georgia,serif;font-size:14.5px;color:#A69E8C">even with your approval on a single order.</em> Changing one requires a backtest, like a principle.</p>
+      </div>
+
+      <div style="flex:1 1 420px;min-width:0;max-width:560px;display:flex;flex-direction:column;gap:18px">
+        <!-- Threshold slider card -->
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:22px">
+          <p style="margin:0 0 4px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">AUTONOMY · TRY THE DIAL</p>
+          <p style="margin:0 0 18px;font-size:15px;color:#D8D1C2">Ask my approval above <span style="font-family:'EB Garamond',Georgia,serif;font-size:22px;color:#E3CD9E;font-variant-numeric:tabular-nums">{{ thresholdLabel }}</span></p>
+          <div ref="{{ trackRef }}" onPointerDown="{{ sliderDown }}" onPointerMove="{{ sliderMove }}" onPointerUp="{{ sliderUp }}" style="position:relative;height:28px;cursor:pointer;touch-action:none">
+            <div style="position:absolute;top:12.5px;left:0;right:0;height:3px;border-radius:2px;background:rgba(255,255,255,0.08)"></div>
+            <div style="position:absolute;top:12.5px;left:0;height:3px;border-radius:2px;background:#C6A15B;width:{{ fillPct }}%"></div>
+            <div style="position:absolute;top:6px;width:16px;height:16px;border-radius:50%;background:#E3CD9E;box-shadow:0 1px 4px rgba(0,0,0,0.5);left:calc({{ fillPct }}% - 8px)"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6E675A">$1k · ask always</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6E675A">$100k · fully autonomous</span>
+          </div>
+          <div style="margin-top:14px;padding:11px 13px;border-radius:8px;background:rgba(198,161,91,0.05);border:1px solid rgba(198,161,91,0.25)">
+            <p style="margin:0;font-size:12.5px;line-height:1.55;color:#A69E8C">{{ thresholdNote }}</p>
+          </div>
+        </div>
+
+        <!-- Pause card -->
+        <div style="background:#1B1915;border:1px solid rgba(196,117,106,0.3);border-radius:10px;padding:22px">
+          <p style="margin:0 0 4px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">THE OFF SWITCH</p>
+          <p style="margin:0 0 14px;font-size:13px;line-height:1.6;color:#8A8272;text-wrap:pretty">One click. The Partner keeps watching and writing to the Ledger, but stops trading. No confirmation maze, no retention flow.</p>
+          <sc-if value="{{ notPaused }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ togglePause }}" style="padding:10px 18px;border-radius:6px;border:1px solid rgba(196,117,106,0.45);background:transparent;color:#C4756A;font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer;transition:border-color 0.15s" style-hover="border-color:rgba(196,117,106,0.7)">Pause the Partner</button>
+          </sc-if>
+          <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:6px;background:rgba(208,160,72,0.08);border:1px solid rgba(208,160,72,0.35)">
+                <div style="width:7px;height:7px;border-radius:50%;background:#D0A048;animation:dotPulse 1.8s ease-in-out infinite"></div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#D0A048">PAUSED — watching, not trading</span>
+              </div>
+              <button onClick="{{ togglePause }}" style="padding:9px 16px;border-radius:6px;border:none;background:#C6A15B;color:#14120E;font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;transition:background 0.15s" style-hover="background:#D4B06A">Resume the Partner</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ THE LATTICEWORK ══════════ -->
+  <div data-screen-label="The Latticework" style="border-bottom:1px solid rgba(214,190,140,0.10)">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) 24px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+        <div style="width:6px;height:6px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#C6A15B">THE LATTICEWORK</span>
+      </div>
+      <h2 style="margin:0 0 14px;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.12;color:#ECE5D8;text-wrap:balance;max-width:680px">Twelve principles govern every decision.</h2>
+      <p style="margin:0 0 40px;font-size:15.5px;line-height:1.65;color:#A69E8C;max-width:620px;text-wrap:pretty">The Partner must cite one for anything it does — or declines to do. Edit them in your own words. Nothing applies until it survives a backtest against your actual history.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px">
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:20px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg);margin-top:7px;flex:0 0 auto"></div>
+            <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16px;line-height:1.5;color:#ECE5D8">Never interrupt compounding unnecessarily.</p>
+          </div>
+          <p style="margin:14px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.7;color:#6E675A">CORE · MUNGER · invoked 34× this quarter · killed 9 ideas</p>
+        </div>
+        <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:20px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg);margin-top:7px;flex:0 0 auto"></div>
+            <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16px;line-height:1.5;color:#ECE5D8">If the business is outside the circle of competence, the price doesn't matter.</p>
+          </div>
+          <p style="margin:14px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.7;color:#6E675A">CORE · SELECTION · the gate that removed 202 of 214 this morning</p>
+        </div>
+        <div style="background:#1B1915;border:1px solid rgba(198,161,91,0.32);border-radius:10px;padding:20px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg);margin-top:7px;flex:0 0 auto"></div>
+            <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16px;line-height:1.5;color:#ECE5D8">Prefer quality: gross profitability, low leverage, stable margins. Junk rallies are rented, not owned.</p>
+          </div>
+          <p style="margin:14px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.7;color:#C6A15B">FROM RESEARCH · Quality Minus Junk (2014) · backtest +1.6pp CAGR, −6pp drawdown</p>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:stretch">
+        <div style="flex:1 1 380px;background:#1D1A14;border:1px solid rgba(198,161,91,0.25);border-radius:10px;padding:20px">
+          <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">WRITE YOUR OWN</p>
+          <div style="background:#14120E;border:1px solid rgba(214,190,140,0.12);border-radius:8px;padding:13px 14px;margin-bottom:12px">
+            <p style="margin:0;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:15px;color:#8A8272">“Never buy anything the week before its earnings call.”</p>
+          </div>
+          <p style="margin:0;font-size:12.5px;line-height:1.6;color:#8A8272">Plain English in, discipline out. The Partner restates how it will apply your rule, backtests it against your history, and shows what it would have blocked — <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#A69E8C">2 of 11 trades · +$310 avoided</span> — before it ever applies.</p>
+        </div>
+        <div style="flex:1 1 380px;background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:20px">
+          <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">FEED IT RESEARCH</p>
+          <p style="margin:0 0 12px;font-size:13px;line-height:1.65;color:#A69E8C;text-wrap:pretty">Drop in a paper. The Partner reads it, distills the gist, tries to kill it three ways, and backtests what survives. “Quality Minus Junk” became principle 13. Momentum rotation was rejected — <em style="font-family:'EB Garamond',Georgia,serif;color:#C6A15B">40 trades a year violates “sit on your ass.”</em></p>
+          <a href="Emouva%20Prototype.dc.html" style="font-size:12px;color:#A69E8C;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(214,190,140,0.3)" style-hover="color:#ECE5D8">See a paper get distilled →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ NOT A CASINO ══════════ -->
+  <sc-if value="{{ showContrastResolved }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Not a casino" style="border-bottom:1px solid rgba(214,190,140,0.10);background:#171410">
+      <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) 24px">
+        <h2 style="margin:0 auto 40px;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.12;color:#ECE5D8;text-align:center;text-wrap:balance;max-width:700px">Trading apps are paid when you trade.<br><span style="color:#C6A15B">The Partner is paid to sit.</span></h2>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;max-width:960px;margin:0 auto">
+          <div style="flex:1 1 380px;background:#14120E;border:1px solid rgba(214,190,140,0.10);border-radius:10px;padding:24px">
+            <p style="margin:0 0 16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#6E675A">THE AVERAGE TRADING APP</p>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <p style="margin:0;font-size:13.5px;color:#8A8272">Confetti on your first options trade.</p>
+              <p style="margin:0;font-size:13.5px;color:#8A8272">Streaks, badges, and a push alert at 6:12 a.m.</p>
+              <p style="margin:0;font-size:13.5px;color:#8A8272">A feed engineered to make you act.</p>
+              <p style="margin:0;font-size:13.5px;color:#8A8272">“Free” trades — your churn is the product.</p>
+            </div>
+          </div>
+          <div style="flex:1 1 380px;background:#1B1915;border:1px solid rgba(198,161,91,0.32);border-radius:10px;padding:24px">
+            <p style="margin:0 0 16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;color:#C6A15B">EMOUVA</p>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <p style="margin:0;font-size:13.5px;color:#D8D1C2">A ledger, not a feed.</p>
+              <p style="margin:0;font-size:13.5px;color:#D8D1C2">Passes recorded with the same care as trades.</p>
+              <p style="margin:0;font-size:13.5px;color:#D8D1C2">Four checks a day. One action a fortnight.</p>
+              <p style="margin:0;font-size:13.5px;color:#D8D1C2">Flat subscription — we earn nothing when you churn.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ══════════ HOW YOU START ══════════ -->
+  <div data-screen-label="How you start" style="border-bottom:1px solid rgba(214,190,140,0.10)">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) 24px">
+      <h2 style="margin:0 0 44px;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.12;color:#ECE5D8;text-wrap:balance">Three steps. The third one is waiting.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:36px">
+        <div>
+          <p style="margin:0 0 10px;font-family:'EB Garamond',Georgia,serif;font-size:30px;color:#E3CD9E;font-variant-numeric:tabular-nums">01</p>
+          <p style="margin:0 0 8px;font-size:16px;font-weight:600;color:#ECE5D8">Write the mandate</p>
+          <p style="margin:0;font-size:13.5px;line-height:1.65;color:#8A8272;text-wrap:pretty">Your limits, your cadence, your approval threshold — in plain English, in about five minutes.</p>
+        </div>
+        <div>
+          <p style="margin:0 0 10px;font-family:'EB Garamond',Georgia,serif;font-size:30px;color:#E3CD9E;font-variant-numeric:tabular-nums">02</p>
+          <p style="margin:0 0 8px;font-size:16px;font-weight:600;color:#ECE5D8">Watch it on paper</p>
+          <p style="margin:0;font-size:13.5px;line-height:1.65;color:#8A8272;text-wrap:pretty">Two weeks of real decisions with simulated money. Every screen, every pass, every order — written down and explained.</p>
+        </div>
+        <div>
+          <p style="margin:0 0 10px;font-family:'EB Garamond',Georgia,serif;font-size:30px;color:#E3CD9E;font-variant-numeric:tabular-nums">03</p>
+          <p style="margin:0 0 8px;font-size:16px;font-weight:600;color:#ECE5D8">Fund it when convinced</p>
+          <p style="margin:0;font-size:13.5px;line-height:1.65;color:#8A8272;text-wrap:pretty">Connect your brokerage. Approvals come to your phone. The pause switch is always one click away.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <div id="open" data-screen-label="Final CTA">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,130px) 24px;text-align:center">
+      <p style="margin:0 0 18px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(34px,4.2vw,54px);line-height:1.15;color:#ECE5D8;text-wrap:balance">“Mostly, the job is sitting.”</p>
+      <p style="margin:0 auto 34px;font-size:15.5px;line-height:1.65;color:#A69E8C;max-width:520px;text-wrap:pretty">The rest is knowing when not to. Open an account and watch the Partner work a real morning — on paper money, at your limits.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:14px">
+        <a href="Emouva%20Prototype.dc.html" style="display:inline-flex;align-items:center;gap:9px;padding:14px 28px;border-radius:6px;background:#C6A15B;color:#14120E;font-size:14.5px;font-weight:600;text-decoration:none;transition:background 0.15s" style-hover="background:#D4B06A">{{ ctaText }} <span style="font-family:'IBM Plex Mono',monospace">→</span></a>
+        <a href="Emouva%20Prototype.dc.html" style="display:inline-flex;align-items:center;padding:14px 26px;border-radius:6px;border:1px solid rgba(214,190,140,0.28);color:#D8D1C2;font-size:14.5px;font-weight:500;text-decoration:none;transition:border-color 0.15s" style-hover="border-color:rgba(214,190,140,0.5)">Tour the live demo</a>
+      </div>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E675A">No card. No minimums on paper. Cancel like an adult — one click.</p>
+    </div>
+  </div>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <div data-screen-label="Footer" style="border-top:1px solid rgba(214,190,140,0.10);background:#171410">
+    <div style="max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:8px;height:8px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font-size:12px;font-weight:500;letter-spacing:0.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.7;color:#4A453B;max-width:640px">© 2026 EMOUVA · Emouva is a technology platform, not a registered investment adviser. Paper trading is simulated. Live markets involve risk, including loss of principal. Demo-portfolio figures are illustrative.</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <sc-if value="{{ toastShown }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:10px;padding:11px 18px;border-radius:8px;background:#221E16;border:1px solid rgba(198,161,91,0.4);box-shadow:0 10px 30px rgba(0,0,0,0.45)">
+      <div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg);flex:0 0 auto"></div>
+      <span style="font-size:12.5px;color:#D8D1C2;white-space:nowrap">{{ toastText }}</span>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;heroHeadline&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;cycle&quot;, &quot;mandate&quot;, &quot;sitting&quot;, &quot;partner&quot;], &quot;default&quot;: &quot;cycle&quot;, &quot;section&quot;: &quot;Hero&quot;, &quot;tsType&quot;: &quot;'cycle'|'mandate'|'sitting'|'partner'&quot;},
+  &quot;ctaVariant&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;account&quot;, &quot;paper&quot;], &quot;default&quot;: &quot;account&quot;, &quot;section&quot;: &quot;Hero&quot;, &quot;tsType&quot;: &quot;'account'|'paper'&quot;},
+  &quot;showContrast&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;section&quot;: &quot;Sections&quot;, &quot;tsType&quot;: &quot;boolean&quot;}
+}">
+class Component extends DCLogic {
+  state = {
+    hIdx: 0,
+    hChars: 41,
+    hPhase: 'pausing',
+    arrivedPre: 0,
+    approvalShown: false,
+    approval: 'pending',
+    arrivedPost: 0,
+    toast: null,
+    threshold: 25000,
+    paused: false,
+    dragging: false,
+  };
+
+  heads = [
+    ['The Partner trades.', 'You hold the mandate.'],
+    ['Most days it does nothing.', 'That is the point.'],
+    ['Hire a partner,', 'not another app.'],
+  ];
+
+  preScript = [
+    { time: '09:31', kind: 'check', body: 'Pre-market review. Futures are noisy; the theses are quiet. No action.' },
+    { time: '09:42', kind: 'screen', mono: '214 screened → 12 in circle → 4 margin ≥30% → 1 passed inversion', body: 'Costco survived every attempt to kill it. Order drafted — it exceeds your limit, so it waits for you below.', link: 'See who fell out, and why →' },
+    { time: '09:58', kind: 'pass', body: 'Ford at margin +41% — killed by inversion. One union negotiation away from a broken thesis.' },
+    { time: '10:12', kind: 'pass', body: 'NVDA up 4.1% on momentum. No thesis has changed — chasing strength is not in the mandate.', quote: '\u201CEnvy of a rising ticker is a terrible reason to own it.\u201D' },
+    { time: '10:31', kind: 'exec', order: 'SELL 60 OXY @ $71.22', orderNote: 'realized +$1,842', body: 'Position crossed the 9% ceiling. Trimmed back to size — the thesis stands; the sizing rule stands taller.' },
+    { time: '10:47', kind: 'check', body: 'Checked all 214 names. Touched nothing.' },
+  ];
+
+  postScript = [
+    { time: '11:30', kind: 'check', body: 'Prices moved. Theses didn\u2019t. No action.', quote: '\u201CMostly, the job is sitting.\u201D' },
+    { time: '12:04', kind: 'pass', body: 'AAPL trades 10% above my fair value. Watching, not selling — never interrupt compounding unnecessarily.' },
+    { time: '12:34', kind: 'check', body: 'Cash above the floor, drift inside the bands. Nothing to do, so nothing was done.' },
+  ];
+
+  componentDidMount() {
+    this._timers = [];
+    if ((this.props.heroHeadline ?? 'cycle') === 'cycle') {
+      this._timers.push(setTimeout(() => this.htick(), 3800));
+    }
+    const gaps = [500, 1200, 1400, 1500, 1900, 2100];
+    let t = 0;
+    gaps.forEach((g, i) => {
+      t += g;
+      this._timers.push(setTimeout(() => this.setState({ arrivedPre: i + 1 }), t));
+    });
+    this._timers.push(setTimeout(() => this.setState({ approvalShown: true }), t + 2200));
+  }
+
+  componentWillUnmount() {
+    (this._timers || []).forEach(clearTimeout);
+    clearTimeout(this._toastTimer);
+    clearTimeout(this._hTimer);
+  }
+
+  htick() {
+    const s = this.state;
+    const pair = this.heads[s.hIdx];
+    const total = pair[0].length + pair[1].length;
+    let delay;
+    if (s.hPhase === 'pausing') {
+      this.setState({ hPhase: 'deleting' });
+      delay = 40;
+    } else if (s.hPhase === 'deleting') {
+      if (s.hChars > 0) { this.setState({ hChars: s.hChars - 1 }); delay = 12; }
+      else { this.setState({ hIdx: (s.hIdx + 1) % this.heads.length, hPhase: 'typing' }); delay = 380; }
+    } else {
+      if (s.hChars < total) { this.setState({ hChars: s.hChars + 1 }); delay = 34 + Math.random() * 42; }
+      else { this.setState({ hPhase: 'pausing' }); delay = 3800; }
+    }
+    this._hTimer = setTimeout(() => this.htick(), delay);
+  }
+
+  showToast(msg) {
+    clearTimeout(this._toastTimer);
+    this.setState({ toast: msg });
+    this._toastTimer = setTimeout(() => this.setState({ toast: null }), 3800);
+  }
+
+  decide(kind) {
+    if (this.state.approval !== 'pending') return;
+    this.setState({ approval: kind });
+    this.showToast(kind === 'approved'
+      ? 'Order placed — bought 40 COST at $912.63 avg.'
+      : 'Declined. The Partner logged your veto — no questions asked.');
+    [1700, 5600, 10400].forEach((d, i) => {
+      this._timers.push(setTimeout(() => this.setState({ arrivedPost: i + 1 }), d));
+    });
+  }
+
+  updateFromX(clientX) {
+    const el = this._trackEl;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    let p = (clientX - r.left) / r.width;
+    p = Math.max(0, Math.min(1, p));
+    let v = 1000 + p * 99000;
+    v = Math.round(v / 500) * 500;
+    if (v !== this.state.threshold) this.setState({ threshold: v });
+  }
+
+  enrich(e) {
+    const KIND = {
+      check: { badge: 'PORTFOLIO CHECK', bg: 'rgba(255,255,255,0.05)', color: '#A69E8C' },
+      screen: { badge: 'MORNING SCREEN', bg: 'rgba(198,161,91,0.14)', color: '#C6A15B' },
+      pass: { badge: 'PASSED', bg: 'rgba(255,255,255,0.05)', color: '#A69E8C' },
+      exec: { badge: 'EXECUTED', bg: 'rgba(124,169,130,0.16)', color: '#7CA982' },
+    };
+    const k = KIND[e.kind] || KIND.check;
+    return {
+      time: e.time, badge: k.badge, badgeBg: k.bg, badgeColor: k.color,
+      hasOrder: !!e.order, order: e.order || '', orderNote: e.orderNote || '',
+      hasMono: !!e.mono, mono: e.mono || '',
+      body: e.body,
+      hasQuote: !!e.quote, quote: e.quote || '',
+      hasLink: !!e.link, link: e.link || '',
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const mode = this.props.heroHeadline ?? 'cycle';
+    let hA, hB;
+    if (mode === 'cycle') {
+      const pair = this.heads[s.hIdx];
+      const A = pair[0], B = pair[1];
+      if (s.hChars <= A.length) { hA = A.slice(0, s.hChars); hB = ''; }
+      else { hA = A; hB = B.slice(0, s.hChars - A.length); }
+      if (s.hPhase !== 'pausing') {
+        if (hB.length > 0 || s.hChars > A.length) hB += '|';
+        else hA += '|';
+      }
+    } else {
+      const statics = {
+        mandate: ['The Partner trades.', 'You hold the mandate.'],
+        sitting: ['Most days it does nothing.', 'That is the point.'],
+        partner: ['Hire a partner,', 'not another app.'],
+      };
+      const pick = statics[mode] || statics.mandate;
+      hA = pick[0]; hB = pick[1];
+    }
+    const ctaVariant = this.props.ctaVariant ?? 'account';
+    const fmt = '$' + s.threshold.toLocaleString('en-US');
+
+    const keepPre = s.approvalShown ? Math.max(2, 5 - s.arrivedPost) : 6;
+    const preArr = this.preScript.slice(Math.max(0, s.arrivedPre - keepPre), s.arrivedPre);
+    const postArr = this.postScript.slice(0, s.arrivedPost);
+    const pending = s.approvalShown && s.approval === 'pending';
+
+    let checks = 0, acts = 0;
+    this.preScript.slice(0, s.arrivedPre).forEach((e) => {
+      if (e.kind === 'check' || e.kind === 'screen') checks += 1;
+      if (e.kind === 'exec') acts += 1;
+    });
+    postArr.forEach((e) => { if (e.kind === 'check') checks += 1; });
+    if (s.approval === 'approved') acts += 1;
+
+    return {
+      headlineA: hA,
+      headlineB: hB,
+      ctaText: ctaVariant === 'paper' ? 'Start paper trading' : 'Open an account',
+      showContrastResolved: this.props.showContrast ?? true,
+
+      preEntries: preArr.map((e) => this.enrich(e)),
+      postEntries: postArr.map((e) => this.enrich(e)),
+      e3: s.approvalShown,
+      approvalPending: pending,
+      approvalApproved: s.approval === 'approved',
+      approvalDeclined: s.approval === 'declined',
+
+      footerLeft: s.paused
+        ? 'Paused — watching, not trading'
+        : (pending
+          ? 'Waiting on your approval · order #1847 · expires 15:55 ET'
+          : 'Next check ' + (['11:30', '12:04', '12:34', '13:04'][s.arrivedPost] || '13:04') + ' ET · every 30 min'),
+      footerRight: 'Checked ' + checks + '× today · acted ' + (acts === 1 ? 'once' : acts + '×'),
+
+      approve: () => this.decide('approved'),
+      decline: () => this.decide('declined'),
+
+      toastShown: s.toast !== null,
+      toastText: s.toast || '',
+
+      thresholdLabel: fmt,
+      fillPct: ((s.threshold - 1000) / 99000) * 100,
+      thresholdNote: s.threshold >= 36500
+        ? 'At ' + fmt + ', this morning\u2019s $36,496 Costco buy would have executed on its own \u2014 you\u2019d have read about it in the Ledger, not approved it.'
+        : 'At ' + fmt + ', this morning\u2019s $36,496 Costco buy waits for you. Anything smaller, the Partner handles alone \u2014 and still shows its work.',
+      trackRef: (el) => { this._trackEl = el; },
+      sliderDown: (e) => {
+        e.preventDefault();
+        try { if (e.currentTarget.setPointerCapture) e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+        this.setState({ dragging: true });
+        this.updateFromX(e.clientX);
+      },
+      sliderMove: (e) => { if (this.state.dragging) this.updateFromX(e.clientX); },
+      sliderUp: () => this.setState({ dragging: false }),
+
+      paused: s.paused,
+      notPaused: !s.paused,
+      togglePause: () => {
+        const next = !s.paused;
+        this.setState({ paused: next });
+        this.showToast(next ? 'The Partner is paused. It will keep writing to the Ledger.' : 'Resumed. Next check in 26 minutes.');
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

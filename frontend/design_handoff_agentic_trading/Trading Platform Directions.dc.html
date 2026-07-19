@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE9E0;font-family:'Instrument Sans',system-ui,sans-serif}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'Instrument Sans',sans-serif;color:#1a1a1a}
+.dv-intro{max-width:760px;font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:rgba(0,0,0,.6);margin:0 0 24px}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.4 'Instrument Sans',sans-serif;color:rgba(0,0,0,.6);max-width:1240px}
+.dv-card{max-width:100%;background:#14120E;border:1px solid rgba(0,0,0,.15);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12);overflow:hidden}
+.dv-opt:target .dv-oid{background:#8a6d2f;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'Instrument Sans',sans-serif;color:rgba(0,0,0,.5)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Emouva — full screen set. Chrome from <a class="dv-oid" href="#1a">1a</a>, positions in the style of <a class="dv-oid" href="#1b">1b</a>.</span></div>
+<p class="dv-intro">Six-tab IA: <strong>Ledger</strong> (home, <a class="dv-oid" href="#1a">1a</a>) · <strong>Positions</strong> · <strong>History</strong> · <strong>Principles</strong> · <strong>Research</strong> · <strong>Settings</strong>. The screen-transparency view (<a class="dv-oid" href="#2f">2f</a>) is a drill-in from any "See who fell out" link in the Ledger.</p>
+<div class="dv-opts">
+
+<!-- ══════════════════ 2A — POSITIONS ══════════════════ -->
+<div class="dv-opt" id="2a" data-screen-label="2a Positions">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a><span><strong>Positions</strong> — the desk view from <a class="dv-oid" href="#1b">1b</a>, with the agent's columns added: fair value and margin of safety per holding, so you always see the gap between price and what the Partner thinks it's worth.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Ledger</span>
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">Positions</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">History</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Principles</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Research</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Settings</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">MARKET OPEN · 11:04 ET</span>
+      </div>
+      <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B">R</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 28px 16px">
+    <div>
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Net Liquidity</div>
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:14px">
+        <span style="font:500 40px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums;letter-spacing:-0.01em">$487,320.18</span>
+        <span style="font:500 14px 'IBM Plex Mono',monospace;color:#7CA982">+$3,214 · +0.66% today</span>
+        <div style="display:flex;gap:2px;margin-left:auto">
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">1D</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">1W</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:4px 10px;border-radius:5px">1M</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">1Y</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">ALL</span>
+        </div>
+      </div>
+      <svg viewBox="0 0 860 120" style="width:100%;height:120px;display:block">
+        <defs>
+          <linearGradient id="goldfill2a" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#C6A15B" stop-opacity="0.22"></stop>
+            <stop offset="1" stop-color="#C6A15B" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+        <polyline points="0,94 62,90 124,96 186,82 248,86 310,70 372,76 434,62 496,67 558,51 620,58 682,42 744,46 806,30 860,24" fill="none" stroke="#C6A15B" stroke-width="1.8"></polyline>
+        <polygon points="0,94 62,90 124,96 186,82 248,86 310,70 372,76 434,62 496,67 558,51 620,58 682,42 744,46 806,30 860,24 860,120 0,120" fill="url(#goldfill2a)"></polygon>
+        <line x1="0" y1="119" x2="860" y2="119" stroke="rgba(214,190,140,0.15)" stroke-width="1"></line>
+      </svg>
+    </div>
+    <div style="display:grid;grid-template-rows:repeat(4,1fr);gap:10px;padding-top:24px">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Cash reserve</span>
+        <span style="font:500 15px 'EB Garamond',serif;color:#ECE5D8">$88,692 · 18.2%</span>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Open P&amp;L</span>
+        <span style="font:500 15px 'EB Garamond',serif;color:#7CA982">+$41,608</span>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">YTD return</span>
+        <span style="font:500 15px 'EB Garamond',serif;color:#7CA982">+11.4%</span>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:9px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Risk temperature</span>
+        <span style="font:500 15px 'EB Garamond',serif;color:#ECE5D8">Cool · 31/100</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;padding:0 28px 26px">
+    <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(214,190,140,0.10)">
+        <span style="font:500 16px 'EB Garamond',serif;color:#ECE5D8">Positions</span>
+        <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A">7 holdings · fair value &amp; margin are the Partner's estimates</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:8px 18px;border-bottom:1px solid rgba(214,190,140,0.08);font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#6E675A;text-transform:uppercase">
+        <span>Ticker</span><span>Company</span><span style="text-align:right">Qty</span><span style="text-align:right">Avg Cost</span><span style="text-align:right">Price</span><span style="text-align:right">Day</span><span style="text-align:right">Open P&amp;L</span><span style="text-align:right">Fair Value</span><span style="text-align:right">Margin</span><span style="text-align:right">Weight</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">BRK.B</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Berkshire Hathaway</span><span style="text-align:right">120</span><span style="text-align:right">360.55</span><span style="text-align:right">412.36</span><span style="text-align:right;color:#7CA982">+0.4%</span><span style="text-align:right;color:#7CA982">+6,214</span><span style="text-align:right;color:#E3CD9E">480</span><span style="text-align:right;color:#7CA982">+14%</span><span style="text-align:right">10.2%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">AAPL</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Apple</span><span style="text-align:right">150</span><span style="text-align:right">197.70</span><span style="text-align:right">228.44</span><span style="text-align:right;color:#7CA982">+0.3%</span><span style="text-align:right;color:#7CA982">+4,610</span><span style="text-align:right;color:#E3CD9E">205</span><span style="text-align:right;color:#D0A048">−10%</span><span style="text-align:right">7.0%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">OXY</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Occidental Petroleum</span><span style="text-align:right">150</span><span style="text-align:right">74.14</span><span style="text-align:right">71.22</span><span style="text-align:right;color:#C4756A">−0.9%</span><span style="text-align:right;color:#C4756A">−438</span><span style="text-align:right;color:#E3CD9E">92</span><span style="text-align:right;color:#7CA982">+23%</span><span style="text-align:right">6.5%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">AXP</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">American Express</span><span style="text-align:right">80</span><span style="text-align:right">271.68</span><span style="text-align:right">301.75</span><span style="text-align:right;color:#7CA982">+0.8%</span><span style="text-align:right;color:#7CA982">+2,405</span><span style="text-align:right;color:#E3CD9E">355</span><span style="text-align:right;color:#7CA982">+15%</span><span style="text-align:right">5.0%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">KO</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Coca-Cola</span><span style="text-align:right">300</span><span style="text-align:right">59.45</span><span style="text-align:right">63.18</span><span style="text-align:right;color:#C4756A">−0.2%</span><span style="text-align:right;color:#7CA982">+1,120</span><span style="text-align:right;color:#E3CD9E">74</span><span style="text-align:right;color:#7CA982">+15%</span><span style="text-align:right">3.9%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;background:rgba(198,161,91,0.05)">
+        <span style="color:#ECE5D8;font-weight:500">COST <span style="color:#C6A15B;font-size:10px">◆</span></span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Costco Wholesale · buy pending your approval</span><span style="text-align:right">20</span><span style="text-align:right">861.20</span><span style="text-align:right">912.40</span><span style="text-align:right;color:#7CA982">+1.1%</span><span style="text-align:right;color:#7CA982">+1,024</span><span style="text-align:right;color:#E3CD9E">1,380</span><span style="text-align:right;color:#7CA982">+34%</span><span style="text-align:right">3.7%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:74px 1fr 48px 74px 74px 62px 84px 82px 66px 58px;padding:11px 18px;font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">MCO</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Moody's</span><span style="text-align:right">32</span><span style="text-align:right">429.52</span><span style="text-align:right">488.02</span><span style="text-align:right;color:#7CA982">+0.6%</span><span style="text-align:right;color:#7CA982">+1,872</span><span style="text-align:right;color:#E3CD9E">560</span><span style="text-align:right;color:#7CA982">+13%</span><span style="text-align:right">3.2%</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:baseline;padding:12px 18px;background:#171410;border-top:1px solid rgba(214,190,140,0.10)">
+        <div style="width:6px;height:6px;flex:none;background:#D0A048;transform:rotate(45deg);position:relative;top:-1px"></div>
+        <span style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#A69E8C">AAPL trades 10% above my fair value. Watching, not selling — <span style="font:italic 400 12px 'EB Garamond',serif;color:#C6A15B">never interrupt compounding unnecessarily.</span> I'll flag it if the gap exceeds 25%.</span>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Allocation</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Consumer staples</span><span style="font-family:'IBM Plex Mono',monospace">27%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:27%;height:5px;background:#C6A15B;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Financials</span><span style="font-family:'IBM Plex Mono',monospace">24%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:24%;height:5px;background:#B08F53;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Cash</span><span style="font-family:'IBM Plex Mono',monospace">18%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:18%;height:5px;background:#8A7443;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Technology</span><span style="font-family:'IBM Plex Mono',monospace">16%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:16%;height:5px;background:#6B5A34;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Energy</span><span style="font-family:'IBM Plex Mono',monospace">15%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:15%;height:5px;background:#4E4227;border-radius:3px"></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Position Bands</div>
+        <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:6px"><span>Weight ceiling</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">9.0%</span></div>
+        <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:6px"><span>Cash floor</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">10.0%</span></div>
+        <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C"><span>Drift tolerance</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">±1.5pp</span></div>
+        <div style="height:1px;background:rgba(214,190,140,0.10);margin:12px 0"></div>
+        <div style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#8A8272">BRK.B is 1.2pp from its ceiling. The Partner will trim automatically if it crosses — you'll see it in the Ledger.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 2B — PRINCIPLES / THE LATTICEWORK ══════════════════ -->
+<div class="dv-opt" id="2b" data-screen-label="2b Principles">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a><span><strong>Principles — The Latticework</strong> — the agent's constitution. Every principle shows how often it was invoked and what it killed. Editing shows the agent's restatement of your words as an executable rule; changes are backtested before adoption.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Ledger</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Positions</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">History</span>
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">Principles</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Research</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Settings</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">MARKET OPEN · 11:04 ET</span>
+      </div>
+      <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B">R</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:0">
+    <div style="padding:24px 28px;border-right:1px solid rgba(214,190,140,0.10)">
+      <div style="margin-bottom:6px;font:500 24px 'EB Garamond',serif;color:#ECE5D8">The Latticework</div>
+      <div style="font:400 12.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:22px">12 principles govern every decision. The Partner must cite one for anything it does — or declines to do.</div>
+
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.14em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Temperament</div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start">
+        <div style="width:7px;height:7px;flex:none;background:#C6A15B;transform:rotate(45deg);margin-top:6px"></div>
+        <div style="flex:1">
+          <div style="font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:6px">Invert, always invert — kill the idea before it kills capital.</div>
+          <div style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">CORE · MUNGER · invoked 34× this quarter · killed 9 ideas</div>
+        </div>
+        <div style="display:flex;gap:6px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A"><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Edit</span><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Pause</span></div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:18px;display:flex;gap:14px;align-items:flex-start">
+        <div style="width:7px;height:7px;flex:none;background:#C6A15B;transform:rotate(45deg);margin-top:6px"></div>
+        <div style="flex:1">
+          <div style="font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:6px">Sit on your ass. Activity is not achievement.</div>
+          <div style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">CORE · MUNGER · caps trading at 3 orders/week · blocked 2 rebalances in May</div>
+        </div>
+        <div style="display:flex;gap:6px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A"><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Edit</span><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Pause</span></div>
+      </div>
+
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.14em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Selection</div>
+
+      <!-- editing state -->
+      <div style="background:#1D1A14;border:1px solid rgba(198,161,91,0.4);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Editing</div>
+        <div style="background:#14120E;border:1px solid rgba(214,190,140,0.2);border-radius:8px;padding:12px 14px;font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:12px">Demand a margin of safety of at least 30%<span style="border-left:1.5px solid #C6A15B;margin-left:1px">&nbsp;</span></div>
+        <div style="display:flex;gap:12px;padding:12px 14px;background:rgba(198,161,91,0.05);border-radius:8px;margin-bottom:12px">
+          <div style="width:24px;height:24px;flex:none;border:1px solid rgba(198,161,91,0.5);border-radius:6px;display:flex;align-items:center;justify-content:center"><div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg)"></div></div>
+          <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#E3CD9E">How I'll apply this:</span> I will reject any buy where the price exceeds 70% of my conservative fair-value estimate. Currently this gate removes 8 of the 12 names inside our circle.</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 16px;border-radius:6px">Save &amp; backtest</span>
+          <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 16px;border-radius:6px">Cancel</span>
+          <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:auto">Changes apply only after backtest review</span>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start">
+        <div style="width:7px;height:7px;flex:none;background:#C6A15B;transform:rotate(45deg);margin-top:6px"></div>
+        <div style="flex:1">
+          <div style="font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:6px">Never buy outside the circle of competence.</div>
+          <div style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">CORE · MUNGER · circle: staples, financials, energy, franchise tech · excluded 202 of 214 today</div>
+        </div>
+        <div style="display:flex;gap:6px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A"><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Edit</span><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Pause</span></div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(198,161,91,0.3);border-radius:10px;padding:16px 18px;margin-bottom:18px;display:flex;gap:14px;align-items:flex-start">
+        <div style="width:7px;height:7px;flex:none;background:#E3CD9E;transform:rotate(45deg);margin-top:6px"></div>
+        <div style="flex:1">
+          <div style="font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:6px">Prefer high gross profitability and low leverage; treat cheap junk as outside the circle.</div>
+          <div style="font:400 11px 'IBM Plex Mono',monospace;color:#C6A15B">FROM RESEARCH · Quality Minus Junk (Asness et al., 2014) · adopted Jun 12 · <span style="color:#6E675A">backtest: +1.6pp CAGR, −6pp drawdown</span></div>
+        </div>
+        <div style="display:flex;gap:6px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A"><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Edit</span><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Pause</span></div>
+      </div>
+
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.14em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Sizing &amp; Selling</div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start">
+        <div style="width:7px;height:7px;flex:none;background:#C6A15B;transform:rotate(45deg);margin-top:6px"></div>
+        <div style="flex:1">
+          <div style="font:italic 400 15px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:6px">Sell only when the thesis breaks, a ceiling is crossed, or capital has a clearly better home.</div>
+          <div style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">CORE · invoked 3× this quarter · last: OXY trim, Jul 2</div>
+        </div>
+        <div style="display:flex;gap:6px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A"><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Edit</span><span style="border:1px solid rgba(214,190,140,0.15);padding:4px 10px;border-radius:6px">Pause</span></div>
+      </div>
+      <div style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-top:14px">Showing 6 of 12 · <span style="color:#C6A15B">View all</span></div>
+    </div>
+
+    <div style="padding:24px;display:flex;flex-direction:column;gap:16px;background:#171410">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Add a principle</div>
+        <div style="background:#14120E;border:1px solid rgba(214,190,140,0.15);border-radius:8px;padding:11px 13px;font:400 12.5px 'Instrument Sans',sans-serif;color:#6E675A;margin-bottom:10px">Write it in your own words…</div>
+        <div style="font:400 11px/1.5 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:12px">The Partner restates it as an executable rule, backtests it against the last 90 days of decisions, and shows you what would have changed — before adopting it.</div>
+        <span style="display:inline-block;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 16px;border-radius:6px">Propose</span>
+      </div>
+
+      <div style="background:#1D1A14;border:1px solid rgba(198,161,91,0.3);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Pending change · backtested</div>
+        <div style="font:italic 400 13px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:10px">"Raise margin of safety gate from 30% to 35%."</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between"><span>Trades blocked (last 90d)</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">3 of 11</span></div>
+          <div style="display:flex;justify-content:space-between"><span>P&amp;L effect of blocks</span><span style="font-family:'IBM Plex Mono',monospace;color:#C4756A">−$2,140 missed</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Drawdown effect</span><span style="font-family:'IBM Plex Mono',monospace;color:#7CA982">−1.1pp</span></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 0;border-radius:6px">Adopt</span>
+          <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 0;border-radius:6px">Discard</span>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Version history</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C">
+          <div style="display:flex;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#6E675A;flex:none">v14 · Jun 28</span><span>Raised margin gate 25% → 30%</span></div>
+          <div style="display:flex;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#6E675A;flex:none">v13 · Jun 12</span><span>Adopted quality principle from research</span></div>
+          <div style="display:flex;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#6E675A;flex:none">v12 · May 30</span><span>Added: streaming ad models outside circle</span></div>
+        </div>
+        <div style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B;margin-top:12px">Full history →</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 2C — TRADE HISTORY ══════════════════ -->
+<div class="dv-opt" id="2c" data-screen-label="2c Trade History">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a><span><strong>History</strong> — every trade the harness has made, each expandable into its full reasoning chain. Losses are kept honest: the PARA row is expanded to show what broke, and the lesson the agent added to the Latticework.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Ledger</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Positions</span>
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">History</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Principles</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Research</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Settings</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">MARKET OPEN · 11:04 ET</span>
+      </div>
+      <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B">R</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 28px;border-bottom:1px solid rgba(214,190,140,0.10);background:#171410">
+    <div>
+      <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Realized P&amp;L · YTD</div>
+      <div style="font:500 22px 'EB Garamond',serif;color:#7CA982;font-variant-numeric:tabular-nums">+$28,411</div>
+    </div>
+    <div>
+      <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Win rate</div>
+      <div style="font:500 22px 'EB Garamond',serif;color:#ECE5D8">71%</div>
+    </div>
+    <div>
+      <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Median hold</div>
+      <div style="font:500 22px 'EB Garamond',serif;color:#ECE5D8">14 months</div>
+    </div>
+    <div>
+      <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Trades · YTD</div>
+      <div style="display:flex;align-items:baseline;gap:8px"><span style="font:500 22px 'EB Garamond',serif;color:#ECE5D8">11</span><span style="font:italic 400 12px 'EB Garamond',serif;color:#C6A15B">few, by design</span></div>
+    </div>
+  </div>
+
+  <div style="padding:18px 28px 26px">
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <span style="font:500 11.5px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:5px 14px;border-radius:14px">All</span>
+      <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:5px 14px;border-radius:14px">Buys</span>
+      <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:5px 14px;border-radius:14px">Sells</span>
+      <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:5px 14px;border-radius:14px">Auto-executed</span>
+      <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:5px 14px;border-radius:14px">Approved by you</span>
+      <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:auto;padding:5px 0">Export</span>
+    </div>
+
+    <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:9px 18px;border-bottom:1px solid rgba(214,190,140,0.08);font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#6E675A;text-transform:uppercase">
+        <span>Date</span><span>Action</span><span>Order</span><span>Trigger</span><span>Authorized</span><span style="text-align:right">Realized</span><span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:12px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center">
+        <span style="color:#8A8272">Jul 2</span><span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#14120E;background:#7CA982;padding:3px 0;border-radius:4px;text-align:center;width:44px">SELL</span><span>60 OXY @ 71.22 · $4,273</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Weight ceiling crossed</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Auto</span><span style="text-align:right;color:#7CA982">+$1,842</span><span style="text-align:right;color:#6E675A">▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:12px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center">
+        <span style="color:#8A8272">Jun 20</span><span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#14120E;background:#E3CD9E;padding:3px 0;border-radius:4px;text-align:center;width:44px">BUY</span><span>80 AXP @ 288.10 · $23,048</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Morning screen</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Auto · under limit</span><span style="text-align:right;color:#6E675A">open</span><span style="text-align:right;color:#6E675A">▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:12px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center">
+        <span style="color:#8A8272">Jun 12</span><span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#14120E;background:#E3CD9E;padding:3px 0;border-radius:4px;text-align:center;width:44px">BUY</span><span>32 MCO @ 462.55 · $14,802</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Morning screen</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Auto · under limit</span><span style="text-align:right;color:#6E675A">open</span><span style="text-align:right;color:#6E675A">▾</span>
+      </div>
+
+      <!-- expanded loss row -->
+      <div style="background:rgba(196,117,106,0.04);border-bottom:1px solid rgba(214,190,140,0.06)">
+        <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:12px 18px;font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center">
+          <span style="color:#8A8272">May 29</span><span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#ECE5D8;background:#8A4A40;padding:3px 0;border-radius:4px;text-align:center;width:44px">SELL</span><span>200 PARA @ 11.02 · $2,204</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Thesis broke</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Auto</span><span style="text-align:right;color:#C4756A">−$1,306</span><span style="text-align:right;color:#C6A15B">▴</span>
+        </div>
+        <div style="padding:4px 18px 16px 110px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px">
+            <div style="background:#14120E;border:1px solid rgba(214,190,140,0.10);border-radius:8px;padding:12px 14px">
+              <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:6px">Entry thesis · Aug 2025</div>
+              <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Streaming consolidation would rationalize content spend; bought at 42% margin to a $19 fair value.</div>
+            </div>
+            <div style="background:#14120E;border:1px solid rgba(196,117,106,0.25);border-radius:8px;padding:12px 14px">
+              <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#C4756A;text-transform:uppercase;margin-bottom:6px">What broke</div>
+              <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Q1 direct-to-consumer losses widened while linear declined faster than modeled. Fair value cut below cost basis → thesis invalid, exit per principle: <span style="font-style:italic;font-family:'EB Garamond',serif;color:#C6A15B">sell when the thesis breaks.</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.25);border-radius:8px;padding:10px 14px">
+            <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+            <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#E3CD9E">Lesson added to the Latticework (v12):</span> ad-supported streaming economics are outside our circle of competence.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:12px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center">
+        <span style="color:#8A8272">May 6</span><span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#14120E;background:#E3CD9E;padding:3px 0;border-radius:4px;text-align:center;width:44px">BUY</span><span>300 KO @ 58.90 · $17,670</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Morning screen</span><span style="font-family:'Instrument Sans',sans-serif;color:#C6A15B">Approved by you</span><span style="text-align:right;color:#6E675A">open</span><span style="text-align:right;color:#6E675A">▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:92px 76px 1fr 170px 130px 100px 30px;padding:12px 18px;font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;align-items:center">
+        <span style="color:#8A8272">Apr 14</span><span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#14120E;background:#E3CD9E;padding:3px 0;border-radius:4px;text-align:center;width:44px">BUY</span><span>45 BRK.B @ 388.20 · $17,469</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Drift below target</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Auto · under limit</span><span style="text-align:right;color:#6E675A">open</span><span style="text-align:right;color:#6E675A">▾</span>
+      </div>
+    </div>
+    <div style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-top:12px">Every row links back to its Ledger entry and the screen that produced it. Nothing is untraceable.</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 2D — RESEARCH INVERTER ══════════════════ -->
+<div class="dv-opt" id="2d" data-screen-label="2d Research Inverter">
+<div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a><span><strong>Research</strong> — drop in a paper; the harness distills the gist, inverts it (how does this fail?), backtests it against your portfolio, and drafts a principle you can edit before adopting into the Latticework.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Ledger</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Positions</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">History</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Principles</span>
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">Research</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Settings</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">MARKET OPEN · 11:04 ET</span>
+      </div>
+      <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B">R</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:0">
+    <div style="padding:24px 28px;border-right:1px solid rgba(214,190,140,0.10)">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <span style="font:500 24px 'EB Garamond',serif;color:#ECE5D8">Quality Minus Junk</span>
+        <span style="font:600 9px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#7CA982;padding:3px 9px;border-radius:4px">DISTILLED</span>
+      </div>
+      <div style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:20px">Asness, Frazzini &amp; Pedersen · 2014 · uploaded by you, Jun 11 · read in 4 min by the Partner</div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:12px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">The gist</div>
+        <div style="font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2">Stocks of "quality" companies — profitable, growing, safe, well-run — persistently outperform junk, and the market persistently underprices that quality. The premium held across 24 countries and 60 years of data.</div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(198,161,91,0.28);border-radius:10px;padding:16px 18px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div style="width:6px;height:6px;background:#C6A15B;transform:rotate(45deg)"></div>
+          <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase">The inversion — how does this fail?</span>
+        </div>
+        <div style="font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:10px">I tried to kill it three ways. It survives two:</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">
+          <div style="display:flex;gap:10px"><span style="flex:none;font:500 11px 'IBM Plex Mono',monospace;color:#7CA982;width:56px">SURVIVES</span><span>Crowding: quality got expensive post-2016, but the premium persisted net of valuation.</span></div>
+          <div style="display:flex;gap:10px"><span style="flex:none;font:500 11px 'IBM Plex Mono',monospace;color:#7CA982;width:56px">SURVIVES</span><span>Data mining: out-of-sample and cross-country results are consistent.</span></div>
+          <div style="display:flex;gap:10px"><span style="flex:none;font:500 11px 'IBM Plex Mono',monospace;color:#C4756A;width:56px">FAILS</span><span>Sharp junk rallies (2009, Apr 2020): quality lags violently for 1–2 quarters. We must be willing to look wrong briefly.</span></div>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px 18px;margin-bottom:12px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Backtest · applied to your circle, 2015–2025</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:12px">
+          <div>
+            <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">CAGR</div>
+            <div style="font:500 18px 'EB Garamond',serif;color:#7CA982">11.8% <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">vs 10.2</span></div>
+          </div>
+          <div>
+            <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">Max drawdown</div>
+            <div style="font:500 18px 'EB Garamond',serif;color:#7CA982">−18% <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">vs −24</span></div>
+          </div>
+          <div>
+            <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">Sharpe</div>
+            <div style="font:500 18px 'EB Garamond',serif;color:#7CA982">0.81 <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">vs 0.66</span></div>
+          </div>
+          <div>
+            <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:3px">Worst stretch</div>
+            <div style="font:500 18px 'EB Garamond',serif;color:#C4756A">Q2 2020</div>
+          </div>
+        </div>
+        <svg viewBox="0 0 780 90" style="width:100%;height:90px;display:block">
+          <polyline points="0,80 60,76 120,78 180,68 240,72 300,58 360,64 420,70 480,52 540,44 600,48 660,32 720,26 780,18" fill="none" stroke="#C6A15B" stroke-width="1.8"></polyline>
+          <polyline points="0,80 60,78 120,81 180,73 240,79 300,68 360,74 420,82 480,66 540,60 600,66 660,52 720,48 780,42" fill="none" stroke="rgba(236,229,216,0.3)" stroke-width="1.4" stroke-dasharray="3 4"></polyline>
+          <line x1="0" y1="89" x2="780" y2="89" stroke="rgba(214,190,140,0.15)" stroke-width="1"></line>
+        </svg>
+        <div style="display:flex;gap:18px;font:400 10.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-top:6px">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:2px;background:#C6A15B;display:inline-block"></span>With quality gate</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:2px;background:rgba(236,229,216,0.3);display:inline-block"></span>Your baseline</span>
+        </div>
+      </div>
+
+      <div style="background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.35);border-radius:10px;padding:16px 18px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase;margin-bottom:10px">Draft principle · edit before adopting</div>
+        <div style="background:#14120E;border:1px solid rgba(214,190,140,0.2);border-radius:8px;padding:12px 14px;font:italic 400 14.5px/1.5 'EB Garamond',serif;color:#ECE5D8;margin-bottom:12px">Prefer businesses with high gross profitability and low leverage; treat cheap junk as outside the circle — and accept lagging junk rallies without flinching.</div>
+        <div style="display:flex;gap:8px">
+          <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 18px;border-radius:6px">Add to the Latticework</span>
+          <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 18px;border-radius:6px">Revise</span>
+          <span style="font:500 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:7px 12px">Discard</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:24px;display:flex;flex-direction:column;gap:16px;background:#171410">
+      <div style="border:1.5px dashed rgba(198,161,91,0.35);border-radius:10px;padding:22px 18px;text-align:center">
+        <div style="width:34px;height:34px;margin:0 auto 10px;border:1px solid rgba(198,161,91,0.5);border-radius:9px;display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div></div>
+        <div style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:5px">Drop a paper, or paste a link</div>
+        <div style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#8A8272">I'll read it, distill it, invert it, and backtest it against your portfolio before you decide anything.</div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">In progress</div>
+        <div style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;font:400 12px 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:6px"><span>Momentum Crashes (2016)</span><span style="font-family:'IBM Plex Mono',monospace;color:#C6A15B">inverting</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px"><div style="width:62%;height:4px;background:#C6A15B;border-radius:2px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:6px"><span>Superinvestors of Graham-and-Doddsville</span><span style="font-family:'IBM Plex Mono',monospace;color:#6E675A">queued</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px"></div>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Library</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font:400 12px 'Instrument Sans',sans-serif">
+          <div style="display:flex;justify-content:space-between;gap:10px"><span style="color:#D8D1C2">Quality Minus Junk (2014)</span><span style="flex:none;font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#14120E;background:#7CA982;padding:2px 7px;border-radius:4px;height:fit-content">ADOPTED</span></div>
+          <div style="display:flex;justify-content:space-between;gap:10px"><span style="color:#D8D1C2">Buffett's Alpha (2018)</span><span style="flex:none;font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#14120E;background:#7CA982;padding:2px 7px;border-radius:4px;height:fit-content">ADOPTED</span></div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="display:flex;justify-content:space-between;gap:10px"><span style="color:#D8D1C2">A Five-Factor Model (2015)</span><span style="flex:none;font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#A69E8C;background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:4px;height:fit-content">REJECTED</span></div>
+            <span style="font:400 10.5px 'Instrument Sans',sans-serif;color:#6E675A">factor rotation needs 40×/yr turnover — violates "sit on your ass"</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="display:flex;justify-content:space-between;gap:10px"><span style="color:#D8D1C2">Intraday Momentum (2019)</span><span style="flex:none;font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#A69E8C;background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:4px;height:fit-content">REJECTED</span></div>
+            <span style="font:400 10.5px 'Instrument Sans',sans-serif;color:#6E675A">outside circle of competence — we don't do intraday</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 2E — AGENT SETTINGS ══════════════════ -->
+<div class="dv-opt" id="2e" data-screen-label="2e Agent Settings">
+<div class="dv-olabel"><a class="dv-oid" href="#2e">2e</a><span><strong>Settings — The Mandate</strong> — how much rope the harness gets: approval threshold, notification channels, check cadence, hard limits, and the pause switch. Copy reinforces the psychology: checking more often doesn't earn more.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Ledger</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Positions</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">History</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Principles</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Research</span>
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">Settings</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">MARKET OPEN · 11:04 ET</span>
+      </div>
+      <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B">R</div>
+    </div>
+  </div>
+
+  <div style="padding:24px 28px 8px">
+    <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8;margin-bottom:4px">The Mandate</div>
+    <div style="font:400 12.5px 'Instrument Sans',sans-serif;color:#8A8272">What the Partner may do alone, when it must ask, and how often it looks.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 28px 26px">
+
+    <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Autonomy</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Ask my approval above</span>
+        <span style="font:500 18px 'EB Garamond',serif;color:#E3CD9E">$25,000</span>
+      </div>
+      <div style="position:relative;height:22px;margin-bottom:4px">
+        <div style="position:absolute;top:10px;left:0;right:0;height:3px;background:rgba(255,255,255,0.07);border-radius:2px"></div>
+        <div style="position:absolute;top:10px;left:0;width:42%;height:3px;background:#C6A15B;border-radius:2px"></div>
+        <div style="position:absolute;top:4px;left:calc(42% - 8px);width:15px;height:15px;background:#E3CD9E;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.5)"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font:400 10px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:16px"><span>$1k · ask always</span><span>$100k · fully autonomous</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Always ask for brand-new positions</span>
+          <div style="width:34px;height:19px;background:#C6A15B;border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;right:3px;width:14px;height:14px;background:#14120E;border-radius:50%"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Always ask before selling at a loss</span>
+          <div style="width:34px;height:19px;background:#C6A15B;border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;right:3px;width:14px;height:14px;background:#14120E;border-radius:50%"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#6E675A">Options &amp; leverage <span style="font:500 9px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#8A8272;background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:4px;margin-left:6px">OUTSIDE MANDATE</span></span>
+          <div style="width:34px;height:19px;background:rgba(255,255,255,0.08);border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;left:3px;width:14px;height:14px;background:#4A453B;border-radius:50%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Cadence</div>
+      <div style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:10px">Check the portfolio every</div>
+      <div style="display:flex;gap:6px;margin-bottom:12px">
+        <span style="font:500 12px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:7px 14px;border-radius:7px">5m</span>
+        <span style="font:500 12px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:7px 14px;border-radius:7px">15m</span>
+        <span style="font:500 12px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:7px 14px;border-radius:7px">30m</span>
+        <span style="font:500 12px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:7px 14px;border-radius:7px">1h</span>
+        <span style="font:500 12px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(214,190,140,0.15);padding:7px 14px;border-radius:7px">Daily</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:baseline;background:rgba(198,161,91,0.06);border-radius:8px;padding:10px 14px;margin-bottom:14px">
+        <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+        <span style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#A69E8C">Checking more often doesn't earn more — it just finds more reasons to act. 30 minutes is for risk, not for trading.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Intraday checks on portfolio earnings days</span>
+          <div style="width:34px;height:19px;background:#C6A15B;border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;right:3px;width:14px;height:14px;background:#14120E;border-radius:50%"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">After-hours monitoring</span>
+          <div style="width:34px;height:19px;background:rgba(255,255,255,0.08);border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;left:3px;width:14px;height:14px;background:#4A453B;border-radius:50%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Hard limits</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Max position weight</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">9.0%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Cash floor</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">10%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Max orders per week</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">3</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Single-day deployment cap</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">$50,000</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Sector cap</span><span style="font:500 14px 'IBM Plex Mono',monospace;color:#ECE5D8;background:#14120E;border:1px solid rgba(214,190,140,0.15);padding:5px 12px;border-radius:6px">30%</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:18px 20px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:14px">Notifications</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">Message to phone for approvals</span>
+            <div style="width:34px;height:19px;background:#C6A15B;border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;right:3px;width:14px;height:14px;background:#14120E;border-radius:50%"></div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#D8D1C2">In-app approvals queue</span>
+            <div style="width:34px;height:19px;background:#C6A15B;border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;right:3px;width:14px;height:14px;background:#14120E;border-radius:50%"></div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#6E675A">Daily P&amp;L push <span style="font:italic 400 11.5px 'EB Garamond',serif;color:#8A8272;margin-left:4px">— off by default; watching daily P&amp;L breeds twitchiness</span></span>
+            <div style="width:34px;height:19px;background:rgba(255,255,255,0.08);border-radius:10px;position:relative"><div style="position:absolute;top:2.5px;left:3px;width:14px;height:14px;background:#4A453B;border-radius:50%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(196,117,106,0.3);border-radius:10px;padding:18px 20px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C4756A;text-transform:uppercase;margin-bottom:10px">Pause</div>
+        <div style="font:400 12px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">Pausing stops all trading immediately. The Partner keeps watching and writing to the Ledger. Liquidation requires a typed confirmation and a 24-hour cooling-off period — panic is not a strategy.</div>
+        <span style="display:inline-block;font:500 12px 'Instrument Sans',sans-serif;color:#C4756A;border:1px solid rgba(196,117,106,0.4);padding:7px 16px;border-radius:6px">Pause the Partner</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 2F — SELECTION TRANSPARENCY ══════════════════ -->
+<div class="dv-opt" id="2f" data-screen-label="2f Selection Transparency">
+<div class="dv-olabel"><a class="dv-oid" href="#2f">2f</a><span><strong>Screen detail</strong> — the transparency drill-in from any Ledger screen entry: the full funnel with every elimination named and reasoned, ending in the surviving candidate's gate-by-gate case. Nothing is chosen that can't be explained.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:14px">
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272">← Ledger</span>
+      <span style="color:#4A453B">/</span>
+      <span style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8">Morning screen · Wednesday, July 2 · 09:42 ET</span>
+    </div>
+    <span style="font:400 11px 'IBM Plex Mono',monospace;color:#6E675A">archived · immutable</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:200px 250px 290px 1fr;gap:0">
+
+    <div style="padding:20px;border-right:1px solid rgba(214,190,140,0.10)">
+      <div style="font:500 26px 'EB Garamond',serif;color:#8A8272;margin-bottom:2px">214</div>
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Universe</div>
+      <div style="font:400 11.5px/1.55 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:14px">US large &amp; mid caps meeting liquidity and 10-year data requirements.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;opacity:0.45">
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">NVDA</span>
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">LLY</span>
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">JPM</span>
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">XOM</span>
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">PG</span>
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">TSLA</span>
+        <span style="font:400 10px 'IBM Plex Mono',monospace;color:#8A8272;border:1px solid rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">+207</span>
+      </div>
+    </div>
+
+    <div style="padding:20px;border-right:1px solid rgba(214,190,140,0.10)">
+      <div style="font:500 26px 'EB Garamond',serif;color:#D8D1C2;margin-bottom:2px">12</div>
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Inside the circle</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px">
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">COST</span>
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">KHC</span>
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">T</span>
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">F</span>
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">PEP</span>
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">CVX</span>
+        <span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:2px 7px;border-radius:4px">+6</span>
+      </div>
+      <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Notable exclusions</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font:400 11px/1.45 'Instrument Sans',sans-serif;color:#8A8272">
+        <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">NVDA</span> — semis capex cycle, outside circle</div>
+        <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">LLY</span> — pipeline risk we can't model</div>
+        <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">TSLA</span> — narrative-priced, no moat consensus</div>
+      </div>
+    </div>
+
+    <div style="padding:20px;border-right:1px solid rgba(214,190,140,0.10)">
+      <div style="font:500 26px 'EB Garamond',serif;color:#D8D1C2;margin-bottom:2px">4</div>
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Margin of safety ≥ 30%</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;font:400 11.5px 'IBM Plex Mono',monospace">
+        <div style="display:flex;justify-content:space-between;color:#ECE5D8"><span>COST</span><span style="color:#7CA982">+34%</span></div>
+        <div style="display:flex;justify-content:space-between;color:#D8D1C2"><span>KHC</span><span style="color:#7CA982">+38%</span></div>
+        <div style="display:flex;justify-content:space-between;color:#D8D1C2"><span>T</span><span style="color:#7CA982">+33%</span></div>
+        <div style="display:flex;justify-content:space-between;color:#D8D1C2"><span>F</span><span style="color:#7CA982">+41%</span></div>
+      </div>
+      <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Killed by inversion</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font:400 11px/1.45 'Instrument Sans',sans-serif;color:#8A8272">
+        <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">KHC</span> — brand-decay argument couldn't be killed; cheap for a reason</div>
+        <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">F</span> — cyclical leverage; one recession erases the margin</div>
+        <div><span style="font-family:'IBM Plex Mono',monospace;color:#A69E8C">T</span> — debt load plus tech disruption; too many ways to lose</div>
+      </div>
+    </div>
+
+    <div style="padding:20px;background:#171410">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div style="width:8px;height:8px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 18px 'EB Garamond',serif;color:#ECE5D8">COST — the survivor</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+        <div style="display:flex;gap:10px;align-items:baseline">
+          <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+          <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Circle:</span> consumer-staples franchise, 14 years of clean data</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:baseline">
+          <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+          <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Fair value $1,380:</span> conservative DCF, 2.5% terminal growth, renewal rate held at 92%</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:baseline">
+          <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+          <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Margin 34%</span> against the 30% gate</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:baseline">
+          <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+          <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Inversion:</span> tried membership churn, margin compression, e-commerce displacement — none kill it at this price</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:baseline">
+          <span style="flex:none;font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;width:14px">✓</span>
+          <span style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C"><span style="color:#D8D1C2">Sizing:</span> 40 sh ≈ $36,496 → post-trade weight 8.5%, under the 9% ceiling</span>
+        </div>
+      </div>
+      <div style="background:rgba(198,161,91,0.07);border:1px solid rgba(198,161,91,0.3);border-radius:8px;padding:12px 14px;margin-bottom:12px">
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.12em;color:#C6A15B;text-transform:uppercase;margin-bottom:5px">Verdict</div>
+        <div style="font:400 12.5px/1.5 'Instrument Sans',sans-serif;color:#D8D1C2">Buy 40 COST — exceeds the $25k line, so it awaits your approval in the Ledger.</div>
+      </div>
+      <div style="font:italic 400 12.5px 'EB Garamond',serif;color:#8A8272">"An idea isn't yours until you can state the other side better than they can."</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<p class="dv-next">Try next: "make the ledger home into an interactive prototype" · "show the mobile approval notification" · "riff on the principles editor"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Latticework — command center, 3 directions</span></div>
+<p class="dv-intro">Brand: <strong>Emouva</strong>. The agent's principle system is called "The Latticework" (Munger's latticework of mental models). Palette built on trader psychology: warm charcoal keeps arousal low (no pure black terminal anxiety), champagne gold signals private-bank trust and is reserved for the agent's voice, and gains/losses are deliberately de-saturated so the user reads P&amp;L as information, not dopamine. Serif numerals (EB Garamond) for wealth, mono for data. All three directions share the palette; they differ in information architecture and how present the agent feels.</p>
+<div class="dv-opts">
+
+<!-- ══════════════════ OPTION 1A — THE LEDGER ══════════════════ -->
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a><span><strong>The Ledger</strong> — the agent's journal is the centerpiece. Every action it takes (or declines to take) is a timestamped entry with reasoning. Dashboard is a metric strip that collapses to one line. Calm, auditable, banker-like.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8">
+
+  <!-- top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">Ledger</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Positions</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Principles</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Research</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Risk</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">MARKET OPEN · 11:04 ET</span>
+      </div>
+      <div style="width:28px;height:28px;border-radius:50%;background:#26231B;border:1px solid rgba(214,190,140,0.2);display:flex;align-items:center;justify-content:center;font:500 11px 'EB Garamond',serif;color:#C6A15B">R</div>
+    </div>
+  </div>
+
+  <!-- collapsible metric strip -->
+  <div style="display:flex;align-items:center;gap:0;padding:16px 24px;border-bottom:1px solid rgba(214,190,140,0.12);background:#171410">
+    <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:20px">
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Net Liquidity</div>
+        <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums">$487,320<span style="font-size:16px;color:#8A8272">.18</span></div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Day P&amp;L</div>
+        <div style="font:500 24px 'EB Garamond',serif;color:#7CA982;font-variant-numeric:tabular-nums">+$3,214 <span style="font:400 12px 'IBM Plex Mono',monospace">+0.66%</span></div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Open P&amp;L</div>
+        <div style="font:500 24px 'EB Garamond',serif;color:#7CA982;font-variant-numeric:tabular-nums">+$41,608</div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Cash</div>
+        <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums">18.2%</div>
+      </div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:5px">Risk Temperature</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font:500 24px 'EB Garamond',serif;color:#ECE5D8">Cool</div>
+          <div style="display:flex;gap:2px;align-items:flex-end">
+            <div style="width:4px;height:7px;background:#C6A15B;border-radius:1px"></div>
+            <div style="width:4px;height:11px;background:#C6A15B;border-radius:1px"></div>
+            <div style="width:4px;height:15px;background:rgba(214,190,140,0.18);border-radius:1px"></div>
+            <div style="width:4px;height:19px;background:rgba(214,190,140,0.18);border-radius:1px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;color:#6E675A;font:400 11px 'Instrument Sans',sans-serif;cursor:pointer;padding:6px 10px;border:1px solid rgba(214,190,140,0.12);border-radius:6px">Collapse <span style="font-size:9px">▲</span></div>
+  </div>
+
+  <!-- body -->
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:0">
+
+    <!-- ledger column -->
+    <div style="padding:22px 28px;border-right:1px solid rgba(214,190,140,0.10)">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+        <div style="font:500 20px 'EB Garamond',serif;color:#ECE5D8">The Ledger</div>
+        <div style="display:flex;gap:14px;font:400 11px 'Instrument Sans',sans-serif;color:#6E675A">
+          <span style="color:#C6A15B">All</span><span>Trades</span><span>Passes</span><span>Screens</span><span>Checks</span>
+        </div>
+      </div>
+
+      <!-- entry: awaiting approval -->
+      <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+        <div style="width:52px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">10:31</div>
+        <div style="flex:1;background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.28);border-radius:8px;padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#C6A15B;padding:3px 8px;border-radius:4px">AWAITING APPROVAL</span>
+            <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">order #1847</span>
+          </div>
+          <div style="font:500 14px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:6px">Buy 40 COST · Costco Wholesale @ $912.40 ≈ $36,496</div>
+          <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">Order exceeds your $25,000 auto-execution limit. Passed all four gates: within circle of competence, 34% margin of safety vs. my fair value of $1,380, inversion test found no credible failure mode at this price, and position stays under the 9% weight ceiling.</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 18px;border-radius:6px">Approve</span>
+            <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 18px;border-radius:6px">Decline</span>
+            <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:auto">Also sent to your phone · expires 15:55 ET</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- entry: pass -->
+      <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+        <div style="width:52px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">11:02</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#8A8272;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px">PASSED</span>
+            <span style="font:500 12px 'IBM Plex Mono',monospace;color:#ECE5D8">NVDA</span>
+          </div>
+          <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Screener flagged NVDA on momentum. Declined to act — semiconductor capex cycles sit outside our circle of competence. <span style="font:italic 400 12.5px 'EB Garamond',serif;color:#C6A15B">"It's not a sin to miss an opportunity outside your circle."</span></div>
+        </div>
+      </div>
+
+      <!-- entry: trade -->
+      <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+        <div style="width:52px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">09:58</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#7CA982;padding:3px 8px;border-radius:4px">EXECUTED</span>
+            <span style="font:500 12px 'IBM Plex Mono',monospace;color:#ECE5D8">SELL 60 OXY @ $71.22</span>
+            <span style="font:400 11px 'IBM Plex Mono',monospace;color:#7CA982">realized +$1,842</span>
+          </div>
+          <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Occidental ran past its 8% weight ceiling after the crude rally. Trimmed back to 6.5% — rebalancing rule, not a view change. Thesis intact.</div>
+        </div>
+      </div>
+
+      <!-- entry: screen with funnel -->
+      <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+        <div style="width:52px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">09:42</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#E3CD9E;background:rgba(198,161,91,0.14);padding:3px 8px;border-radius:4px">MORNING SCREEN</span>
+          </div>
+          <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:10px">Swept the watchable universe. One candidate survived all gates — see the pending Costco order above.</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+              <span style="font:500 13px 'IBM Plex Mono',monospace;color:#ECE5D8">214</span>
+              <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#6E675A">screened</span>
+            </div>
+            <div style="width:36px;height:1px;background:rgba(214,190,140,0.25)"></div>
+            <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+              <span style="font:500 13px 'IBM Plex Mono',monospace;color:#ECE5D8">12</span>
+              <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#6E675A">in circle</span>
+            </div>
+            <div style="width:36px;height:1px;background:rgba(214,190,140,0.25)"></div>
+            <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+              <span style="font:500 13px 'IBM Plex Mono',monospace;color:#ECE5D8">4</span>
+              <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#6E675A">margin ≥30%</span>
+            </div>
+            <div style="width:36px;height:1px;background:rgba(214,190,140,0.25)"></div>
+            <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+              <span style="font:500 13px 'IBM Plex Mono',monospace;color:#C6A15B">1</span>
+              <span style="font:400 9.5px 'Instrument Sans',sans-serif;color:#C6A15B">passed inversion</span>
+            </div>
+            <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:12px;text-decoration:underline;text-underline-offset:3px">See who fell out, and why →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- entry: check -->
+      <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(214,190,140,0.10)">
+        <div style="width:52px;flex:none;font:400 11px 'IBM Plex Mono',monospace;color:#6E675A;padding-top:2px">09:30</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#8A8272;background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:4px">PORTFOLIO CHECK</span>
+          </div>
+          <div style="font:400 12.5px/1.55 'Instrument Sans',sans-serif;color:#A69E8C">Opening check: no position drifted beyond its band overnight. Nothing to do. Mostly, the job is sitting.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right rail -->
+    <div style="padding:22px 24px;display:flex;flex-direction:column;gap:16px;background:#171410">
+
+      <div style="background:#1D1A14;border:1px solid rgba(198,161,91,0.25);border-radius:10px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#C6A15B;text-transform:uppercase">Approvals</span>
+          <span style="font:500 10px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:2px 7px;border-radius:9px">1</span>
+        </div>
+        <div style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:3px">Buy 40 COST ≈ $36,496</div>
+        <div style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272;margin-bottom:12px">Over $25k limit · expires 15:55 ET</div>
+        <div style="display:flex;gap:8px">
+          <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 0;border-radius:6px">Approve</span>
+          <span style="flex:1;text-align:center;font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 0;border-radius:6px">Review</span>
+        </div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Guiding Principles</span>
+          <span style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B">Edit →</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+            <div style="font:400 12.5px/1.45 'EB Garamond',serif;color:#D8D1C2;font-style:italic">Invert, always invert — kill the idea before it kills capital.</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+            <div style="font:400 12.5px/1.45 'EB Garamond',serif;color:#D8D1C2;font-style:italic">Never buy outside the circle of competence.</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            <div style="width:6px;height:6px;flex:none;background:#C6A15B;transform:rotate(45deg);position:relative;top:-1px"></div>
+            <div style="font:400 12.5px/1.45 'EB Garamond',serif;color:#D8D1C2;font-style:italic">Demand a margin of safety of at least 30%.</div>
+          </div>
+        </div>
+        <div style="font:400 10.5px 'Instrument Sans',sans-serif;color:#6E675A;margin-top:12px">12 principles · 3 shown · last edited Jun 28</div>
+      </div>
+
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:10px">Cadence</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">
+          <span style="font:500 20px 'EB Garamond',serif;color:#ECE5D8">Every 30 min</span>
+          <span style="font:400 11px 'Instrument Sans',sans-serif;color:#8A8272">market hours</span>
+        </div>
+        <div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8A8272">Next check 11:30 ET · 26 min</div>
+        <div style="height:1px;background:rgba(214,190,140,0.10);margin:12px 0"></div>
+        <div style="font:400 11.5px/1.5 'Instrument Sans',sans-serif;color:#8A8272">Checked 4× today · acted once. Low activity is the design, not a defect.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ OPTION 1B — THE DESK ══════════════════ -->
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a><span><strong>The Desk</strong> — dashboard-first with the agent as a summonable dock at the bottom (like a trusted partner you call over, not one who hovers). Dock expands to full conversation; approval requests surface as a popover above it. Familiar to traders, agent stays out of the way.</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8;position:relative;background-image:repeating-linear-gradient(45deg,rgba(198,161,91,0.025) 0,rgba(198,161,91,0.025) 1px,transparent 1px,transparent 26px),repeating-linear-gradient(-45deg,rgba(198,161,91,0.025) 0,rgba(198,161,91,0.025) 1px,transparent 1px,transparent 26px)">
+
+  <!-- top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+    <div style="display:flex;align-items:center;gap:9px">
+      <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+      <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+    </div>
+    <div style="display:flex;gap:4px">
+      <span style="font:500 12px 'Instrument Sans',sans-serif;color:#ECE5D8;padding:6px 12px;background:rgba(198,161,91,0.10);border-radius:6px">Desk</span>
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">History</span>
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Principles</span>
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Research</span>
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:6px 12px">Settings</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px">
+      <div style="width:6px;height:6px;border-radius:50%;background:#7CA982"></div>
+      <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">OPEN · 11:04 ET</span>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;padding:26px 28px 20px">
+    <div>
+      <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Net Liquidity</div>
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:16px">
+        <span style="font:500 44px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums;letter-spacing:-0.01em">$487,320.18</span>
+        <span style="font:500 15px 'IBM Plex Mono',monospace;color:#7CA982">+$3,214 · +0.66% today</span>
+        <div style="display:flex;gap:2px;margin-left:auto">
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">1D</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">1W</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#14120E;background:#C6A15B;padding:4px 10px;border-radius:5px">1M</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">1Y</span>
+          <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A8272;padding:4px 10px">ALL</span>
+        </div>
+      </div>
+      <svg viewBox="0 0 840 150" style="width:100%;height:150px;display:block">
+        <defs>
+          <linearGradient id="goldfill1b" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#C6A15B" stop-opacity="0.22"></stop>
+            <stop offset="1" stop-color="#C6A15B" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+        <polyline points="0,118 60,112 120,120 180,102 240,108 300,88 360,95 420,78 480,84 540,64 600,72 660,52 720,58 780,38 840,30" fill="none" stroke="#C6A15B" stroke-width="1.8"></polyline>
+        <polygon points="0,118 60,112 120,120 180,102 240,108 300,88 360,95 420,78 480,84 540,64 600,72 660,52 720,58 780,38 840,30 840,150 0,150" fill="url(#goldfill1b)"></polygon>
+        <line x1="0" y1="149" x2="840" y2="149" stroke="rgba(214,190,140,0.15)" stroke-width="1"></line>
+      </svg>
+    </div>
+    <div style="display:grid;grid-template-rows:1fr 1fr 1fr;gap:12px;padding-top:26px">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Cash reserve</span>
+        <span style="font:500 17px 'EB Garamond',serif;color:#ECE5D8">$88,692 · 18.2%</span>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">YTD return</span>
+        <span style="font:500 17px 'EB Garamond',serif;color:#7CA982">+11.4%</span>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font:400 11.5px 'Instrument Sans',sans-serif;color:#8A8272">Risk temperature</span>
+        <span style="font:500 17px 'EB Garamond',serif;color:#ECE5D8">Cool · 31/100</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- positions + right col -->
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;padding:0 28px 110px">
+    <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(214,190,140,0.10)">
+        <span style="font:500 14px 'EB Garamond',serif;color:#ECE5D8;font-size:16px">Positions</span>
+        <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A">7 holdings · sorted by weight</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:8px 18px;border-bottom:1px solid rgba(214,190,140,0.08);font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#6E675A;text-transform:uppercase">
+        <span>Ticker</span><span>Company</span><span style="text-align:right">Qty</span><span style="text-align:right">Price</span><span style="text-align:right">Day</span><span style="text-align:right">Open P&amp;L</span><span style="text-align:right">Weight</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">BRK.B</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Berkshire Hathaway</span><span style="text-align:right">120</span><span style="text-align:right">412.36</span><span style="text-align:right;color:#7CA982">+0.4%</span><span style="text-align:right;color:#7CA982">+6,214</span><span style="text-align:right">10.2%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums;background:rgba(198,161,91,0.05)">
+        <span style="color:#ECE5D8;font-weight:500">COST <span style="color:#C6A15B;font-size:10px">◆</span></span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Costco Wholesale</span><span style="text-align:right">45</span><span style="text-align:right">912.40</span><span style="text-align:right;color:#7CA982">+1.1%</span><span style="text-align:right;color:#7CA982">+3,982</span><span style="text-align:right">8.4%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">AAPL</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Apple</span><span style="text-align:right">150</span><span style="text-align:right">228.44</span><span style="text-align:right;color:#7CA982">+0.3%</span><span style="text-align:right;color:#7CA982">+4,610</span><span style="text-align:right">7.0%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">OXY</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Occidental Petroleum</span><span style="text-align:right">150</span><span style="text-align:right">71.22</span><span style="text-align:right;color:#C4756A">−0.9%</span><span style="text-align:right;color:#C4756A">−438</span><span style="text-align:right">6.5%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">AXP</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">American Express</span><span style="text-align:right">80</span><span style="text-align:right">301.75</span><span style="text-align:right;color:#7CA982">+0.8%</span><span style="text-align:right;color:#7CA982">+2,405</span><span style="text-align:right">5.0%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;border-bottom:1px solid rgba(214,190,140,0.06);font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">KO</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Coca-Cola</span><span style="text-align:right">300</span><span style="text-align:right">63.18</span><span style="text-align:right;color:#C4756A">−0.2%</span><span style="text-align:right;color:#7CA982">+1,120</span><span style="text-align:right">3.9%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr 70px 90px 76px 96px 60px;padding:11px 18px;font:400 12px 'IBM Plex Mono',monospace;color:#D8D1C2;font-variant-numeric:tabular-nums">
+        <span style="color:#ECE5D8;font-weight:500">MCO</span><span style="font-family:'Instrument Sans',sans-serif;color:#8A8272">Moody's</span><span style="text-align:right">32</span><span style="text-align:right">488.02</span><span style="text-align:right;color:#7CA982">+0.6%</span><span style="text-align:right;color:#7CA982">+1,872</span><span style="text-align:right">3.2%</span>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:12px">Today, in brief</div>
+        <div style="font:400 12.5px/1.6 'Instrument Sans',sans-serif;color:#A69E8C">Checked the portfolio 4 times, acted once (trimmed OXY, +$1,842 realized). One order is waiting on you — Costco, above your approval line. Passed on NVDA: outside our circle. Cash sits at 18%, which is fine. Patience is a position.</div>
+        <div style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B;margin-top:10px">Read the full ledger →</div>
+      </div>
+      <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Allocation</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Consumer staples</span><span style="font-family:'IBM Plex Mono',monospace">27%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:27%;height:5px;background:#C6A15B;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Financials</span><span style="font-family:'IBM Plex Mono',monospace">24%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:24%;height:5px;background:#B08F53;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Cash</span><span style="font-family:'IBM Plex Mono',monospace">18%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:18%;height:5px;background:#8A7443;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Technology</span><span style="font-family:'IBM Plex Mono',monospace">16%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:16%;height:5px;background:#6B5A34;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font:400 11px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:4px"><span>Energy</span><span style="font-family:'IBM Plex Mono',monospace">15%</span></div>
+            <div style="height:5px;background:rgba(255,255,255,0.05);border-radius:3px"><div style="width:15%;height:5px;background:#4E4227"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- approval popover above dock -->
+  <div style="position:absolute;bottom:92px;left:50%;transform:translateX(-50%);width:520px;background:#221E16;border:1px solid rgba(198,161,91,0.4);border-radius:12px;padding:16px 18px;box-shadow:0 16px 48px rgba(0,0,0,0.6)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#C6A15B;padding:3px 8px;border-radius:4px">APPROVAL NEEDED</span>
+      <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A">also sent to your phone</span>
+    </div>
+    <div style="font:500 14px 'Instrument Sans',sans-serif;color:#ECE5D8;margin-bottom:4px">Buy 40 COST @ $912.40 ≈ $36,496</div>
+    <div style="font:400 12px/1.5 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:12px">Above your $25k line. 34% margin of safety; survived inversion. Full reasoning inside.</div>
+    <div style="display:flex;gap:8px">
+      <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 18px;border-radius:6px">Approve</span>
+      <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 18px;border-radius:6px">Review reasoning</span>
+      <span style="font:500 12px 'Instrument Sans',sans-serif;color:#6E675A;padding:7px 12px;margin-left:auto">Dismiss</span>
+    </div>
+  </div>
+
+  <!-- partner dock -->
+  <div style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:16px;padding:0 24px;height:72px;background:rgba(20,17,12,0.97);border-top:1px solid rgba(198,161,91,0.35);box-shadow:0 -12px 40px rgba(0,0,0,0.5)">
+    <div style="display:flex;align-items:center;gap:11px;flex:none">
+      <div style="width:34px;height:34px;border:1px solid rgba(198,161,91,0.5);border-radius:9px;display:flex;align-items:center;justify-content:center">
+        <div style="width:11px;height:11px;background:#C6A15B;transform:rotate(45deg)"></div>
+      </div>
+      <div>
+        <div style="font:500 13px 'Instrument Sans',sans-serif;color:#ECE5D8">The Partner</div>
+        <div style="font:400 10.5px 'IBM Plex Mono',monospace;color:#8A8272">watching · next check 11:30 · acted 1× today</div>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;gap:10px;background:#1B1915;border:1px solid rgba(214,190,140,0.15);border-radius:9px;padding:10px 14px">
+      <span style="font:400 12.5px 'Instrument Sans',sans-serif;color:#6E675A">Ask or instruct — "why are we 18% cash?", "never touch airlines"…</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex:none">
+      <span style="font:500 10.5px 'IBM Plex Mono',monospace;color:#C6A15B;background:rgba(198,161,91,0.12);padding:4px 9px;border-radius:5px">1 approval</span>
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#6E675A;padding:6px 8px">Expand ▲</span>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ OPTION 1C — THE PARTNER'S DESK ══════════════════ -->
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a><span><strong>The Partner's Desk</strong> — the agent IS the interface: a running conversation carries briefs, trades, and approvals inline. The dashboard is a right-hand column that folds into a 56px rail (shown collapsed at far right) — one click restores it. Best fit for "agent is the main thing".</span></div>
+<div class="dv-card" style="width:1240px">
+<div style="background:#14120E;color:#ECE5D8;display:grid;grid-template-columns:1fr 340px 56px">
+
+  <!-- conversation column -->
+  <div style="display:flex;flex-direction:column;border-right:1px solid rgba(214,190,140,0.10)">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;background:#C6A15B;transform:rotate(45deg)"></div>
+        <span style="font:500 13px 'Instrument Sans',sans-serif;letter-spacing:.22em;color:#E3CD9E">EMOUVA</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font:400 11px 'IBM Plex Mono',monospace;color:#8A8272">OPEN · 11:04 ET · next check 11:30</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272">Principles</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272">Research</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#8A8272">Settings</span>
+      </div>
+    </div>
+
+    <div style="flex:1;padding:20px 28px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="flex:1;height:1px;background:rgba(214,190,140,0.10)"></div>
+        <span style="font:400 10.5px 'Instrument Sans',sans-serif;letter-spacing:.1em;color:#6E675A">WEDNESDAY, JULY 2</span>
+        <div style="flex:1;height:1px;background:rgba(214,190,140,0.10)"></div>
+      </div>
+
+      <!-- agent: morning brief -->
+      <div style="display:flex;gap:12px">
+        <div style="width:30px;height:30px;flex:none;border:1px solid rgba(198,161,91,0.5);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-top:2px">
+          <div style="width:9px;height:9px;background:#C6A15B;transform:rotate(45deg)"></div>
+        </div>
+        <div style="max-width:640px">
+          <div style="font:400 10.5px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:5px">THE PARTNER · 09:31</div>
+          <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:14px 16px;font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2">Morning. Opened at <span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">$484,106</span> — futures did us no harm overnight. No position drifted outside its band, so I have nothing to do yet, which suits me fine. I'll sweep the screen at 09:40.</div>
+        </div>
+      </div>
+
+      <!-- agent: trade receipt -->
+      <div style="display:flex;gap:12px">
+        <div style="width:30px;height:30px;flex:none;border:1px solid rgba(198,161,91,0.5);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-top:2px">
+          <div style="width:9px;height:9px;background:#C6A15B;transform:rotate(45deg)"></div>
+        </div>
+        <div style="max-width:640px">
+          <div style="font:400 10.5px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:5px">THE PARTNER · 09:58</div>
+          <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;overflow:hidden">
+            <div style="padding:12px 16px;font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2">Occidental ran past its 8% ceiling, so I trimmed. Rebalancing, not a change of heart.</div>
+            <div style="display:flex;align-items:center;gap:14px;padding:11px 16px;background:rgba(124,169,130,0.06);border-top:1px solid rgba(124,169,130,0.2)">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#7CA982;padding:3px 8px;border-radius:4px">EXECUTED</span>
+              <span style="font:500 12.5px 'IBM Plex Mono',monospace;color:#ECE5D8">SELL 60 OXY @ 71.22</span>
+              <span style="font:400 11.5px 'IBM Plex Mono',monospace;color:#7CA982">+$1,842 realized</span>
+              <span style="font:400 11px 'Instrument Sans',sans-serif;color:#6E675A;margin-left:auto;text-decoration:underline;text-underline-offset:3px">Full reasoning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- agent: approval request -->
+      <div style="display:flex;gap:12px">
+        <div style="width:30px;height:30px;flex:none;border:1px solid rgba(198,161,91,0.5);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-top:2px">
+          <div style="width:9px;height:9px;background:#C6A15B;transform:rotate(45deg)"></div>
+        </div>
+        <div style="max-width:640px">
+          <div style="font:400 10.5px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:5px">THE PARTNER · 10:31</div>
+          <div style="background:rgba(198,161,91,0.06);border:1px solid rgba(198,161,91,0.35);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <span style="font:600 9.5px 'Instrument Sans',sans-serif;letter-spacing:.11em;color:#14120E;background:#C6A15B;padding:3px 8px;border-radius:4px">YOUR CALL</span>
+              <span style="font:400 11px 'Instrument Sans',sans-serif;color:#8A8272">above your $25k line · sent to phone · expires 15:55</span>
+            </div>
+            <div style="font:400 13px/1.6 'Instrument Sans',sans-serif;color:#D8D1C2;margin-bottom:10px">The morning screen produced one idea worth acting on: <strong style="color:#ECE5D8">Costco at $912.40</strong>. My fair value is $1,380 — a 34% margin of safety. I tried hard to kill it: membership churn, margin compression, e-commerce. None hold at this price. I'd like to buy 40 shares, about <span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">$36,496</span>.</div>
+            <div style="display:flex;gap:8px">
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#14120E;background:#C6A15B;padding:7px 18px;border-radius:6px">Approve buy</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#A69E8C;border:1px solid rgba(214,190,140,0.25);padding:7px 18px;border-radius:6px">Show the inversion</span>
+              <span style="font:500 12px 'Instrument Sans',sans-serif;color:#8A8272;padding:7px 12px">Decline</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- user message -->
+      <div style="display:flex;justify-content:flex-end">
+        <div style="max-width:520px">
+          <div style="font:400 10.5px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:5px;text-align:right">YOU · 10:44</div>
+          <div style="background:rgba(198,161,91,0.14);border:1px solid rgba(198,161,91,0.2);border-radius:10px;padding:12px 16px;font:400 13px/1.55 'Instrument Sans',sans-serif;color:#ECE5D8">Why Costco and not Walmart? They screen similarly.</div>
+        </div>
+      </div>
+
+      <!-- agent reply -->
+      <div style="display:flex;gap:12px">
+        <div style="width:30px;height:30px;flex:none;border:1px solid rgba(198,161,91,0.5);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-top:2px">
+          <div style="width:9px;height:9px;background:#C6A15B;transform:rotate(45deg)"></div>
+        </div>
+        <div style="max-width:640px">
+          <div style="font:400 10.5px 'IBM Plex Mono',monospace;color:#6E675A;margin-bottom:5px">THE PARTNER · 10:44</div>
+          <div style="background:#1B1915;border:1px solid rgba(214,190,140,0.12);border-radius:10px;padding:14px 16px;font:400 13px/1.65 'Instrument Sans',sans-serif;color:#D8D1C2">Three reasons. Costco's membership renewal rate (92.9%) is a toll bridge; Walmart has no equivalent lock-in. Costco's margin of safety today is 34% vs. Walmart's 11% — Walmart fails our 30% gate. And inverting: the ways Walmart breaks (grocery deflation, Amazon overlap) are livelier than Costco's. <span style="font:italic 400 13px 'EB Garamond',serif;color:#C6A15B">"A great business at a fair price beats a fair business at a great price."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- composer -->
+    <div style="padding:16px 28px 20px;border-top:1px solid rgba(214,190,140,0.10)">
+      <div style="display:flex;align-items:center;gap:10px;background:#1B1915;border:1px solid rgba(214,190,140,0.18);border-radius:10px;padding:13px 16px">
+        <span style="flex:1;font:400 13px 'Instrument Sans',sans-serif;color:#6E675A">Ask, instruct, or hand me a research paper to invert…</span>
+        <span style="font:400 12px 'Instrument Sans',sans-serif;color:#6E675A">⌘K</span>
+        <div style="width:28px;height:28px;background:#C6A15B;border-radius:7px;display:flex;align-items:center;justify-content:center;font:500 13px 'Instrument Sans',sans-serif;color:#14120E">↑</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- dashboard column (expanded) -->
+  <div style="background:#171410;display:flex;flex-direction:column;border-right:1px solid rgba(214,190,140,0.10)">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:54px;border-bottom:1px solid rgba(214,190,140,0.12)">
+      <span style="font:500 10px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Your Desk</span>
+      <span style="font:400 12px 'Instrument Sans',sans-serif;color:#6E675A">Collapse ⇥</span>
+    </div>
+    <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:6px">Net Liquidity</div>
+        <div style="font:500 26px 'EB Garamond',serif;color:#ECE5D8;font-variant-numeric:tabular-nums;margin-bottom:2px">$487,320.18</div>
+        <div style="font:400 12px 'IBM Plex Mono',monospace;color:#7CA982;margin-bottom:8px">+$3,214 · +0.66% today</div>
+        <svg viewBox="0 0 300 46" style="width:100%;height:46px;display:block">
+          <polyline points="0,38 25,34 50,37 75,29 100,32 125,24 150,27 175,20 200,23 225,15 250,18 275,10 300,7" fill="none" stroke="#C6A15B" stroke-width="1.5"></polyline>
+        </svg>
+      </div>
+      <div style="height:1px;background:rgba(214,190,140,0.10)"></div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+          <span style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Positions · 7</span>
+          <span style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B">All →</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;font:400 11.5px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums">
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">BRK.B</span><span style="color:#8A8272">10.2%</span><span style="color:#7CA982">+6,214</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">COST</span><span style="color:#8A8272">8.4%</span><span style="color:#7CA982">+3,982</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">AAPL</span><span style="color:#8A8272">7.0%</span><span style="color:#7CA982">+4,610</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">OXY</span><span style="color:#8A8272">6.5%</span><span style="color:#C4756A">−438</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">AXP</span><span style="color:#8A8272">5.0%</span><span style="color:#7CA982">+2,405</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">KO</span><span style="color:#8A8272">3.9%</span><span style="color:#7CA982">+1,120</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#ECE5D8">MCO</span><span style="color:#8A8272">3.2%</span><span style="color:#7CA982">+1,872</span></div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(214,190,140,0.10)"></div>
+      <div>
+        <div style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase;margin-bottom:8px">Risk</div>
+        <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:5px"><span>Temperature</span><span style="color:#ECE5D8">Cool · 31/100</span></div>
+        <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C;margin-bottom:5px"><span>Daily VaR (95%)</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">−$6,940</span></div>
+        <div style="display:flex;justify-content:space-between;font:400 11.5px 'Instrument Sans',sans-serif;color:#A69E8C"><span>Max drawdown, 1Y</span><span style="font-family:'IBM Plex Mono',monospace;color:#ECE5D8">−7.8%</span></div>
+      </div>
+      <div style="height:1px;background:rgba(214,190,140,0.10)"></div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <span style="font:500 9.5px 'Instrument Sans',sans-serif;letter-spacing:.13em;color:#6E675A;text-transform:uppercase">Principles in play today</span>
+          <span style="font:400 11px 'Instrument Sans',sans-serif;color:#C6A15B">Edit →</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font:italic 400 11.5px 'EB Garamond',serif;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:4px 10px;border-radius:12px">Invert, always invert</span>
+          <span style="font:italic 400 11.5px 'EB Garamond',serif;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:4px 10px;border-radius:12px">Circle of competence</span>
+          <span style="font:italic 400 11.5px 'EB Garamond',serif;color:#D8D1C2;border:1px solid rgba(214,190,140,0.2);padding:4px 10px;border-radius:12px">Margin of safety ≥ 30%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- collapsed rail demo -->
+  <div style="background:#12100C;display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:16px">
+    <span style="font:400 13px 'Instrument Sans',sans-serif;color:#6E675A">⇤</span>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+      <span style="font:500 9px 'IBM Plex Mono',monospace;color:#8A8272;writing-mode:vertical-rl;letter-spacing:.08em">$487,320</span>
+    </div>
+    <span style="font:500 10px 'IBM Plex Mono',monospace;color:#7CA982;writing-mode:vertical-rl">+0.66%</span>
+    <svg viewBox="0 0 20 60" style="width:20px;height:60px">
+      <polyline points="16,0 13,10 15,18 10,26 12,34 7,42 9,50 4,60" fill="none" stroke="#C6A15B" stroke-width="1.3"></polyline>
+    </svg>
+    <div style="width:7px;height:7px;background:#C6A15B;transform:rotate(45deg)"></div>
+    <span style="font:500 9px 'IBM Plex Mono',monospace;color:#C6A15B;writing-mode:vertical-rl;letter-spacing:.08em">1 APPROVAL</span>
+  </div>
+
+</div>
+</div>
+<div style="font:400 10.5px 'Instrument Sans',sans-serif;color:rgba(0,0,0,.45);max-width:1240px">The 56px strip at far right is the dashboard's <strong>collapsed state</strong> — value, day change, sparkline, and approval count stay visible so the trader never loses the pulse (psychologically: ambient awareness without dopamine-checking).</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "flesh out <a class="dv-oid" href="#1c">1c</a> into all six screens" · "merge <a class="dv-oid" href="#1a">1a</a>'s ledger into <a class="dv-oid" href="#1b">1b</a>'s desk" · "show me the principles editor and research inverter"</p>
+</section>
+
+</x-dc>
+</body>
+</html>
